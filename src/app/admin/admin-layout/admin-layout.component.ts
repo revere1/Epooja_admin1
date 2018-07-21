@@ -7,7 +7,7 @@ import { HelpService } from '../../services/help.service';
 import { LockersService } from '../../services/lockers.service';
 import { UtilsService } from '../../services/utils.service';
 import { UserService } from '../../services/user.service';
-import { ENV } from './../../env.config';
+import { ENV } from '../../env.config';
 import { ComposeService } from '../../services/compose.service';
 import { NotificationService } from '../../services/notifications.service';
 import { Router } from '@angular/router';

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 import { ContactUsModel, FormContactUsModel } from '../models/contact_us.model';
 import { ContactUsFormService } from '../services/contact_us/contact-us-form.service';
 import { UserService } from '../services/user.service';

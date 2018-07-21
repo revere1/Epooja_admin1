@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import { ENV } from '../env.config';
-import { LockerModel } from './../models/locker.model';
+import { LockerModel } from '../models/locker.model';
 @Injectable()
 export class LockersService {
   private currentUser : any;

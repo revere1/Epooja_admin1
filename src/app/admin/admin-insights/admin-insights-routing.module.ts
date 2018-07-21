@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommoditiesFormComponent } from './commodities-form/commodities-form.component';
-import { AllInsightsComponent } from '../../admin/admin-insights/all-insights/all-insights.component';
+import { AllInsightsComponent } from './all-insights/all-insights.component';
 import { UnpublishInsightsComponent } from './unpublish-insights/unpublish-insights.component';
 
 const routes: Routes = [

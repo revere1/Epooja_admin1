@@ -29,12 +29,12 @@ const routes: Routes = [
     data: { role: 1, breadcrumb: 'Home' },
     loadChildren: 'app/admin/admin.module#AdminModule'
   },
-  {
-    path: 'client',
-    canActivate: [RoleGuard],
-    data: { role: 2, breadcrumb: 'Home' },
-    loadChildren: 'app/client/client.module#ClientModule'
-  },
+  // {
+  //   path: 'client',
+  //   canActivate: [RoleGuard],
+  //   data: { role: 2, breadcrumb: 'Home' },
+  //   loadChildren: 'app/client/client.module#ClientModule'
+  // },
   {
     path: 'analyst',
     canActivate: [RoleGuard],

@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { ENV } from '../env.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import { StatesModel } from './../models/states.model';
+import { StatesModel } from '../models/states.model';
 @Injectable()
 export class StatesService {
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UtilsService } from './../../../services/utils.service';
+import { UtilsService } from '../../../services/utils.service';
 import { StatesModel } from '../../../models/states.model';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';

@@ -3,15 +3,15 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { HelpService } from '../../../services/help.service';
 import { UtilsService } from '../../../services/utils.service';
 import { HelpModel } from '../../../models/help.model';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
-import { ClientModel } from './../../../models/client.model';
+import { ClientModel } from '../../../models/client.model';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { UserService } from '../../../services/user.service';
-import { ENV } from './../../../env.config';
+import { ENV } from '../../../env.config';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { RequestOptions } from '@angular/http';

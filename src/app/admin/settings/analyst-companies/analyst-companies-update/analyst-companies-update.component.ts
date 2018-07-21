@@ -1,9 +1,9 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { UtilsService } from './../../../../services/utils.service';
+import { UtilsService } from '../../../../services/utils.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { CompanyModel} from './../../../../models/company_details.model';
+import { CompanyModel} from '../../../../models/company_details.model';
 import { CompanyService } from '../../../../services/company.service';
 import { BreadcrumbsService } from 'ng2-breadcrumbs';
 

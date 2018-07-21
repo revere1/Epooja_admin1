@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UtilsService } from './../../../services/utils.service';
+import { UtilsService } from '../../../services/utils.service';
 import { Subscription } from 'rxjs/Subscription';
-import { CountriesModel } from './../../../models/countries.model';
-import { CountriesService } from './../../../services/countries.service';
+import { CountriesModel } from '../../../models/countries.model';
+import { CountriesService } from '../../../services/countries.service';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from 'ng2-breadcrumbs';
 @Component({

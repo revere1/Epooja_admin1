@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { ENV } from './../../../env.config';
+import { ENV } from '../../../env.config';
 import { CountriesService } from '../../../services/countries.service';
 import { UtilsService } from '../../../services/utils.service';
 import { CountriesModel } from '../../../models/countries.model';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 import { Router } from '@angular/router';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { Angular2Csv } from 'angular2-csv';
 import { BreadcrumbsService,IBreadcrumb} from 'ng2-breadcrumbs';
 class Countries {
   id: number;

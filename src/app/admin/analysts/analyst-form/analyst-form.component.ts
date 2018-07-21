@@ -1,16 +1,16 @@
 import { Component, OnInit, Input,ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { ClientFormService } from './../../../services/clients/client-form.service';
-import { UserService } from './../../../services/user.service';
-import { ClientModel, FormClientModel } from './../../../models/client.model';
+import { ToastsManager } from 'ng2-toastr';
+import { ClientFormService } from '../../../services/clients/client-form.service';
+import { UserService } from '../../../services/user.service';
+import { ClientModel, FormClientModel } from '../../../models/client.model';
 import { Subscription } from 'rxjs/Subscription';
 import { SectorsService } from '../../../services/sectors.service';
 import { SubsectorsService } from '../../../services/subsectors.service';
 import { CountriesService } from '../../../services/countries.service';
 import { StatesService } from '../../../services/states.service';
-import { ENV } from './../../../env.config';
+import { ENV } from '../../../env.config';
 import { CompanyService } from '../../../services/company.service';
 @Component({
   selector: 'app-analyst-form',

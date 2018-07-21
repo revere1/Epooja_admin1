@@ -22,7 +22,7 @@ import {
   NguCarouselItemDirective,
   NguCarouselNextDirective,
   NguCarouselPrevDirective
-} from './../ngu-carousel.directive';
+} from '../ngu-carousel.directive';
 import { NguCarouselStore } from './ngu-carousel';
 
 @Component({

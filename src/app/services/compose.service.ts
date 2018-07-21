@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { ENV } from '../env.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import { ComposeModel } from './../models/compose.model';
+import { ComposeModel } from '../models/compose.model';
 import { InsightCommentModel } from '../models/insightcomment.model';
 
 @Injectable()

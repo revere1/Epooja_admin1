@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { ENV } from '../env.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import { SubSectorModel } from './../models/sub-sector.model';
+import { SubSectorModel } from '../models/sub-sector.model';
 @Injectable()
 export class SubsectorsService {
 

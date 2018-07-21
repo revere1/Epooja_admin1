@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import { ENV } from '../env.config';
-import { ClientModel } from './../models/client.model';
+import { ClientModel } from '../models/client.model';
 import { ContactUsModel } from '../models/contact_us.model';
 
 @Injectable()

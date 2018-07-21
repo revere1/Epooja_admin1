@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { ENV } from '../env.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import { CountriesModel } from './../models/countries.model';
+import { CountriesModel } from '../models/countries.model';
 @Injectable()
 export class CountriesService {
 

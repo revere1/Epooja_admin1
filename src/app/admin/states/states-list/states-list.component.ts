@@ -1,12 +1,12 @@
 import { Component, OnInit,OnDestroy} from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { ENV } from './../../../env.config';
+import { ENV } from '../../../env.config';
 import { StatesService } from '../../../services/states.service';
 import { UtilsService } from '../../../services/utils.service';
 import { StatesModel } from '../../../models/states.model';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { ToastsManager } from 'ng2-toastr';
+import { Angular2Csv } from 'angular2-csv';
 import { BreadcrumbsService,IBreadcrumb} from 'ng2-breadcrumbs';
 import {Router} from '@angular/router'
 class States {

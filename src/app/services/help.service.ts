@@ -5,8 +5,8 @@ import { ENV } from '../env.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 
-import { HelpModel } from './../models/help.model';
-import { HelpCommentModel } from './../models/helpcomment.model';
+import { HelpModel } from '../models/help.model';
+import { HelpCommentModel } from '../models/helpcomment.model';
 @Injectable()
 export class HelpService {
   private currentUser : any;

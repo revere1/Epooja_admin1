@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-import { CompanyFormService } from './../../../../services/company_details/company-form.service';
-import { CompanyModel, FormCompanyModel } from './../../../../models/company_details.model';
+import { ToastsManager } from 'ng2-toastr';
+import { CompanyFormService } from '../../../../services/company_details/company-form.service';
+import { CompanyModel, FormCompanyModel } from '../../../../models/company_details.model';
 import { Subscription } from 'rxjs/Subscription';
 import { SectorsService } from '../../../../services/sectors.service';
 import { CountriesService } from '../../../../services/countries.service';

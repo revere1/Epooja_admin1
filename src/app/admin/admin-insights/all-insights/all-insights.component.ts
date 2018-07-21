@@ -2,7 +2,7 @@ import { Component, OnInit ,ViewEncapsulation} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelpService } from '../../../services/help.service';
 import { UtilsService } from '../../../services/utils.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Meta } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
@@ -12,7 +12,7 @@ import { ComposeService } from '../../../services/compose.service';
 import { CommodityService } from '../../../services/insights/commodity.service';
 import { UserService } from '../../../services/user.service';
 import { ClientModel } from '../../../models/client.model';
-import { ENV } from './../../../env.config';
+import { ENV } from '../../../env.config';
 import { Router } from '@angular/router';     
 @Component({
   selector: 'app-all-insights',

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
-import { CountriesModel, FormCountriesModel } from './../../../models/countries.model';
+import { CountriesModel, FormCountriesModel } from '../../../models/countries.model';
 import { Subscription } from 'rxjs/Subscription';
-import { CountriesFormService } from './../../../services/countries/countries-form.service';
+import { CountriesFormService } from '../../../services/countries/countries-form.service';
 import { Router } from '@angular/router';
 import { CountriesService } from '../../../services/countries.service';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 @Component({
   selector: 'app-countries-form',
   templateUrl: './countries-form.component.html',

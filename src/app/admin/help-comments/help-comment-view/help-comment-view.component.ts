@@ -6,7 +6,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../../services/user.service';
-import { ENV } from './../../../env.config';
+import { ENV } from '../../../env.config';
 import { Observable } from 'rxjs/Observable';
 import { RequestOptions } from '@angular/http';
 import { ClientModel } from '../../../models/client.model';

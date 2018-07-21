@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from './../../../services/user.service';
-import { UtilsService } from './../../../services/utils.service';
+import { UserService } from '../../../services/user.service';
+import { UtilsService } from '../../../services/utils.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { ClientModel } from './../../../models/client.model';
+import { ClientModel } from '../../../models/client.model';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { ENV } from './../../../env.config';
+import { ENV } from '../../../env.config';
 import { RequestOptions } from '@angular/http';
 import { ToastsManager } from 'ng2-toastr/src/toast-manager';
 import { BreadcrumbsService } from 'ng2-breadcrumbs';

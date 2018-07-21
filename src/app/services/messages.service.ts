@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import { ENV } from '../env.config';
-import { MessagesModel } from './../models/messages.model';
+import { MessagesModel } from '../models/messages.model';
 import { AdminMessageModel } from '../models/admin-message.module';
 import { Subscription, Subject } from 'rxjs';
 interface Message {

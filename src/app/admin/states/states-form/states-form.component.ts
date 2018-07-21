@@ -1,12 +1,12 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
-import { StatesModel ,StatesFormModel } from './../../../models/states.model';
+import { StatesModel ,StatesFormModel } from '../../../models/states.model';
 import { CountriesService } from '../../../services/countries.service';
-import { StatesFormService } from './../../../services/states/states-form.service';
+import { StatesFormService } from '../../../services/states/states-form.service';
 import { Subscription } from 'rxjs/Subscription';
 import { StatesService } from '../../../services/states.service';
 import { Router } from '@angular/router';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 @Component({
   selector: 'app-states-form',
   templateUrl: './states-form.component.html',

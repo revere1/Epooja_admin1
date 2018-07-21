@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 //import { AuthService } from './../../../auth/auth.service';
-import { UserService } from './../../../services/user.service';
-import { UtilsService } from './../../../services/utils.service';
+import { UserService } from '../../../services/user.service';
+import { UtilsService } from '../../../services/utils.service';
 
 
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { ClientModel } from './../../../models/client.model';
+import { ClientModel } from '../../../models/client.model';
 import { BreadcrumbsService } from 'ng2-breadcrumbs';
 
 @Component({

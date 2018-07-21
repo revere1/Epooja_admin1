@@ -9,7 +9,7 @@ import { ComposeService } from '../services/compose.service';
 import { UtilsService } from '../services/utils.service';
 import { CommodityService } from '../services/insights/commodity.service';
 import { Meta } from '@angular/platform-browser';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 import { ClientModel } from '../models/client.model';
 import { Subscription } from 'rxjs/Subscription';
 import { ENV } from '../env.config';

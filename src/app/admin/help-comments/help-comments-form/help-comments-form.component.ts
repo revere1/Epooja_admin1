@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, Output, ViewChild, OnDestroy, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { HelpFormService } from './../../../services/help/help-form.service';
-import { HelpCommentModel, FormHelpCommentModel } from './../../../models/helpcomment.model';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { HelpFormService } from '../../../services/help/help-form.service';
+import { HelpCommentModel, FormHelpCommentModel } from '../../../models/helpcomment.model';
+import { ToastsManager } from 'ng2-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HelpService } from './../../../services/help.service';
+import { HelpService } from '../../../services/help.service';
 import { UtilsService } from '../../../services/utils.service';
 import { ENV } from '../../../env.config';
 
