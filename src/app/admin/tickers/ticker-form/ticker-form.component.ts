@@ -258,7 +258,7 @@ export class TickerFormComponent implements OnInit {
     // Redirect to event detail
     if (res.success) {
       this.toastr.success(res.message, 'Success');
-      this.router.navigate(['/admin/tickers']);
+      this.router.navigate(['/admin/products']);
     }
     else {
       this.toastr.error(res.message, 'Invalid');
