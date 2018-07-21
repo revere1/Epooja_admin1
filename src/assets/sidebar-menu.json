@@ -1,0 +1,40 @@
+[
+    {
+        "id": 1,
+        "name": {
+            "en": "Home",
+            "de": "DE_Home"
+        },
+        "routerLink": "/admin/home",
+        "icon": "fa fa-fw fa-home"
+    },
+    {
+        "id": 2,
+        "name": {
+            "en": "Categories",
+            "de": "DE_Categories"
+        },
+        "routerLink": "/admin/sectors",
+        "icon": "fa-users"
+    },
+    {
+        "id": 3,
+        "name": {
+            "en": "Sub-Categories",
+            "de": "DE_Sub-Categories"
+        },
+        "routerLink": "/admin/sub-sector",
+        "icon": "fa-users"
+    },
+    {
+        "id": 4,
+        "name": {
+            "en": "Products",
+            "de": "DE_Products"
+        },
+        "routerLink": "/admin/tickers",
+        "icon": "fa-book"
+    }
+   
+   
+]
