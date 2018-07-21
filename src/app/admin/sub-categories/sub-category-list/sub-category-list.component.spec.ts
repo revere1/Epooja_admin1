@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubSectorListComponent } from './sub-sector-list.component';
+import { SubSectorListComponent } from './sub-category-list.component';
 
 describe('SubSectorListComponent', () => {
   let component: SubSectorListComponent;
