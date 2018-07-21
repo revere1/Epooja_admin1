@@ -77,7 +77,7 @@ import { MessagesFormService } from '../services/messages/messages-form.service'
 import { CommodityService } from '../services/insights/commodity.service';
 import { ComposeService } from '../services/compose.service';
 import { NotificationService } from '../services/notifications.service';
-import { AdminGlobalSearchComponent } from './admin-global-search/admin-global-search.component';
+
 //import { BreadcrumbsModule } from 'ng2-breadcrumbs';
 import { 
   MatAutocompleteModule,
@@ -149,7 +149,6 @@ import { CompanyService } from '../services/company.service';
       CreateAnalystComponent,
       UpdateAnalystComponent,
       ViewAnalystComponent,
-      AdminGlobalSearchComponent,
       RegionsComponent,
       CurrencyComponent,
       PrivillegesComponent,

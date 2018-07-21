@@ -5,8 +5,8 @@ const getHost = () => {
   return `${protocol}//${host}`;
 };
 
-const apiURI = _isDev ? 'http://localhost:1332/v1/' : `http://ec2-35-178-115-252.eu-west-2.compute.amazonaws.com:1332/v1/`;
-const serverURI = _isDev ? 'http://localhost:1332/' : `http://ec2-35-178-115-252.eu-west-2.compute.amazonaws.com:1332/`;
+const apiURI = _isDev ? 'http://localhost:1332/v1/' : `http://localhost:1332/v1/`;
+const serverURI = _isDev ? 'http://localhost:1332/' : `http://localhost:1332/`;
 
 export const ENV = {
   BASE_URI: getHost(),
