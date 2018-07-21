@@ -38,62 +38,11 @@
       <div class="small-box bg-red">
         <div class="inner">
           <h3>{{analysts}}</h3>
-          <p>catagoty</p>
+          <p>Categories</p>
         </div>
         <div class="icon"> <i class="ion ion-man"></i> </div>
         <a routerLink="/admin/analysts" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> </div>
     </div>
     <!-- ./col --> 
   </div>
-  <!-- /.row --> 
-  <!-- Main row -->
-  <div class="row"> 
-    <section class="col-lg-7 connectedSortable"> 
-      <div class="nav-tabs-custom"> 
-        <ul class="nav nav-tabs pull-right">
-          <li class="pull-left header"><i class="fa fa-inbox"></i> Clients Per Year</li>
-        </ul>
-        <div class="tab-content no-padding " style="position: obsolute; height: 400px;"> 
-<div *ngIf="!submitting">
-    <ngx-charts-line-chart
-    [view]="view"
-    [scheme]="colorScheme"
-    [results]="ngxData.data"
-    [gradient]="gradient"
-    [xAxis]="showXAxis"
-    [yAxis]="showYAxis"  
-    [showXAxisLabel]="showXAxisLabel"
-    [showYAxisLabel]="showYAxisLabel"
-    [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel"
-    [autoScale]="autoScale">
-  </ngx-charts-line-chart>
-</div>
-    </div>
-      </div>
-    
-    </section>
-    <!-- /.Left col --> 
-    <!-- right col (We are only adding the ID to make the widgets sortable)-->
-    <section class="col-lg-5 connectedSortable"> 
-      
-      <!-- Map box -->
-      <div class="box box-solid bg-light-blue-gradient">
-        <div class="nav-tabs-custom"> 
-          <!-- Tabs within a box -->
-          <ul class="nav nav-tabs pull-right">
-            <li class="pull-left header"><i class="fa fa-inbox"></i> Analysts Per Year</li>
-          </ul>
-          <div class="tab-content no-padding"> 
-            <!-- Morris chart - Sales -->
-            <div class="chart tab-pane active" id="revenue-chart1" style="position: relative; height: 400px;"></div>
-            <div class="chart tab-pane" id="sales-chart1" style="position: relative; height: 400px;"></div>
-          </div>
-        </div>
-      </div>
-      <!-- /.box --> 
-      
-    </section>
-    <!-- right col --> 
-  </div>
-  <!-- /.row (main row) --> 
+ 

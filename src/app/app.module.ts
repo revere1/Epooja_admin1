@@ -39,7 +39,6 @@ import{InsightcommentFormService} from './services/comment/insightcomment-form.s
 import {FileDropDirective,FileSelectDirective} from 'ng2-file-upload';
 import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { ChartsBuilderComponent } from './charts-builder/charts-builder.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxUIModule } from '@swimlane/ngx-ui';
 import { InsightService } from './services/insights/insight.service';
@@ -54,7 +53,6 @@ import { MyWatchListComponent } from './my-watch-list/my-watch-list.component';
     ContactUsComponent,
     MainLayoutComponent,
     SidebarComponent,
-    ChartsBuilderComponent,
     MyWatchListComponent
   ],
   imports: [

@@ -8,7 +8,6 @@ import { ProfileComponent } from './settings/profile/profile.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ChartsBuilderComponent } from './charts-builder/charts-builder.component';
 import { MyWatchListComponent } from './my-watch-list/my-watch-list.component';
 
 const routes: Routes = [
@@ -68,7 +67,6 @@ const routes: Routes = [
     ]
   },
   { path: "contact-us", component: ContactUsComponent },
-  { path: "charts-builder", component: ChartsBuilderComponent },
   {
     path: '**',
     redirectTo: '/home',

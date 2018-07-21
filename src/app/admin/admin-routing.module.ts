@@ -88,7 +88,7 @@ const AdminRoutes: Routes = [
       },
 
       {
-        path: 'tickers', component: TickersComponent,
+        path: 'products', component: TickersComponent,
         data: {
           breadcrumb: 'Tickers'
         },
@@ -206,9 +206,9 @@ const AdminRoutes: Routes = [
       },
 
       {
-        path: 'sectors', component: SectorsComponent,
+        path: 'categories', component: SectorsComponent,
         data: {
-          breadcrumb: 'Sectors'
+          breadcrumb: 'Categories'
         },
         children: [
           { path: '', component: SectorsListComponent },
@@ -227,9 +227,9 @@ const AdminRoutes: Routes = [
         ]
       },
       {
-        path: 'sub-sector', component: SubSectorComponent,
+        path: 'sub-categories', component: SubSectorComponent,
         data: {
-          breadcrumb: 'SubSector'
+          breadcrumb: 'Sub-Categories'
         },
         children: [
           { path: '', component: SubSectorListComponent },

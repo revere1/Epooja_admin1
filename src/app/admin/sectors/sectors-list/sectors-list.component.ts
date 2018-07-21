@@ -48,7 +48,7 @@ export class SectorsListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Sectors' , url: 'sectors', params: []}];
+    this.bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Categories' , url: 'sectors', params: []}];
     this._utils.changeBreadCrumb(this.bcList);
     this._utils.currentBSource.subscribe(list => {
       this.breadcrumbsService.store(list);

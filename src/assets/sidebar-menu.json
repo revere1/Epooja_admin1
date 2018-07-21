@@ -14,7 +14,7 @@
             "en": "Categories",
             "de": "DE_Categories"
         },
-        "routerLink": "/admin/sectors",
+        "routerLink": "/admin/categories",
         "icon": "fa-users"
     },
     {
@@ -23,7 +23,7 @@
             "en": "Sub-Categories",
             "de": "DE_Sub-Categories"
         },
-        "routerLink": "/admin/sub-sector",
+        "routerLink": "/admin/sub-categories",
         "icon": "fa-users"
     },
     {
@@ -32,7 +32,7 @@
             "en": "Products",
             "de": "DE_Products"
         },
-        "routerLink": "/admin/tickers",
+        "routerLink": "/admin/products",
         "icon": "fa-book"
     }
    
