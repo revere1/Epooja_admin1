@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<form [formGroup]="subCategoryForm" (ngSubmit)="saveSubSector()">
+<form [formGroup]="subCategoryForm" (ngSubmit)="saveSubCategory()">
     <div class="panel panel-default">
     <div class="panel-heading">
         <h4 class="panel-title">
@@ -12,40 +12,40 @@
       </div>
  <div class="col-md-6">
   <div class="form-group">
-      <label for="sector">Categories<span style="color:red;">*</span></label>
+      <label for="category">Categories<span style="color:red;">*</span></label>
       <select
-        id="sector"
+        id="category"
         class="form-control"
-        formControlName="sector" >
+        formControlName="category" >
         <option value=null selected>Select</option>
-        <option *ngFor="let sector of sectors" [value]="sector.id">
-          {{sector.name}}
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{category.category_name}}
         </option>    
       </select>
       <div
-        *ngIf="formErrors.sector"
+        *ngIf="formErrors.category"
         class="small text-danger formErrors"
-        [innerHTML]="formErrors.sector">
+        [innerHTML]="formErrors.category">
       </div>
     </div>
 
   <div class="form-group">
-    <label for="name">Sub-Categorie Name <span style="color:red;">*</span></label>
-    <input id="name" type="text" class="form-control" formControlName="name">
-    <div *ngIf="formErrors.name" class="small text-danger formErrors" [innerHTML]="formErrors.name">
+    <label for="subcategory_name">Sub-Categorie Name <span style="color:red;">*</span></label>
+    <input id="subcategory_name" type="text" class="form-control" formControlName="subcategory_name">
+    <div *ngIf="formErrors.subcategory_name" class="small text-danger formErrors" [innerHTML]="formErrors.subcategory_name">
     </div>
   </div>
 
   <div class="form-group">
-    <label for="product_description">Sub-Categorie Description<span style="color:red;">*</span></label>
+    <label for="subcategory_desc">Sub-Categorie Description<span style="color:red;">*</span></label>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-    <textarea id="product_description" 
+    <textarea id="subcategory_desc" 
       class="form-control"
-      formControlName="product_description" ></textarea>
+      formControlName="subcategory_desc" ></textarea>
     <div
-      *ngIf="formErrors.product_description"
+      *ngIf="formErrors.subcategory_desc"
       class="small text-danger formErrors"
-      [innerHTML]="formErrors.product_description">
+      [innerHTML]="formErrors.subcategory_desc">
     </div>
 </div> 
 </div>

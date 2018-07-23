@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { ENV } from '../../../env.config';
+declare var $: any;
+
 @Component({
   selector: 'app-sub-category-form',
   templateUrl: './sub-category-form.component.html',
@@ -20,12 +22,9 @@ export class SubCategoryFormComponent implements OnInit {
   isEdit : boolean;
   subCategoryForm : FormGroup;
   apiEvents = [];
-  // Model storing initial form values
   formEvent: SubCategoryFormModel;
-  // Form validation and disabled logic
   formErrors: any;
   formChangeSub: Subscription;
-  // Form submission
   submitEventObj: SubCategoryModel;
   submitting: boolean;
   submitEventSub: Subscription;
@@ -45,13 +44,24 @@ export class SubCategoryFormComponent implements OnInit {
     private _subSectorrService :SubcategoriesService ,
     public toastr : ToastsManager) { 
     this.subCategoryForm = new FormGroup({
-      name: new FormControl(),
-      sector : new FormControl,
+      subcategory_name: new FormControl(),
+      category : new FormControl,
       status: new FormControl()
     });
   }
 
   ngOnInit() {
+
+    $(document).ready(() => {
+      let _that = this;
+      $('#subcategory_desc').summernote({
+        // callbacks: {
+        //   onImageUpload: function (files) {
+        //     _that.uploadFile(files, this);
+        //   }
+        // },
+      });
+    });
     this.formErrors = this.ssf.formErrors;
     this.isEdit = !!this.event;
     this.submitBtnText = this.isEdit ? 'Update' : 'Create';
@@ -63,6 +73,7 @@ export class SubCategoryFormComponent implements OnInit {
       if (data.success === false) {
       } else {
         this.categories = data.data;
+        console.log(this.categories)
       }
     });
 
@@ -111,12 +122,13 @@ export class SubCategoryFormComponent implements OnInit {
   
   private _buildForm() {
     let validRules = {
-      name: [this.formEvent.subcategory_name, [
+      subcategory_name: [this.formEvent.subcategory_name, [
         Validators.required
       ]],
-      sector: [this.formEvent.category_id, [
-        Validators.required
+      category: [this.formEvent.category_id, [
+        //Validators.required
       ]],
+      subcategory_desc: [this.formEvent.subcategory_desc],
       status: [this.formEvent.status,
         Validators.required
       ],
@@ -204,7 +216,7 @@ export class SubCategoryFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new SubCategoryModel(null, null, null,null,null);
+      return new SubCategoryModel(null, null, null,null);
     } else {
 
       // If editing existing event, create new
@@ -229,7 +241,7 @@ export class SubCategoryFormComponent implements OnInit {
     return new SubCategoryModel(
       this.subCategoryForm.get('category').value,
       this.subCategoryForm.get('subcategory_name').value,
-      this.subCategoryForm.get('subcategory_desc').value,
+      $('#subcategory_desc').summernote('code'),
       this.subCategoryForm.get('status').value,
       this.event ? this.event.id : null
     );
@@ -239,11 +251,9 @@ export class SubCategoryFormComponent implements OnInit {
 
     let curUserObj = localStorage.getItem('currentUser');
     let currentUser = JSON.parse(curUserObj);
-
     this.submitting = true;
-   
     this.submitEventObj = this._getSubmitObj();
-
+    console.log(this.submitEventObj)
     if (!this.isEdit) {
       this.submitEventSub = this._subSectorrService
         .postEvent$(this.submitEventObj)
@@ -268,7 +278,7 @@ export class SubCategoryFormComponent implements OnInit {
     // Redirect to event detail
     if(res.success){
       this.toastr.success(res.message,'Success');  
-      this.router.navigate(['/admin/sub-category']);
+      this.router.navigate(['/admin/sub-categories']);
     }
     else{       
       this.toastr.error(res.message,'Invalid');  

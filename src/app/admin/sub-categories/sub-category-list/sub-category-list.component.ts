@@ -25,7 +25,7 @@ class DataTablesResponse {
   templateUrl: './sub-category-list.component.html',
   styleUrls: ['./sub-category-list.component.css']
 })
-export class SubSectorListComponent implements OnInit {
+export class SubCategoryListComponent implements OnInit {
 
   private allItems: {};
   dtOptions: DataTables.Settings = {};
@@ -53,7 +53,7 @@ export class SubSectorListComponent implements OnInit {
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
         var myEfficientFn = this._utils.debounce(()=>{           
-          let apiEvent =  this._subCategoriesService.filterSubSector$(dataTablesParameters,'filterSubSector')
+          let apiEvent =  this._subCategoriesService.filterSubCategory$(dataTablesParameters,'filterSubCategory')
             .subscribe(resp => {
               that.subsectors = resp.data;  
               callback({
@@ -70,7 +70,7 @@ export class SubSectorListComponent implements OnInit {
         
       },
       columns: [
-            { data: 'name' },
+            { data: 'subcategory_name' },
             { data: 'status' },
             // { data: 'createdBy' },
             // { data: 'updatedBy' },
@@ -81,7 +81,7 @@ export class SubSectorListComponent implements OnInit {
   }
 
   download() {
-    this._subCategoriesService.getsubSector$()
+    this._subCategoriesService.getsubCategory$()
     .subscribe(data => {
     //API data
     this.allItems = this.subsectors;

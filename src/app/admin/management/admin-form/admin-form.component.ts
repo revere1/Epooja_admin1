@@ -177,7 +177,7 @@ export class AdminFormComponent implements OnInit {
 
   public sectorChange(sectorVal){
     if(sectorVal !== 'null'){
-      this._subsectorService.getSubsector$(sectorVal).subscribe(data => {
+      this._subsectorService.getSubcategory$(sectorVal).subscribe(data => {
         if (data.success === false) {
         } else {
          

@@ -54,7 +54,7 @@ import { SubCategoryComponent } from './sub-categories/sub-category.component';
 import { SubCategoryFormComponent } from './sub-categories/sub-category-form/sub-category-form.component';
 import { CreateSubCategoryComponent } from './sub-categories/create-sub-category/create-sub-category.component';
 import { UpdateSubSectorComponent } from './sub-categories/update-sub-category/update-sub-sector.component';
-import { SubSectorListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
+import { SubCategoryListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
 import { SubCategoryFormService} from '../services/sub-categories/sub-category-form.service';
 import { AnalystFormComponent } from './analysts/analyst-form/analyst-form.component';
 import { AnalystsListComponent } from './analysts/analysts-list/analysts-list.component';
@@ -134,7 +134,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
       SubCategoryFormComponent,
       CreateSubCategoryComponent,
       UpdateSubSectorComponent,
-      SubSectorListComponent,
+      SubCategoryListComponent,
       AnalystFormComponent,
       AnalystsListComponent,
       CreateAnalystComponent,

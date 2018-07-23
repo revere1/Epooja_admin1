@@ -5,7 +5,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { CompanyFormService } from '../../../../services/company_details/company-form.service';
 import { CompanyModel, FormCompanyModel } from '../../../../models/company_details.model';
 import { Subscription } from 'rxjs/Subscription';
-import { SectorsService } from '../../../../services/sectors.service';
+import { CategoriesService } from '../../../../services/categories.service';
 import { CountriesService } from '../../../../services/countries.service';
 import { ENV } from '../../../../env.config';
 import { CompanyService } from '../../../../services/company.service';

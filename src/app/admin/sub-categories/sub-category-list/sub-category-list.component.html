@@ -6,22 +6,18 @@
 <table datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>SubCategory Name</th>
         <th>Status</th>
-        <!-- <th>Created By</th>
-        <th>Updated By</th> -->
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let subSector of subsectors">
-        <td>{{ subSector.name }}</td>
+        <td>{{ subSector.subcategory_name }}</td>
         <td>{{ subSector.status }}</td>
-        <!-- <td>{{ subSector.createdBy }}</td>
-        <td>{{ subSector.updatedBy }}</td> -->
         <td>
             <a (click)="deleteSubSector(subSector.id)"><i class="fa fa-trash"></i></a> /
-            <a [routerLink]="['/admin/sub-sector/update',subSector.id]"><i class="fa fa-pencil"></i></a> 
+            <a [routerLink]="['/admin/sub-categories/update',subSector.id]"><i class="fa fa-pencil"></i></a> 
         </td>
       </tr>
       <tr *ngIf="subsectors?.length == 0">
