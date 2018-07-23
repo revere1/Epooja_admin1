@@ -54,9 +54,9 @@ import { SectorFormService} from '../services/sectors/sector-form.service';
 import { SidebarComponent } from './widgets/sidebar/sidebar.component';
 //import { HttpModule } from '@angular/http';
 
-import { SubSectorComponent } from './sub-categories/sub-category.component';
-import { SubSectorFormComponent } from './sub-categories/sub-category-form/sub-sector-form.component';
-import { CreateSubSectorComponent } from './sub-categories/create-sub-category/create-sub-sector.component';
+import { SubCategoryComponent } from './sub-categories/sub-category.component';
+import { SubSectorFormComponent } from './sub-categories/sub-category-form/sub-category-form.component';
+import { CreateSubCategoryComponent } from './sub-categories/create-sub-category/create-sub-category.component';
 import { UpdateSubSectorComponent } from './sub-categories/update-sub-category/update-sub-sector.component';
 import { SubSectorListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
 import { SubSectorFormService} from '../services/sub-sectors/sub-sector-form.service';
@@ -91,7 +91,7 @@ import { MacroTypeService } from '../services/macrotype.service';
 import { PrivillegesComponent } from './clients/privilleges/privilleges.component';
 import { CompanyFormService } from '../services/company_details/company-form.service';
 import { CompanyService } from '../services/company.service';
-import { DropzoneModule } from '../../../node_modules/ngx-dropzone-wrapper';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
 
 @NgModule({
   imports: [
@@ -141,9 +141,9 @@ import { DropzoneModule } from '../../../node_modules/ngx-dropzone-wrapper';
       UpdateSectorComponent,
       SectorFormComponent,
       SidebarComponent,
-      SubSectorComponent,
+      SubCategoryComponent,
       SubSectorFormComponent,
-      CreateSubSectorComponent,
+      CreateSubCategoryComponent,
       UpdateSubSectorComponent,
       SubSectorListComponent,
       AnalystFormComponent,

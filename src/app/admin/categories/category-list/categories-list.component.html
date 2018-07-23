@@ -16,10 +16,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let category of categories">
-        <td>{{category.category}}</td>
-        <td>{{category.cat_desc}}</td>
-        <td>{{category.cat_img}}</td>
-        <td>{{category.created_on}}</td>
+        <td>{{category.category_name}}</td>
+        <td>{{category.category_desc}}</td>
+        <td>{{category.path}}</td>
+        <td>{{category.createdAt}}</td>
         <td>
             <a (click)="deletesector(category.id)"><i class="fa fa-trash"></i></a> /
             <a [routerLink]="['/admin/category/update',category.id]"><i class="fa fa-pencil"></i></a> 

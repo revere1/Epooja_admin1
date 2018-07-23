@@ -78,12 +78,12 @@ export class EditComponent implements OnInit {
     this._buildForm();
 
     //Fetch sectors
-    this._sectorService.getSector$().subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.sectors = data.data;
-      }
-    });
+    // this._sectorService.getSector$().subscribe(data => {
+    //   if (data.success === false) {
+    //   } else {
+    //     this.sectors = data.data;
+    //   }
+    // });
     //Fetch Countries
     this._countriesrService.getCountries$().subscribe(data => {
       if (data.success === false) {

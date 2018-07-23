@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 
 @Component({
-  selector: 'app-sub-sector-form',
-  templateUrl: './sub-sector-form.component.html',
-  styleUrls: ['./sub-sector-form.component.css']
+  selector: 'app-sub-category-form',
+  templateUrl: './sub-category-form.component.html',
+  styleUrls: ['./sub-category-form.component.css']
 })
 export class SubSectorFormComponent implements OnInit {
 
@@ -57,7 +57,7 @@ export class SubSectorFormComponent implements OnInit {
     this._buildForm();
 
     //Fetch Countries
-    this._sectorsService.getSector$().subscribe(data => {
+    this._sectorsService.getCategory$().subscribe(data => {
       if (data.success === false) {
       } else {
         this.sectors = data.data;

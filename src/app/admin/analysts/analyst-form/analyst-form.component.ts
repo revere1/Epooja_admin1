@@ -73,12 +73,12 @@ export class AnalystFormComponent implements OnInit {
     this._buildForm();
     
     //Fetch sectors
-    this._sectorService.getSector$().subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.sectors = data.data;
-      }
-    });
+    // this._sectorService.getSector$().subscribe(data => {
+    //   if (data.success === false) {
+    //   } else {
+    //     this.sectors = data.data;
+    //   }
+    // });
       //Fetch companies
       this._companyService.getcompanies$().subscribe(data => {
         if (data.success === false) {

@@ -8,7 +8,7 @@ import { ViewClientComponent } from './clients/view-client/view-client.component
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { TickersComponent } from './products/products.component';
+import { ProductsComponent } from './products/products.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import { UpdateProductComponent } from './products/update-product/update-product.component';
@@ -28,8 +28,8 @@ import { UpdateSectorComponent } from './categories/update-category/update-categ
 import { SectorsListComponent } from './categories/category-list/categories-list.component';
 
 
-import { SubSectorComponent } from './sub-categories/sub-category.component';
-import { CreateSubSectorComponent } from './sub-categories/create-sub-category/create-sub-sector.component';
+import { SubCategoryComponent } from './sub-categories/sub-category.component';
+import { CreateSubCategoryComponent } from './sub-categories/create-sub-category/create-sub-category.component';
 import { UpdateSubSectorComponent } from './sub-categories/update-sub-category/update-sub-sector.component';
 import { SubSectorListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
 
@@ -88,7 +88,7 @@ const AdminRoutes: Routes = [
       },
 
       {
-        path: 'products', component: TickersComponent,
+        path: 'products', component: ProductsComponent,
         data: {
           breadcrumb: 'Tickers'
         },
@@ -227,14 +227,14 @@ const AdminRoutes: Routes = [
         ]
       },
       {
-        path: 'sub-categories', component: SubSectorComponent,
+        path: 'sub-categories', component: SubCategoryComponent,
         data: {
           breadcrumb: 'Sub-Categories'
         },
         children: [
           { path: '', component: SubSectorListComponent },
           {
-            path: 'create', component: CreateSubSectorComponent,
+            path: 'create', component: CreateSubCategoryComponent,
             data: {
               breadcrumb: 'Create'
             }

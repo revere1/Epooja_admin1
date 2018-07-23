@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubSectorFormComponent } from './sub-sector-form.component';
+import { SubSectorFormComponent } from './sub-category-form.component';
 
 describe('SubSectorFormComponent', () => {
   let component: SubSectorFormComponent;

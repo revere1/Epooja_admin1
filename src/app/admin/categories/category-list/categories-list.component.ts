@@ -8,22 +8,20 @@ import { CategoriesModel } from '../../../models/categories.model';
 import { ToastsManager } from 'ng2-toastr';
 import { Angular2Csv } from 'angular2-csv';
 import { BreadcrumbsService,IBreadcrumb} from 'ng2-breadcrumbs';
-class Categories {
-                  id: number;
-                  category: string;
-                  cat_desc: string;
-                  cat_img : string;
-                  status : number;
-                  created_on : number; 
-                  updated_on : number; 
-                }
+class Category {
+  category_name: string;
+  company: string;
+  industry: string;
+  sector: string;
+  id: number;
+}
 
 class DataTablesResponse {
-                          data: any[];
-                          draw: number;
-                          recordsFiltered: number;
-                          recordsTotal: number;
-                        }
+  data: any[];
+  draw: number;
+  recordsFiltered: number;
+  recordsTotal: number;
+}
 @Component({
   selector: 'app-categories-list',
   templateUrl: './categories-list.component.html',
@@ -36,7 +34,7 @@ export class SectorsListComponent implements OnInit {
   error:boolean;
   apiEvents=[];
   public bcList :IBreadcrumb[];
-  categories: Categories[];
+  categories: Category[];
   constructor(private http: HttpClient, 
     private _categoriesService: CategoriesService, 
     private _utils: UtilsService,
@@ -80,11 +78,11 @@ export class SectorsListComponent implements OnInit {
         
       },
       columns: [
-            { data: 'category' },
-            { data: 'cat_desc' },
-            { data: 'cat_img' },
+            { data: 'category_name' },
+            { data: 'category_desc' },
+            { data: 'path' },
             { data: 'status' },
-            { data: 'created_on' },
+            // { data: 'created_on' },
             { data: 'id' }
           ]
     };

@@ -17,15 +17,13 @@ export class SectorFormComponent implements OnInit {
 
   @Input() event: CategoriesModel;
 
-  sectorForm: FormGroup;
+  categoryForm: FormGroup;
   isEdit: boolean;
   //Modelstoringinitialformvalues
   formEvent: FormCategoriesModel;
-
   //Formvalidationanddisabledlogic
   formErrors: any;
   formChangeSub: Subscription;
-
   //Formsubmission
   submitEventObj: FormCategoriesModel;
   submitting: boolean;
@@ -41,9 +39,9 @@ export class SectorFormComponent implements OnInit {
     private _subsectorService: SubsectorsService,
     private router: Router,
     public toastr: ToastsManager,
-    private _sectorsService: CategoriesModel,
+    private _sectorsService: CategoriesService,
   ) {
-    this.sectorForm = new FormGroup({
+    this.categoryForm = new FormGroup({
       name: new FormControl(),
       status: new FormControl()
     });
@@ -59,7 +57,7 @@ export class SectorFormComponent implements OnInit {
   }
   private _buildForm() {
     let validRules = {
-      name: [this.formEvent.category, [
+      name: [this.formEvent.category_name, [
         Validators.required
       ]],
       status: [this.formEvent.status, [
@@ -67,9 +65,9 @@ export class SectorFormComponent implements OnInit {
       ]]
     };
 
-    this.sectorForm = this.fb.group(validRules);
+    this.categoryForm = this.fb.group(validRules);
     // Subscribe to form value changes
-    this.formChangeSub = this.sectorForm
+    this.formChangeSub = this.categoryForm
       .valueChanges
       .subscribe(data => this._onValueChanged());
     if (this.isEdit) {
@@ -80,7 +78,7 @@ export class SectorFormComponent implements OnInit {
           }
         }
       };
-      _markDirty(this.sectorForm);
+      _markDirty(this.categoryForm);
     }
     this._onValueChanged();
   }
@@ -94,17 +92,16 @@ export class SectorFormComponent implements OnInit {
 
 
 
-      return new FormCategoriesModel(null, null, null, null,null);
+      return new FormCategoriesModel(null, null, null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
 
       return new FormCategoriesModel(
-        this.event.category,
-        this.event.cat_desc,
-        this.event.cat_img,
+        this.event.category_name,
+        this.event.category_desc,
         this.event.status,
-        this.event.created_on
+       
         
 
       );
@@ -113,7 +110,7 @@ export class SectorFormComponent implements OnInit {
 
 
   private _onValueChanged() {
-    if (!this.sectorForm) { return; }
+    if (!this.categoryForm) { return; }
     const _setErrMsgs = (control: AbstractControl, errorsObj: any, field: string) => {
       if (control && control.dirty && control.invalid) {
         const messages = this.sc.validationMessages[field];
@@ -128,14 +125,14 @@ export class SectorFormComponent implements OnInit {
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
         this.formErrors[field] = '';
-        _setErrMsgs(this.sectorForm.get(field), this.formErrors, field);
+        _setErrMsgs(this.categoryForm.get(field), this.formErrors, field);
       }
     }
   }
 
 
   resetForm() {
-    this.sectorForm.reset();
+    this.categoryForm.reset();
   }
 
   private _getSubmitObj() {
