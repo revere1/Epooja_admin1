@@ -7,7 +7,7 @@ import { ENV } from '../env.config';
 import { TickerModel } from '../models/ticker.model';
 
 @Injectable()
-export class TickerService {
+export class ProductService {
   private currentUser : any;
   constructor(private http: HttpClient,private router: Router) { }
 

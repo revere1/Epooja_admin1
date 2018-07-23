@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 import { TickerFormService } from '../../../services/tickers/ticker-form.service';
-import { TickerService } from '../../../services/ticker.service';
-import { TickerModel, FormTickerModel } from '../../../models/ticker.model';
+import { ProductService } from '../../../services/product.service';
+import { ProductModel, FormProductModel } from '../../../models/product.model';
 import { Subscription } from 'rxjs/Subscription';
 import { SectorsService } from '../../../services/sectors.service';
 import { CountriesService } from '../../../services/countries.service';
@@ -15,18 +15,18 @@ declare var $: any;
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class TickerFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit {
 
-  @Input() event: TickerModel;
+  @Input() event: ProductModel;
   isEdit: boolean;
   tickerForm: FormGroup;
   // Model storing initial form values
-  formEvent: FormTickerModel;
+  formEvent: FormProductModel;
   // Form validation and disabled logic
   formErrors: any;
   formChangeSub: Subscription;
   // Form submission
-  submitEventObj: TickerModel;
+  submitEventObj: ProductModel;
   submitting: boolean;
   submitEventSub: Subscription;
   error: boolean;
@@ -38,7 +38,7 @@ export class TickerFormComponent implements OnInit {
   constructor(private fb: FormBuilder,
     private router: Router,
     public cf: TickerFormService,
-    private _tickerapi: TickerService,
+    private _tickerapi: ProductService,
     private _sectorService: SectorsService,
     private _countriesrService: CountriesService,
     public toastr: ToastsManager
@@ -169,12 +169,12 @@ export class TickerFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormTickerModel(null,null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      return new FormProductModel(null,null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
 
-      return new FormTickerModel(
+      return new FormProductModel(
         this.event.name,
         this.event.company,
         this.event.industry,
@@ -201,7 +201,7 @@ export class TickerFormComponent implements OnInit {
 
     // Convert form startDate/startTime and endDate/endTime
     // to JS dates and populate a new EventModel for submission
-    return new TickerModel(
+    return new ProductModel(
       this.tickerForm.get('name').value,
       this.tickerForm.get('company').value,
       this.tickerForm.get('industry').value,

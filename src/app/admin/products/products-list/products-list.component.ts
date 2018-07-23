@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { ENV } from '../../../env.config';
-import { TickerService } from '../../../services/ticker.service';
+import { ProductService } from '../../../services/product.service';
 //import { setTimeout } from 'timers';
 import { UtilsService } from '../../../services/utils.service';
 import { ToastsManager } from 'ng2-toastr';
@@ -31,7 +31,7 @@ class DataTablesResponse {
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.css']
 })
-export class TickersListComponent implements OnInit {
+export class ProductsListComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   private allItems: {};
@@ -42,7 +42,7 @@ export class TickersListComponent implements OnInit {
   public bcList :IBreadcrumb[];
   constructor(private http: HttpClient,
     private router: Router,
-    private _tickerApi: TickerService,
+    private _tickerApi: ProductService,
     private _utils: UtilsService,
     private breadcrumbsService:BreadcrumbsService,
     private meta: Meta,

@@ -1,4 +1,4 @@
-class TickerModel {
+class ProductModel {
     constructor(
       public name: string,
       public company: string,
@@ -21,7 +21,7 @@ class TickerModel {
     ) { }
   }
   
-  class FormTickerModel {
+  class FormProductModel {
     constructor(
         public name: string,
         public company: string,
@@ -43,4 +43,4 @@ class TickerModel {
     ) { }
   }
   
-  export { TickerModel, FormTickerModel };
+  export { ProductModel, FormProductModel };
