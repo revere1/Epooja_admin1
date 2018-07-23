@@ -41,12 +41,7 @@ const routes: Routes = [
   //   data: { role: 3, breadcrumb: 'Home' },
   //   loadChildren: 'app/analyst/analyst.module#AnalystModule'
   // },
-  {
-    path: 'editorier',
-    canActivate: [RoleGuard],
-    data: { role: 4, breadcrumb: 'Home' },
-    loadChildren: 'app/editorier/editorier.module#EditorierModule'
-  },
+  
   {
     path: '',
     component: MainLayoutComponent,
