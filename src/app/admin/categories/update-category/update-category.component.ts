@@ -30,7 +30,7 @@ export class UpdateSectorComponent implements OnInit {
     ngOnInit() {
 
                 /*BreadCrumb*/
-                let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Sectors' , url: 'sectors', params: []},
+                let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Categories' , url: 'categories', params: []},
                 {label: 'Update' , url: 'update', params: []}];
               this.utils.changeBreadCrumb(bcList);
               this.utils.currentBSource.subscribe(list => {

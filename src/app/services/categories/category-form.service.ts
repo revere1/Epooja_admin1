@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class SectorFormService {
+export class CategoryFormService {
 
   validationMessages: any;
   // Set up errors object
   formErrors = {
     name: '',
+    desc:'',
     status: '',
     createdBy:'',
     updatedBy:'',
@@ -17,10 +18,13 @@ export class SectorFormService {
   constructor() {
     this.validationMessages = {
       name: {
-        required: `Sector Name is <strong>required</strong>.`
+        required: `Category Name is <strong>required</strong>.`
+      },
+      desc: {
+        required: `Category Description is <strong>required</strong>.`
       },
       status: {
-        required: `Status is <strong>required</strong>.`
+        required: `Category is <strong>required</strong>.`
       },      
      
     };

@@ -18,6 +18,12 @@ export class CategoriesService {
     return this.currentUser.token;
   }
   
+
+  public getToken(): string {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return this.currentUser.token;
+  }
+
   // POST new event (admin only)
   getCategory$() {
     return this.http
@@ -26,6 +32,18 @@ export class CategoriesService {
       })
       .catch(this._handleError);
   }
+
+
+  removeFile(file){
+    return this.http
+      .delete(`${ENV.BASE_API}lockers/remove-file`, {
+        headers: new HttpHeaders()
+                  .set('Authorization', this._authHeader)
+                  .set('file', file)
+      })
+      .catch(this._handleError);
+  }
+
 
   // POST new event (admin only)
   filterCategories$(filterInput,endPoint) {
