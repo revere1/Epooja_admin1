@@ -4,10 +4,10 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import { ENV } from '../env.config';
-import { TickerModel } from '../models/ticker.model';
+import { ProductModel } from '../models/product.model';
 
 @Injectable()
-export class TickerService {
+export class ProductService {
   private currentUser : any;
   constructor(private http: HttpClient,private router: Router) { }
 
@@ -15,31 +15,44 @@ export class TickerService {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return this.currentUser.token;
   }
+  public getToken(): string {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return this.currentUser.token;
+  }
 
-
-  gettickers$() {
+  getproducts$() {
     return this.http
-      .get(`${ENV.BASE_API}tickers`, {
+      .get(`${ENV.BASE_API}products`, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
 
+  removeFile(file){
+    return this.http
+      .delete(`${ENV.BASE_API}lockers/remove-file`, {
+        headers: new HttpHeaders()
+                  .set('Authorization', this._authHeader)
+                  .set('file', file)
+      })
+      .catch(this._handleError);
+  }
+
+
   // GET list of public, future events
   //getUserById$(id: number): Observable<ClientModel> {
     getUserById$(id: number) {
     return this.http
-      .get(`${ENV.BASE_API}ticker/${id}`, {
+      .get(`${ENV.BASE_API}product/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
 
   // POST new event (admin only)
-  //postEvent$(event: TickerModel): Observable<TickerModel> {
     postEvent$(event) {
     return this.http
-      .post(`${ENV.BASE_API}ticker`, event, {
+      .post(`${ENV.BASE_API}product`, event, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
       })
       .catch(this._handleError);
@@ -47,7 +60,7 @@ export class TickerService {
 
 
  // POST new event (admin only)
- filterTickers$(filterInput,endPoint) {
+ filterProducts$(filterInput,endPoint) {
   return this.http
     .post(`${ENV.BASE_API}${endPoint}`, filterInput, {
       headers: new HttpHeaders().set('authorization', this._authHeader)
@@ -55,27 +68,18 @@ export class TickerService {
     .catch(this._handleError);
 }
 
-
-  // PUT existing event (admin only)
-  // editEvent$(id: number, event: TickerModel): Observable<TickerModel> {    
-  //   return this.http
-  //     .put(`${ENV.BASE_API}ticker/${id}`, event, {
-  //       headers: new HttpHeaders().set('Authorization', this._authHeader)
-  //     })
-  //     .catch(this._handleError);
-  // }
   editEvent$(id, event) {    
     return this.http
-      .put(`${ENV.BASE_API}ticker/${id}`, event, {
+      .put(`${ENV.BASE_API}product/${id}`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
 
-  //Delete Ticker
-  deleteTickerById$(id: number): Observable<number>{
+  //Delete Product
+  deleteProductById$(id: number): Observable<number>{
     return this.http
-      .delete(`${ENV.BASE_API}ticker/${id}`, {
+      .delete(`${ENV.BASE_API}product/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);

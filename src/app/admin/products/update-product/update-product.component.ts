@@ -1,14 +1,10 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
-
 import { Title } from '@angular/platform-browser';
-//import { AuthService } from './../../../auth/auth.service';
-import { TickerService } from '../../../services/ticker.service';
+import { ProductService } from '../../../services/product.service';
 import { UtilsService } from '../../../services/utils.service';
-
-
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { TickerModel } from '../../../models/ticker.model';
+import { ProductModel } from '../../../models/product.model';
 import { BreadcrumbsService } from 'ng2-breadcrumbs';
 
 @Component({
@@ -16,20 +12,20 @@ import { BreadcrumbsService } from 'ng2-breadcrumbs';
   templateUrl: './update-product.component.html',
   styleUrls: ['./update-product.component.css']
 })
-export class UpdateTickerComponent implements OnInit {
+export class UpdateProductComponent implements OnInit {
 
   pageTitle = 'Update Event';
   routeSub: Subscription;
   private id: number;
   loading: boolean;
-  tickerSub: Subscription;
-  ticker: TickerModel;
+  productSub: Subscription;
+  product: ProductModel;
   error: boolean;
 
   constructor(
     private route: ActivatedRoute,    
     private title: Title,
-    private _tickerapi: TickerService,
+    private _productapi: ProductService,
     private breadcrumbsService:BreadcrumbsService,
     public utils: UtilsService
   ) { }
@@ -37,7 +33,7 @@ export class UpdateTickerComponent implements OnInit {
   ngOnInit() {
 
           /*BreadCrumb*/
-          let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Tickers' , url: 'tickers', params: []},
+          let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Products' , url: 'products', params: []},
           {label: 'Update' , url: 'update', params: []}];
         this.utils.changeBreadCrumb(bcList);
         this.utils.currentBSource.subscribe(list => {
@@ -51,20 +47,20 @@ export class UpdateTickerComponent implements OnInit {
     this.routeSub = this.route.params
       .subscribe(params => {
         this.id = params['id'];
-        this._getTicker();
+        this._getProduct();
       });
   }
 
 
-  private _getTicker() {
+  private _getProduct() {
     this.loading = true;
     // GET event by ID
-    this.tickerSub = this._tickerapi
+    this.productSub = this._productapi
       .getUserById$(this.id)
       .subscribe(
         res => {
           if(res.success){
-            this.ticker = res.data; 
+            this.product = res.data; 
           }          
           this.loading = false;
         },
@@ -77,8 +73,7 @@ export class UpdateTickerComponent implements OnInit {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
-    //this.tabSub.unsubscribe();
-    this.tickerSub.unsubscribe();
+    this.productSub.unsubscribe();
   }
 
 }

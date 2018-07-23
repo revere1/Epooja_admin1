@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { TickersComponent } from './products/products.component';
+import { ProductsComponent } from './products/products.component';
 import { AnalystsComponent } from './analysts/analysts.component';
 import { ClientsComponent } from './clients/clients.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
@@ -14,13 +14,13 @@ import { UpdateClientComponent } from './clients/update-client/update-client.com
 import { ViewClientComponent } from './clients/view-client/view-client.component';
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
 import { ClientFormService } from '../services/clients/client-form.service';
-import { CreateTickerComponent } from './products/create-product/create-product.component';
-import { UpdateTickerComponent } from './products/update-product/update-product.component';
-import { ViewTickerComponent } from './products/view-product/view-product.component';
-import { TickersListComponent } from './products/products-list/products-list.component';
-import { TickerFormService } from '../services/tickers/ticker-form.service';
-import { TickerFormComponent } from './products/product-form/product-form.component';
-import { TickerService } from '../services/ticker.service';
+import { CreateProductComponent } from './products/create-product/create-product.component';
+import { UpdateProductComponent } from './products/update-product/update-product.component';
+import { ViewProductComponent } from './products/view-product/view-product.component';
+import { ProductsListComponent } from './products/products-list/products-list.component';
+import { ProductFormService } from '../services/tickers/product-form.service';
+import { ProductFormComponent } from './products/product-form/product-form.component';
+import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';
 import { CategoriesService } from '../services/categories.service';
 import { SubsectorsService } from '../services/subsectors.service';
@@ -91,6 +91,7 @@ import { MacroTypeService } from '../services/macrotype.service';
 import { PrivillegesComponent } from './clients/privilleges/privilleges.component';
 import { CompanyFormService } from '../services/company_details/company-form.service';
 import { CompanyService } from '../services/company.service';
+import { DropzoneModule } from '../../../node_modules/ngx-dropzone-wrapper';
 
 @NgModule({
   imports: [
@@ -99,6 +100,7 @@ import { CompanyService } from '../services/company.service';
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule,
+    DropzoneModule,
     //HttpModule,
     RepeatModule,
     NgxChartsModule,
@@ -109,7 +111,7 @@ import { CompanyService } from '../services/company.service';
   ],
   declarations: [
       DashboardComponent, 
-      TickersComponent, 
+      ProductsComponent, 
       AnalystsComponent,
       ClientsComponent,
       AdminLayoutComponent, 
@@ -118,11 +120,11 @@ import { CompanyService } from '../services/company.service';
       ViewClientComponent, 
       ClientsListComponent,
       ClientFormComponent,
-      CreateTickerComponent, 
-      UpdateTickerComponent, 
-      ViewTickerComponent, 
-      TickersListComponent,
-      TickerFormComponent,
+      CreateProductComponent, 
+      UpdateProductComponent, 
+      ViewProductComponent, 
+      ProductsListComponent,
+      ProductFormComponent,
       StatesComponent,
       StatesFormComponent,
       StatesListComponent,
@@ -158,10 +160,10 @@ import { CompanyService } from '../services/company.service';
   providers: [
       ScriptService,
       ClientFormService,
-      TickerFormService,
+      ProductFormService,
       CompanyFormService,
       UserService,
-      TickerService,
+      ProductService,
       CompanyService,
       CategoriesService,
       SubsectorsService,

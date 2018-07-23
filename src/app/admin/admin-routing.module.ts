@@ -9,10 +9,10 @@ import { ClientsListComponent } from './clients/clients-list/clients-list.compon
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { TickersComponent } from './products/products.component';
-import { TickersListComponent } from './products/products-list/products-list.component';
-import { CreateTickerComponent } from './products/create-product/create-product.component';
-import { UpdateTickerComponent } from './products/update-product/update-product.component';
-import { ViewTickerComponent } from './products/view-product/view-product.component';
+import { ProductsListComponent } from './products/products-list/products-list.component';
+import { CreateProductComponent } from './products/create-product/create-product.component';
+import { UpdateProductComponent } from './products/update-product/update-product.component';
+import { ViewProductComponent } from './products/view-product/view-product.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CreatecountriesComponent } from './countries/createcountries/createcountries.component';
 import { UpdatecountriesComponent } from './countries/updatecountries/updatecountries.component';
@@ -93,21 +93,21 @@ const AdminRoutes: Routes = [
           breadcrumb: 'Tickers'
         },
         children: [
-          { path: '', component: TickersListComponent },
+          { path: '', component: ProductsListComponent },
           {
-            path: 'create', component: CreateTickerComponent,
+            path: 'create', component: CreateProductComponent,
             data: {
               breadcrumb: 'Create'
             }
           },
           {
-            path: 'update/:id', component: UpdateTickerComponent,
+            path: 'update/:id', component: UpdateProductComponent,
             data: {
               breadcrumb: 'Update'
             }
           },
           {
-            path: 'view/:id', component: ViewTickerComponent,
+            path: 'view/:id', component: ViewProductComponent,
             data: {
               breadcrumb: 'View'
             }

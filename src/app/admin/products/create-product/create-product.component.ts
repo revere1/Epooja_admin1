@@ -8,7 +8,7 @@ import { UtilsService } from '../../../services/utils.service';
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.css']
 })
-export class CreateTickerComponent implements OnInit {
+export class CreateProductComponent implements OnInit {
 
   pageTitle = 'Create Event';
   public bcList :IBreadcrumb[];
@@ -18,7 +18,7 @@ export class CreateTickerComponent implements OnInit {
 
   ngOnInit() {
        /*BreadCrumb*/
-       let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Tickers' , url: 'tickers', params: []},
+       let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Products' , url: 'products', params: []},
        {label: 'Create' , url: 'create', params: []}];
      this._utils.changeBreadCrumb(bcList);
      this._utils.currentBSource.subscribe(list => {

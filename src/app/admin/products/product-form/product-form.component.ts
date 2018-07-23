@@ -2,12 +2,15 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
-import { TickerFormService } from '../../../services/tickers/ticker-form.service';
-import { TickerService } from '../../../services/ticker.service';
-import { TickerModel, FormTickerModel } from '../../../models/ticker.model';
+import { ProductFormService } from '../../../services/tickers/product-form.service';
+import { ProductService } from '../../../services/product.service';
+import { ProductModel, FormProductModel } from '../../../models/product.model';
 import { Subscription } from 'rxjs/Subscription';
 import { CategoriesService } from '../../../services/categories.service';
 import { CountriesService } from '../../../services/countries.service';
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { ENV } from '../../../env.config';
 declare var $: any;
 
 @Component({
@@ -15,30 +18,34 @@ declare var $: any;
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.css']
 })
-export class TickerFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit {
 
-  @Input() event: TickerModel;
+  @Input() event: ProductModel;
   isEdit: boolean;
-  tickerForm: FormGroup;
+  productForm: FormGroup;
+  apiEvents = [];
   // Model storing initial form values
-  formEvent: FormTickerModel;
+  formEvent: FormProductModel;
   // Form validation and disabled logic
   formErrors: any;
   formChangeSub: Subscription;
   // Form submission
-  submitEventObj: TickerModel;
+  submitEventObj: ProductModel;
   submitting: boolean;
   submitEventSub: Subscription;
   error: boolean;
   submitBtnText: string;
   sectors: Object[];
   countries: Object[];
-
+  uploadFilesObj = {};
+  uploadFiles = [];
+  canRemove: boolean = true;
+  public config: DropzoneConfigInterface = {};
 
   constructor(private fb: FormBuilder,
     private router: Router,
-    public cf: TickerFormService,
-    private _tickerapi: TickerService,
+    public cf: ProductFormService,
+    private _productapi: ProductService,
     private _sectorService: CategoriesService,
     private _countriesrService: CountriesService,
     public toastr: ToastsManager
@@ -47,7 +54,7 @@ export class TickerFormComponent implements OnInit {
   ngOnInit() {
     $(document).ready(() => {
       let _that = this;
-      $('#about').summernote({
+      $('#product_description').summernote({
         // callbacks: {
         //   onImageUpload: function (files) {
         //     _that.uploadFile(files, this);
@@ -62,7 +69,7 @@ export class TickerFormComponent implements OnInit {
     this.formEvent = this._setFormEvent();
     this._buildForm();
     //Fetch sectors
-    this._sectorService.getSector$().subscribe(data => {
+    this._sectorService.getCategory$().subscribe(data => {
       if (data.success === false) {
       } else {
         this.sectors = data.data;
@@ -75,6 +82,47 @@ export class TickerFormComponent implements OnInit {
         this.countries = data.data;
       }
     });
+    let that = this;
+    this.config = {
+      url: ENV.BASE_API + 'lockers/path?token=' + this._productapi.getToken(),
+      maxFiles: ENV.LOCKER_MAX_FILES,
+      clickable: true,
+      createImageThumbnails: true,
+      addRemoveLinks: true,
+      init: function () {
+        let drop = this;
+        this.on('removedfile', function (file) {
+          /*If reupload already existed file, don t delet the file if max lik=mit crossed error uploaded*/
+          if (file.status === 'error') {
+            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
+            if (index > -1) {
+              return false;
+            }
+          }
+          /*end*/
+          if (that.canRemove) {
+            //Removing values from array which are existing in uploadFiles variable         
+            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
+            if (index > -1) {
+              if (that.uploadFiles.length === ENV.LOCKER_MAX_FILES) {
+                that.formErrors['files'] = '';
+                that._setErrMsgs(that.productForm.get('files'), that.formErrors, 'files');
+              }
+              (that.uploadFiles).splice(index, 1);
+              that.removeFile(that.uploadFilesObj[file.upload.uuid]);
+              delete that.uploadFilesObj[file.upload.uuid];
+            }
+          }
+        });
+        this.on('error', function (file, errorMessage) {
+
+          drop.removeFile(file);
+        });
+        this.on('success', function (file) {
+          $('.btn-group').addClass('open');
+        });
+      }
+    };
   }
   // uploadFile(files, editor) {
   //   {
@@ -93,40 +141,23 @@ export class TickerFormComponent implements OnInit {
   // }
   private _buildForm() {
     let validRules = {
-      name: [this.formEvent.name, [
+      product_name: [this.formEvent.product_name, [
         Validators.required
       ]],
-      company: [this.formEvent.company, [
-        Validators.required
-      ]],
-      industry: [this.formEvent.industry,
+      category_id: [this.formEvent.category_id,
       Validators.required
       ],
-      sectorId: [this.formEvent.sectorId,
-      Validators.required
-      ],
-      company_url: [this.formEvent.company_url],
-      countryId: [this.formEvent.countryId],
-      listing_exchange: [this.formEvent.listing_exchange,
-      Validators.required
-      ],
-      currency: [this.formEvent.currency],
-      market_cap: [this.formEvent.market_cap,
-      Validators.required, Validators.pattern["0-9*"]],
-      share_in_issue: [this.formEvent.share_in_issue, Validators.required, Validators.pattern["0-9*"]
-      ],
-      fiftytwo_week_high: [this.formEvent.fiftytwo_week_high, Validators.pattern["0-9*"]],
-      fiftytwo_week_low: [this.formEvent.fiftytwo_week_low, Validators.pattern["0-9*"]],
-      avg_volume: [this.formEvent.avg_volume, Validators.pattern["0-9*"]],
-      about: [this.formEvent.about, [
+      subcategory_id: [this.formEvent.subcategory_id],
+      product_description: [this.formEvent.product_description, [
         // Validators.required
       ]],
-
+      cost: [this.formEvent.cost, Validators.pattern["0-9*"]],
+      quatity: [this.formEvent.quatity, Validators.pattern["0-9*"]],
     };
-    this.tickerForm = this.fb.group(validRules);
+    this.productForm = this.fb.group(validRules);
 
     // Subscribe to form value changes
-    this.formChangeSub = this.tickerForm
+    this.formChangeSub = this.productForm
       .valueChanges
       .subscribe(data => this._onValueChanged());
     // If edit: mark fields dirty to trigger immediate
@@ -140,17 +171,17 @@ export class TickerFormComponent implements OnInit {
           }
         }
       };
-      _markDirty(this.tickerForm);
+      _markDirty(this.productForm);
     }
     this._onValueChanged();
   }
   private _onValueChanged() {
-    if (!this.tickerForm) { return; }
+    if (!this.productForm) { return; }
     // Check validation and set errors
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
         this.formErrors[field] = '';
-        this._setErrMsgs(this.tickerForm.get(field), this.formErrors, field);
+        this._setErrMsgs(this.productForm.get(field), this.formErrors, field);
       }
     }
   }
@@ -165,32 +196,49 @@ export class TickerFormComponent implements OnInit {
     }
   };
 
+  public onUploadSuccess(eve) {
+    if ((eve[1].success !== undefined) && eve[1].success) {
+      this.formErrors['files'] = '';
+      Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
+      (this.uploadFiles).push(eve[1].data);
+    }
+    else {
+      this.formErrors['files'] = 'Something Went Wrong';
+    }
+    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
+  }
+
+  public onUploadError(eve) {
+    this.formErrors['files'] = eve[1];
+    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
+  }
+  private removeFile(file) {
+    let apiEvent = this._productapi.removeFile(file).subscribe(
+      data => {
+        this._handleSubmitSuccess(data);
+      },
+      err => this._handleSubmitError(err)
+    );
+    (this.apiEvents).push(apiEvent);
+  }
   private _setFormEvent() {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormTickerModel(null,null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      return new FormProductModel(null,null, null, null, null, null,[]);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
 
-      return new FormTickerModel(
-        this.event.name,
-        this.event.company,
-        this.event.industry,
-        this.event.sectorId,
-        this.event.countryId,
-        this.event.company_url,
-        this.event.listing_exchange,
-        this.event.currency,
-        this.event.market_cap,
-        this.event.share_in_issue,
-        this.event.fiftytwo_week_high,
-        this.event.fiftytwo_week_low,
-        this.event.avg_volume,
-        this.event.about,
-        this.event.createdBy,
-        this.event.updatedBy
+      return new FormProductModel(
+        this.event.product_name,
+        this.event.category_id,
+        this.event.subcategory_id,
+        this.event.product_description,
+        this.event.cost,
+        this.event.quatity,
+        this.event.files,
+      
       );
     }
   }
@@ -201,49 +249,41 @@ export class TickerFormComponent implements OnInit {
 
     // Convert form startDate/startTime and endDate/endTime
     // to JS dates and populate a new EventModel for submission
-    return new TickerModel(
-      this.tickerForm.get('name').value,
-      this.tickerForm.get('company').value,
-      this.tickerForm.get('industry').value,
-      this.tickerForm.get('sectorId').value,
-      this.tickerForm.get('countryId').value,
-      this.tickerForm.get('company_url').value,
-      this.tickerForm.get('listing_exchange').value,
-      this.tickerForm.get('currency').value,
-      this.tickerForm.get('market_cap').value,
-      this.tickerForm.get('share_in_issue').value,
-      this.tickerForm.get('fiftytwo_week_high').value,
-      this.tickerForm.get('fiftytwo_week_low').value,
-      this.tickerForm.get('avg_volume').value,
-      $('#about').summernote('code'),
-      this.event ? this.event.createdBy : currentUser.user.userid,
-      currentUser.user.userid,
+    return new ProductModel(
+      this.productForm.get('product_name').value,
+      this.productForm.get('category_id').value,
+      this.productForm.get('subcategory_id').value,
+      $('#product_description').summernote('code'),
+      this.productForm.get('cost').value,
+      this.productForm.get('quatity').value,
+      this.event ? this.event.files : this.uploadFiles,
       this.event ? this.event.id : null
     );
   }
 
   saveClient() {
-    if ($('#about').summernote('isEmpty')) {
-      this.formErrors['about'] = this.cf.validationMessages['about'].required;
-      this._setErrMsgs(this.tickerForm.get('about'), this.formErrors, 'about');
+    if ($('#product_description').summernote('isEmpty')) {
+      this.formErrors['product_description'] = this.cf.validationMessages['product_description'].required;
+      this._setErrMsgs(this.productForm.get('product_description'), this.formErrors, 'product_description');
       return false;
     }
     else {
       this.formErrors['summary'] = '';
-      this._setErrMsgs(this.tickerForm.get('about'), this.formErrors, 'about');
+      this._setErrMsgs(this.productForm.get('product_description'), this.formErrors, 'product_description');
     }
 
     this.submitting = true;
     this.submitEventObj = this._getSubmitObj();
+    console.log(this.submitEventObj);
     if (!this.isEdit) {
-      this.submitEventSub = this._tickerapi
+      this.submitEventSub = this._productapi
         .postEvent$(this.submitEventObj)
         .subscribe(
           data => this._handleSubmitSuccess(data),
           err => this._handleSubmitError(err)
         );
     } else {
-      this.submitEventSub = this._tickerapi
+      this.submitEventSub = this._productapi
         .editEvent$(this.event.id, this.submitEventObj)
         .subscribe(
           data => this._handleSubmitSuccess(data),
@@ -271,7 +311,7 @@ export class TickerFormComponent implements OnInit {
     this.error = true;
   };
   resetForm() {
-    this.tickerForm.reset();
+    this.productForm.reset();
   };
 
   ngOnDestroy() {

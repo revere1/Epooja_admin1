@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { ENV } from '../../../env.config';
-import { TickerService } from '../../../services/ticker.service';
+import { ProductService } from '../../../services/product.service';
 //import { setTimeout } from 'timers';
 import { UtilsService } from '../../../services/utils.service';
 import { ToastsManager } from 'ng2-toastr';
@@ -11,8 +11,8 @@ import { Angular2Csv } from 'angular2-csv';
 import { BreadcrumbsService,IBreadcrumb} from 'ng2-breadcrumbs';
 
 
-class Ticker {
-  name: string;
+class Product {
+  product_name: string;
   company: string;
   industry: string;
   sector: string;
@@ -31,28 +31,28 @@ class DataTablesResponse {
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.css']
 })
-export class TickersListComponent implements OnInit {
+export class ProductsListComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   private allItems: {};
-  tickers: Ticker[];
+  products: Product[];
   error: boolean;
   apiEvents = [];
   submit : boolean = false;
   public bcList :IBreadcrumb[];
   constructor(private http: HttpClient,
     private router: Router,
-    private _tickerApi: TickerService,
+    private _productApi: ProductService,
     private _utils: UtilsService,
     private breadcrumbsService:BreadcrumbsService,
     private meta: Meta,
     public toastr: ToastsManager) {
-    this.meta.addTag({ name: 'description', content: 'All the list of tickers' });
+    this.meta.addTag({ name: 'description', content: 'All the list of products' });
     this.meta.addTag({ name: 'author', content: ENV.AUTHOR });
-    this.meta.addTag({ name: 'keywords', content: 'tickers, revere, equity' });
+    this.meta.addTag({ name: 'keywords', content: 'products, revere, equity' });
   }
   ngOnInit(): void {
-    this.bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Tickers' , url: 'tickers', params: []}];
+    this.bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Products' , url: 'products', params: []}];
     this._utils.changeBreadCrumb(this.bcList);
     this._utils.currentBSource.subscribe(list => {
       this.breadcrumbsService.store(list);
@@ -65,9 +65,9 @@ export class TickersListComponent implements OnInit {
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
         var myEfficientFn = this._utils.debounce(() => {
-          let apiEvent = this._tickerApi.filterTickers$(dataTablesParameters, 'filterTickers')
+          let apiEvent = this._productApi.filterProducts$(dataTablesParameters, 'filterProducts')
             .subscribe(resp => {
-              that.tickers = resp.data;
+              that.products = resp.data;
               that.submit = true;
               callback({
                 recordsTotal: resp.recordsTotal,
@@ -81,33 +81,32 @@ export class TickersListComponent implements OnInit {
       },
 
       columns: [
-        { data: 'name' },
-        { data: 'company' },
-        { data: 'countryId' },
-        { data: 'industry' },
-        { data: 'sectorId' },
-        { data: 'createdBy' },
-        // { data: 'updatedBy' },
-        { data: 'market_cap' },
+        { data: 'product_name' },
+        // { data: 'product_description' },
+        { data: 'cost' },
+        { data: 'quatity' },
+        { data: 'category_id' },
+        { data: 'subcategory_id' },
         { data: 'id' }
       ]
     };
   }
   download() {
-    this._tickerApi.gettickers$()
+    this._productApi.getproducts$()
       .subscribe(data => {
         //API data
-        this.allItems = this.tickers;
+        this.allItems = this.products;
+        console.log(this.allItems)
         var options = {
-          headers: ['ID', 'Name', 'Company', 'Industry', 'Market_cap', 'Sector',
+          headers: ['ID', 'Product_name', 'Product_description', 'Cost', 'Quatity', 'Category_name','Subcategory_name',
             'Country', 'CreatedBy']};
-        new Angular2Csv(this.allItems, 'TickersList', options);
+        new Angular2Csv(this.allItems, 'ProductsList', options);
       });
   }
-  deleteTicker(id: number) {
+  deleteProduct(id: number) {
     var delmsg = confirm("Are u Sure Want to delete?");
     if (delmsg) {
-      let apiEvent = this._tickerApi.deleteTickerById$(id)
+      let apiEvent = this._productApi.deleteProductById$(id)
         .subscribe(
           data => this._handleSubmitSuccess(data),
           err => this._handleSubmitError(err)
@@ -120,8 +119,8 @@ export class TickersListComponent implements OnInit {
     // Redirect to event detail
     if (res.success) {
       this.toastr.success(res.message, 'Success');
-      let pos = this.tickers.map(function (e) { return e.id; }).indexOf(id);
-      this.tickers.splice(pos, 1);
+      let pos = this.products.map(function (e) { return e.id; }).indexOf(id);
+      this.products.splice(pos, 1);
     }
     else {
       this.toastr.error(res.message, 'Invalid');
