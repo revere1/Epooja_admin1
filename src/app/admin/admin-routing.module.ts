@@ -9,10 +9,10 @@ import { ClientsListComponent } from './clients/clients-list/clients-list.compon
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { TickersComponent } from './products/products.component';
-import { TickersListComponent } from './products/products-list/tickers-list.component';
-import { CreateTickerComponent } from './products/create-product/create-ticker.component';
-import { UpdateTickerComponent } from './products/update-product/update-ticker.component';
-import { ViewTickerComponent } from './products/view-product/view-ticker.component';
+import { TickersListComponent } from './products/products-list/products-list.component';
+import { CreateTickerComponent } from './products/create-product/create-product.component';
+import { UpdateTickerComponent } from './products/update-product/update-product.component';
+import { ViewTickerComponent } from './products/view-product/view-product.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CreatecountriesComponent } from './countries/createcountries/createcountries.component';
 import { UpdatecountriesComponent } from './countries/updatecountries/updatecountries.component';

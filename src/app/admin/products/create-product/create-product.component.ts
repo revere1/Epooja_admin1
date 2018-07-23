@@ -4,9 +4,9 @@ import { BreadcrumbsService,IBreadcrumb} from 'ng2-breadcrumbs';
 import { UtilsService } from '../../../services/utils.service';
 
 @Component({
-  selector: 'app-create-ticker',
-  templateUrl: './create-ticker.component.html',
-  styleUrls: ['./create-ticker.component.css']
+  selector: 'app-create-product',
+  templateUrl: './create-product.component.html',
+  styleUrls: ['./create-product.component.css']
 })
 export class CreateTickerComponent implements OnInit {
 

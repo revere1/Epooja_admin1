@@ -27,9 +27,9 @@ class DataTablesResponse {
 }
 
 @Component({
-  selector: 'app-tickers-list',
-  templateUrl: './tickers-list.component.html',
-  styleUrls: ['./tickers-list.component.css']
+  selector: 'app-products-list',
+  templateUrl: './products-list.component.html',
+  styleUrls: ['./products-list.component.css']
 })
 export class TickersListComponent implements OnInit {
 

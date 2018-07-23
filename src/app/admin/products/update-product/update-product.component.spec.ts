@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpdateTickerComponent } from './update-ticker.component';
+import { UpdateTickerComponent } from './update-product.component';
 
 describe('UpdateTickerComponent', () => {
   let component: UpdateTickerComponent;

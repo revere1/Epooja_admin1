@@ -14,12 +14,12 @@ import { UpdateClientComponent } from './clients/update-client/update-client.com
 import { ViewClientComponent } from './clients/view-client/view-client.component';
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
 import { ClientFormService } from '../services/clients/client-form.service';
-import { CreateTickerComponent } from './products/create-product/create-ticker.component';
-import { UpdateTickerComponent } from './products/update-product/update-ticker.component';
-import { ViewTickerComponent } from './products/view-product/view-ticker.component';
-import { TickersListComponent } from './products/products-list/tickers-list.component';
+import { CreateTickerComponent } from './products/create-product/create-product.component';
+import { UpdateTickerComponent } from './products/update-product/update-product.component';
+import { ViewTickerComponent } from './products/view-product/view-product.component';
+import { TickersListComponent } from './products/products-list/products-list.component';
 import { TickerFormService } from '../services/tickers/ticker-form.service';
-import { TickerFormComponent } from './products/product-form/ticker-form.component';
+import { TickerFormComponent } from './products/product-form/product-form.component';
 import { TickerService } from '../services/ticker.service';
 import { UserService } from '../services/user.service';
 import { SectorsService } from '../services/sectors.service';

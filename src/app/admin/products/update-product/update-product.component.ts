@@ -12,9 +12,9 @@ import { TickerModel } from '../../../models/ticker.model';
 import { BreadcrumbsService } from 'ng2-breadcrumbs';
 
 @Component({
-  selector: 'app-update-ticker',
-  templateUrl: './update-ticker.component.html',
-  styleUrls: ['./update-ticker.component.css']
+  selector: 'app-update-product',
+  templateUrl: './update-product.component.html',
+  styleUrls: ['./update-product.component.css']
 })
 export class UpdateTickerComponent implements OnInit {
 

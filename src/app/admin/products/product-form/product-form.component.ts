@@ -11,9 +11,9 @@ import { CountriesService } from '../../../services/countries.service';
 declare var $: any;
 
 @Component({
-  selector: 'app-ticker-form',
-  templateUrl: './ticker-form.component.html',
-  styleUrls: ['./ticker-form.component.css']
+  selector: 'app-product-form',
+  templateUrl: './product-form.component.html',
+  styleUrls: ['./product-form.component.css']
 })
 export class TickerFormComponent implements OnInit {
 

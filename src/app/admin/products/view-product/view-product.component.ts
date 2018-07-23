@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-view-ticker',
-  templateUrl: './view-ticker.component.html',
-  styleUrls: ['./view-ticker.component.css']
+  selector: 'app-view-product',
+  templateUrl: './view-product.component.html',
+  styleUrls: ['./view-product.component.css']
 })
 export class ViewTickerComponent implements OnInit {
 

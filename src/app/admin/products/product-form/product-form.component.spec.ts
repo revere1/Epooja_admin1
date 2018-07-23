@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateTickerComponent } from './create-ticker.component';
+import { TickerFormComponent } from './product-form.component';
 
-describe('CreateTickerComponent', () => {
-  let component: CreateTickerComponent;
-  let fixture: ComponentFixture<CreateTickerComponent>;
+describe('TickerFormComponent', () => {
+  let component: TickerFormComponent;
+  let fixture: ComponentFixture<TickerFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateTickerComponent ]
+      declarations: [ TickerFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateTickerComponent);
+    fixture = TestBed.createComponent(TickerFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

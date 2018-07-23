@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewTickerComponent } from './view-ticker.component';
+import { ViewTickerComponent } from './view-product.component';
 
 describe('ViewTickerComponent', () => {
   let component: ViewTickerComponent;
