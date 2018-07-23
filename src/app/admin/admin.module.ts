@@ -45,9 +45,9 @@ import { LockerFormService } from '../services/lockers/locker-form.service';
 import { LockersService } from '../services/lockers.service';
 
 
-import{SectorsComponent} from './categories/category.component';
+import{CategoriesComponent} from './categories/category.component';
 import {CreateSectorComponent} from './categories/create-category/create-category.component';
-import { UpdateSectorComponent} from './categories/update-category/update-category.component';
+import { UpdateCategoryComponent} from './categories/update-category/update-category.component';
 import {SectorsListComponent} from './categories/category-list/categories-list.component';
 import{SectorFormComponent} from './categories/category-form/category-form.component';
 import { CategoryFormService} from '../services/categories/category-form.service';
@@ -135,10 +135,10 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
       CreatecountriesComponent,
       UpdatecountriesComponent,
       CountriesFormComponent,
-      SectorsComponent,
+      CategoriesComponent,
       SectorsListComponent,
       CreateSectorComponent,
-      UpdateSectorComponent,
+      UpdateCategoryComponent,
       SectorFormComponent,
       SidebarComponent,
       SubCategoryComponent,

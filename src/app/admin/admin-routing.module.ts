@@ -22,9 +22,9 @@ import { StatesListComponent } from './states/states-list/states-list.component'
 import { CreateStatesComponent } from './states/create-states/create-states.component';
 import { UpdateStatesComponent } from './states/update-states/update-states.component';
 
-import { SectorsComponent } from './categories/category.component';
+import { CategoriesComponent } from './categories/category.component';
 import { CreateSectorComponent } from './categories/create-category/create-category.component';
-import { UpdateSectorComponent } from './categories/update-category/update-category.component';
+import { UpdateCategoryComponent } from './categories/update-category/update-category.component';
 import { SectorsListComponent } from './categories/category-list/categories-list.component';
 
 
@@ -206,7 +206,7 @@ const AdminRoutes: Routes = [
       },
 
       {
-        path: 'categories', component: SectorsComponent,
+        path: 'categories', component: CategoriesComponent,
         data: {
           breadcrumb: 'Categories'
         },
@@ -219,7 +219,7 @@ const AdminRoutes: Routes = [
             }
           },
           {
-            path: 'update/:id', component: UpdateSectorComponent,
+            path: 'update/:id', component: UpdateCategoryComponent,
             data: {
               breadcrumb: 'Update'
             }

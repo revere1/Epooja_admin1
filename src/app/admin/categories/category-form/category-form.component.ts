@@ -47,7 +47,8 @@ export class SectorFormComponent implements OnInit {
     private _categoryService: CategoriesService,
   ) {
     this.categoryForm = new FormGroup({
-      name: new FormControl(),
+      category_name: new FormControl(),
+      category_desc: new FormControl(),
       status: new FormControl()
     });
   }
@@ -139,7 +140,10 @@ export class SectorFormComponent implements OnInit {
   }
   private _buildForm() {
     let validRules = {
-      name: [this.formEvent.category_name, [
+      category_name: [this.formEvent.category_name, [
+        Validators.required
+      ]],
+      category_desc: [this.formEvent.category_desc, [
         Validators.required
       ]],
       status: [this.formEvent.status, [
@@ -182,7 +186,7 @@ export class SectorFormComponent implements OnInit {
       return new FormCategoriesModel(
         this.event.category_name,
         this.event.category_desc,
-        this.event.files,
+        this.event.path,
         this.event.status
         
 
@@ -226,13 +230,13 @@ export class SectorFormComponent implements OnInit {
 
     // Convert form startDate/startTime and endDate/endTime
     // to JS dates and populate a new EventModel for submission
-    // return new CategoriesModel(
-    //   this.sectorForm.get('category').value,
-    //   this.sectorForm.get('status').value,
-    //   this.event ? this.event.created_on : currentUser.user.userid,
-    //   currentUser.user.userid,
-    //   this.event ? this.event.id : null
-    // );
+    return new CategoriesModel(
+      this.categoryForm.get('category_name').value,
+      this.categoryForm.get('category_desc').value, 
+      this.event ? this.event.path : this.uploadFiles,     
+      this.categoryForm.get('status').value,
+      this.event ? this.event.id : null
+    );
   }
   private _handleSubmitSuccess(res) {
     this.error = false;
@@ -240,7 +244,7 @@ export class SectorFormComponent implements OnInit {
     // Redirect to event detail
     if (res.success) {
       this.toastr.success(res.message, 'Success');
-      this.router.navigate(['/admin/sectors']);
+      this.router.navigate(['/admin/categories']);
     }
     else {
       this.toastr.error(res.message, 'Invalid');
@@ -257,27 +261,27 @@ export class SectorFormComponent implements OnInit {
   saveCategory() {
     this.submitting = true;
 
-    // this.submitEventObj = this._getSubmitObj();
+    this.submitEventObj = this._getSubmitObj();
 
     if (!this.isEdit) {
 
-      // this.submitEventSub = this._sectorsService
-      //   .postEvent$(this.submitEventObj)
-      //   .subscribe(
-      //     data => this._handleSubmitSuccess(data),
-      //     err => this._handleSubmitError(err)
-      //   );
+      this.submitEventSub = this._categoryService
+        .postEvent$(this.submitEventObj)
+        .subscribe(
+          data => this._handleSubmitSuccess(data),
+          err => this._handleSubmitError(err)
+        );
 
     } else {
 
-      // this.submitEventSub = this._sectorsService
-      //   .editEvent$(this.event.id, this.submitEventObj)
-      //   .subscribe(
+      this.submitEventSub = this._categoryService
+        .editEvent$(this.event.id, this.submitEventObj)
+        .subscribe(
 
-      //     data => this._handleSubmitSuccess(data),
+          data => this._handleSubmitSuccess(data),
 
-      //     err => this._handleSubmitError(err)
-      //   );
+          err => this._handleSubmitError(err)
+        );
     }
   }
 }

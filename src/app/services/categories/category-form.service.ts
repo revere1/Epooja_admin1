@@ -6,21 +6,20 @@ export class CategoryFormService {
   validationMessages: any;
   // Set up errors object
   formErrors = {
-    name: '',
-    desc:'',
+    category_name: '',
+    category_desc:'',
     status: '',
-    createdBy:'',
-    updatedBy:'',
+   
  
   };
  
 
   constructor() {
     this.validationMessages = {
-      name: {
+      category_name: {
         required: `Category Name is <strong>required</strong>.`
       },
-      desc: {
+      category_desc: {
         required: `Category Description is <strong>required</strong>.`
       },
       status: {

@@ -14,16 +14,16 @@
     <div class="col-md-2"></div>
   <div class="col-md-8">
     <div class="form-group">
-      <label for="name">Category Name <span style="color:red;">*</span></label>
-      <input id="name" type="text" class="form-control" formControlName="name">
-      <span *ngIf="formErrors.name" class="small text-danger formErrors" [innerHTML]="formErrors.name">
+      <label for="category_name">Category Name <span style="color:red;">*</span></label>
+      <input id="category_name" type="text" class="form-control" formControlName="category_name">
+      <span *ngIf="formErrors.category_name" class="small text-danger formErrors" [innerHTML]="formErrors.category_name">
       </span>
     </div>
     <div class="form-group">
-      <label for="desc">Category Description <span style="color:red;">*</span></label>
+      <label for="category_desc">Category Description <span style="color:red;">*</span></label>
       
-      <textarea id="name" type="text" class="form-control" formControlName="desc"></textarea>
-      <span *ngIf="formErrors.desc" class="small text-danger formErrors" [innerHTML]="formErrors.desc">
+      <textarea id="category_desc" type="text" class="form-control" formControlName="category_desc"></textarea>
+      <span *ngIf="formErrors.category_desc" class="small text-danger formErrors" [innerHTML]="formErrors.category_desc">
       </span>
     </div>
     <div class="form-group">
