@@ -6,7 +6,7 @@ import { TickerFormService } from '../../../services/tickers/ticker-form.service
 import { TickerService } from '../../../services/ticker.service';
 import { TickerModel, FormTickerModel } from '../../../models/ticker.model';
 import { Subscription } from 'rxjs/Subscription';
-import { SectorsService } from '../../../services/sectors.service';
+import { CategoriesService } from '../../../services/categories.service';
 import { CountriesService } from '../../../services/countries.service';
 declare var $: any;
 
@@ -39,7 +39,7 @@ export class TickerFormComponent implements OnInit {
     private router: Router,
     public cf: TickerFormService,
     private _tickerapi: TickerService,
-    private _sectorService: SectorsService,
+    private _sectorService: CategoriesService,
     private _countriesrService: CountriesService,
     public toastr: ToastsManager
   ) { }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { Subscription } from 'rxjs/Subscription';
-import { SectorModel } from '../../../models/sector.model';
-import { SectorsService } from '../../../services/sectors.service';
+import {CategoriesModel } from '../../../models/categories.model';
+import { CategoriesService } from '../../../services/categories.service';
 import { ActivatedRoute } from '@angular/router';
 import { BreadcrumbsService } from 'ng2-breadcrumbs';
 
@@ -14,7 +14,7 @@ import { BreadcrumbsService } from 'ng2-breadcrumbs';
 })
 export class UpdateSectorComponent implements OnInit {
 
-  sectors : SectorModel;
+  sectors : CategoriesModel;
   private id: number;
   routeSub: Subscription;
   loading: boolean;
@@ -23,7 +23,7 @@ export class UpdateSectorComponent implements OnInit {
   
   
     constructor(  private route: ActivatedRoute,  
-                 private _sectorsapi: SectorsService,
+                 private _sectorsapi: CategoriesService,
                  private breadcrumbsService:BreadcrumbsService,
                   public utils: UtilsService) { }
   

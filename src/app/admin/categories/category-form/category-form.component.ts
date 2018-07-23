@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { SectorFormService } from '../../../services/sectors/sector-form.service';
-import { SectorModel, FormSectorModel } from '../../../models/sector.model';
+import { CategoriesModel, FormCategoriesModel } from '../../../models/categories.model';
 import { ToastsManager } from 'ng2-toastr';
-import { SectorsService } from '../../../services/sectors.service';
+import { CategoriesService } from '../../../services/categories.service';
 import { Router } from '@angular/router';
 import { SubsectorsService } from '../../../services/subsectors.service';
 
@@ -15,19 +15,19 @@ import { SubsectorsService } from '../../../services/subsectors.service';
 })
 export class SectorFormComponent implements OnInit {
 
-  @Input() event: SectorModel;
+  @Input() event: CategoriesModel;
 
   sectorForm: FormGroup;
   isEdit: boolean;
   //Modelstoringinitialformvalues
-  formEvent: FormSectorModel;
+  formEvent: FormCategoriesModel;
 
   //Formvalidationanddisabledlogic
   formErrors: any;
   formChangeSub: Subscription;
 
   //Formsubmission
-  submitEventObj: SectorModel;
+  submitEventObj: FormCategoriesModel;
   submitting: boolean;
   submitEventSub: Subscription;
   error: boolean;
@@ -41,7 +41,7 @@ export class SectorFormComponent implements OnInit {
     private _subsectorService: SubsectorsService,
     private router: Router,
     public toastr: ToastsManager,
-    private _sectorsService: SectorsService,
+    private _sectorsService: CategoriesModel,
   ) {
     this.sectorForm = new FormGroup({
       name: new FormControl(),
@@ -59,7 +59,7 @@ export class SectorFormComponent implements OnInit {
   }
   private _buildForm() {
     let validRules = {
-      name: [this.formEvent.name, [
+      name: [this.formEvent.category, [
         Validators.required
       ]],
       status: [this.formEvent.status, [
@@ -94,16 +94,18 @@ export class SectorFormComponent implements OnInit {
 
 
 
-      return new FormSectorModel(null, null, null, null);
+      return new FormCategoriesModel(null, null, null, null,null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
 
-      return new FormSectorModel(
-        this.event.name,
+      return new FormCategoriesModel(
+        this.event.category,
+        this.event.cat_desc,
+        this.event.cat_img,
         this.event.status,
-        this.event.createdBy,
-        this.event.updatedBy,
+        this.event.created_on
+        
 
       );
     }
@@ -142,13 +144,13 @@ export class SectorFormComponent implements OnInit {
 
     // Convert form startDate/startTime and endDate/endTime
     // to JS dates and populate a new EventModel for submission
-    return new SectorModel(
-      this.sectorForm.get('name').value,
-      this.sectorForm.get('status').value,
-      this.event ? this.event.createdBy : currentUser.user.userid,
-      currentUser.user.userid,
-      this.event ? this.event.id : null
-    );
+    // return new CategoriesModel(
+    //   this.sectorForm.get('category').value,
+    //   this.sectorForm.get('status').value,
+    //   this.event ? this.event.created_on : currentUser.user.userid,
+    //   currentUser.user.userid,
+    //   this.event ? this.event.id : null
+    // );
   }
   private _handleSubmitSuccess(res) {
     this.error = false;
@@ -169,33 +171,31 @@ export class SectorFormComponent implements OnInit {
     this.submitting = false;
     this.error = true;
   }
-  saveSector() {
 
-
-
+  saveCategory() {
     this.submitting = true;
 
-    this.submitEventObj = this._getSubmitObj();
+    // this.submitEventObj = this._getSubmitObj();
 
     if (!this.isEdit) {
 
-      this.submitEventSub = this._sectorsService
-        .postEvent$(this.submitEventObj)
-        .subscribe(
-          data => this._handleSubmitSuccess(data),
-          err => this._handleSubmitError(err)
-        );
+      // this.submitEventSub = this._sectorsService
+      //   .postEvent$(this.submitEventObj)
+      //   .subscribe(
+      //     data => this._handleSubmitSuccess(data),
+      //     err => this._handleSubmitError(err)
+      //   );
 
     } else {
 
-      this.submitEventSub = this._sectorsService
-        .editEvent$(this.event.id, this.submitEventObj)
-        .subscribe(
+      // this.submitEventSub = this._sectorsService
+      //   .editEvent$(this.event.id, this.submitEventObj)
+      //   .subscribe(
 
-          data => this._handleSubmitSuccess(data),
+      //     data => this._handleSubmitSuccess(data),
 
-          err => this._handleSubmitError(err)
-        );
+      //     err => this._handleSubmitError(err)
+      //   );
     }
   }
 }

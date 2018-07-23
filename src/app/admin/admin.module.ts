@@ -22,7 +22,7 @@ import { TickerFormService } from '../services/tickers/ticker-form.service';
 import { TickerFormComponent } from './products/product-form/product-form.component';
 import { TickerService } from '../services/ticker.service';
 import { UserService } from '../services/user.service';
-import { SectorsService } from '../services/sectors.service';
+import { CategoriesService } from '../services/categories.service';
 import { SubsectorsService } from '../services/subsectors.service';
 import { CountriesService } from '../services/countries.service';
 import { StatesService } from '../services/states.service';
@@ -163,7 +163,7 @@ import { CompanyService } from '../services/company.service';
       UserService,
       TickerService,
       CompanyService,
-      SectorsService,
+      CategoriesService,
       SubsectorsService,
       CountriesService,
       StatesService,

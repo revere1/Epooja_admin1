@@ -6,7 +6,7 @@ import { ClientFormService } from '../../../services/clients/client-form.service
 import { UserService } from '../../../services/user.service';
 import { ClientModel, FormClientModel } from '../../../models/client.model';
 import { Subscription } from 'rxjs/Subscription';
-import { SectorsService } from '../../../services/sectors.service';
+import { CategoriesService } from '../../../services/categories.service';
 import { SubsectorsService } from '../../../services/subsectors.service';
 import { CountriesService } from '../../../services/countries.service';
 import { StatesService } from '../../../services/states.service';
@@ -49,7 +49,7 @@ export class AnalystFormComponent implements OnInit {
     private router: Router,
     public cf: ClientFormService,
     private _userapi: UserService,
-    private _sectorService: SectorsService,
+    private _sectorService: CategoriesService,
     private _subsectorService: SubsectorsService,
     private _companyService:CompanyService,
     private _stateService: StatesService,

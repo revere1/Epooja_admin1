@@ -7,25 +7,25 @@
 <table datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered">
     <thead >
       <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <!-- <th>Created By</th>
-        <th>Updated By</th> -->
+        <th>Category</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Created On</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let sector of sectors">
-        <td>{{ sector.name }}</td>
-        <td>{{ sector.status }}</td>
-        <!-- <td>{{ sector.createdBy }}</td>
-        <td>{{ sector.updatedBy }}</td> -->
+      <tr *ngFor="let category of categories">
+        <td>{{category.category}}</td>
+        <td>{{category.cat_desc}}</td>
+        <td>{{category.cat_img}}</td>
+        <td>{{category.created_on}}</td>
         <td>
-            <a (click)="deletesector(sector.id)"><i class="fa fa-trash"></i></a> /
-            <a [routerLink]="['/admin/sectors/update',sector.id]"><i class="fa fa-pencil"></i></a> 
+            <a (click)="deletesector(category.id)"><i class="fa fa-trash"></i></a> /
+            <a [routerLink]="['/admin/category/update',category.id]"><i class="fa fa-pencil"></i></a> 
         </td>
       </tr>
-      <tr *ngIf="sectors?.length == 0">
+      <tr *ngIf="categories?.length == 0">
         <td colspan="3" class="no-data-available">No data!</td>
       </tr>
     </tbody>

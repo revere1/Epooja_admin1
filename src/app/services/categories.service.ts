@@ -4,10 +4,10 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { ENV } from '../env.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import { SectorModel } from '../models/sector.model';
+import { CategoriesModel } from '../models/categories.model';
 
 @Injectable()
-export class SectorsService {
+export class CategoriesService {
 
   private currentUser : any;
 
@@ -19,7 +19,7 @@ export class SectorsService {
   }
   
   // POST new event (admin only)
-  getSector$() {
+  getCategory$() {
     return this.http
       .get(`${ENV.BASE_API}sectors`, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
@@ -28,7 +28,7 @@ export class SectorsService {
   }
 
   // POST new event (admin only)
-  filterSectors$(filterInput,endPoint) {
+  filterCategories$(filterInput,endPoint) {
     return this.http
       .post(`${ENV.BASE_API}${endPoint}`, filterInput, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
@@ -36,26 +36,26 @@ export class SectorsService {
       .catch(this._handleError);
   }
 
-  deleteSectorById$(id:number):Observable<number>{
+  deleteCategoryById$(id:number):Observable<number>{
     return this.http
-    .delete(`${ENV.BASE_API}sectors/${id}`, {
+    .delete(`${ENV.BASE_API}categories/${id}`, {
       headers: new HttpHeaders().set('authorization', this._authHeader)
     })
     .catch(this._handleError);
   }
    // POST new event (admin only)
-   postEvent$(event: SectorModel): Observable<SectorModel> {
+   postEvent$(event: CategoriesModel): Observable<CategoriesModel> {
     return this.http
-      .post(`${ENV.BASE_API}sectors`, event, {
+      .post(`${ENV.BASE_API}categories`, event, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
 
   // PUT existing event (admin only)
-  editEvent$(id: number, event: SectorModel): Observable<SectorModel> {    
+  editEvent$(id: number, event: CategoriesModel): Observable<CategoriesModel> {    
     return this.http
-      .put(`${ENV.BASE_API}sectors/${id}`, event, {
+      .put(`${ENV.BASE_API}categories/${id}`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
@@ -64,7 +64,7 @@ export class SectorsService {
   //getSectorById$(id: number): Observable<SectorModel> {
     getSectorById$(id: number){
     return this.http
-      .get(`${ENV.BASE_API}sectors/${id}`, {
+      .get(`${ENV.BASE_API}categories/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);

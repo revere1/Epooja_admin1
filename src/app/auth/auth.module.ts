@@ -12,7 +12,7 @@ import { ClientFormService } from '../services/clients/client-form.service';
 import { ScriptService } from '../services/script.service';
 import { UtilsService } from '../services/utils.service';
 import { UserService } from '../services/user.service';
-import { SectorsService } from '../services/sectors.service';
+import { CategoriesService } from '../services/categories.service';
 import { SubsectorsService } from '../services/subsectors.service';
 import { StatesService } from '../services/states.service';
 import { CountriesService } from '../services/countries.service';
@@ -42,7 +42,7 @@ import { CompanyService } from '../services/company.service';
     DatePipe,
     ClientFormService,
     UserService,
-    SectorsService,
+    CategoriesService,
     SubsectorsService,
     StatesService,
     CountriesService,

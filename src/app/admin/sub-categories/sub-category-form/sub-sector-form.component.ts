@@ -4,7 +4,7 @@ import { SubSectorModel ,SubSectorsFormModel } from '../../../models/sub-sector.
 import { SubsectorsService } from '../../../services/subsectors.service';
 import { SubSectorFormService } from '../../../services/sub-sectors/sub-sector-form.service';
 import { Subscription } from 'rxjs/Subscription';
-import { SectorsService } from '../../../services/sectors.service';
+import { CategoriesService } from '../../../services/categories.service';
 import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 
@@ -38,7 +38,7 @@ export class SubSectorFormComponent implements OnInit {
     private fb: FormBuilder,
     private router : Router,
     private ssf : SubSectorFormService,
-    private _sectorsService: SectorsService,
+    private _sectorsService: CategoriesService,
     private _subSectorrService :SubsectorsService ,
     public toastr : ToastsManager) { 
     this.subSectorsForm = new FormGroup({

@@ -2,26 +2,28 @@ import { Component, OnInit,OnDestroy} from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { ENV } from '../../../env.config';
-import { SectorsService } from '../../../services/sectors.service';
+import { CategoriesService } from '../../../services/categories.service';
 import { UtilsService } from '../../../services/utils.service';
-import { SectorModel } from '../../../models/sector.model';
+import { CategoriesModel } from '../../../models/categories.model';
 import { ToastsManager } from 'ng2-toastr';
 import { Angular2Csv } from 'angular2-csv';
 import { BreadcrumbsService,IBreadcrumb} from 'ng2-breadcrumbs';
-class Sectors {
-  id: number;
-  name: string;
-  status: string;
-  createdBy : number 
-  updatedBy : number 
-}
+class Categories {
+                  id: number;
+                  category: string;
+                  cat_desc: string;
+                  cat_img : string;
+                  status : number;
+                  created_on : number; 
+                  updated_on : number; 
+                }
 
 class DataTablesResponse {
-  data: any[];
-  draw: number;
-  recordsFiltered: number;
-  recordsTotal: number;
-}
+                          data: any[];
+                          draw: number;
+                          recordsFiltered: number;
+                          recordsTotal: number;
+                        }
 @Component({
   selector: 'app-categories-list',
   templateUrl: './categories-list.component.html',
@@ -34,21 +36,21 @@ export class SectorsListComponent implements OnInit {
   error:boolean;
   apiEvents=[];
   public bcList :IBreadcrumb[];
-  sectors: Sectors[];
+  categories: Categories[];
   constructor(private http: HttpClient, 
-    private _sectorsService: SectorsService, 
+    private _categoriesService: CategoriesService, 
     private _utils: UtilsService,
     private breadcrumbsService:BreadcrumbsService,
     private meta: Meta,
     public toastr: ToastsManager) {
-      this.meta.addTag({ name: 'description', content: 'All the list of sectors' });
+      this.meta.addTag({ name: 'description', content: 'All the list of categories' });
       this.meta.addTag({ name: 'author', content: ENV.AUTHOR });
-      this.meta.addTag({ name: 'keywords', content: 'sectors, revere, equity' });
+      this.meta.addTag({ name: 'keywords', content: 'categories, epooja, equity' });
      }
 
   ngOnInit() {
 
-    this.bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Categories' , url: 'sectors', params: []}];
+    this.bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Categories' , url: 'categories', params: []}];
     this._utils.changeBreadCrumb(this.bcList);
     this._utils.currentBSource.subscribe(list => {
       this.breadcrumbsService.store(list);
@@ -61,9 +63,9 @@ export class SectorsListComponent implements OnInit {
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
         var myEfficientFn = this._utils.debounce(()=>{           
-           let apiEvent= this._sectorsService.filterSectors$(dataTablesParameters,'filterSectors')
+           let apiEvent= this._categoriesService.filterCategories$(dataTablesParameters,'filterCategories')
             .subscribe(resp => {
-              that.sectors = resp.data;  
+              that.categories = resp.data;  
               callback({
                 recordsTotal: resp.recordsTotal,
                 recordsFiltered: resp.recordsFiltered,
@@ -78,21 +80,20 @@ export class SectorsListComponent implements OnInit {
         
       },
       columns: [
-            { data: 'name' },
+            { data: 'category' },
+            { data: 'cat_desc' },
+            { data: 'cat_img' },
             { data: 'status' },
-            // { data: 'createdBy' },
-            // { data: 'updatedBy' },
+            { data: 'created_on' },
             { data: 'id' }
           ]
-        
-         
     };
   }
     download() {
-      this._sectorsService.getSector$()
+      this._categoriesService.getCategory$()
       .subscribe(data => {
       //API data
-      this.allItems =this.sectors;
+      this.allItems =this.categories;
     
        
       var options = { 
@@ -112,7 +113,7 @@ export class SectorsListComponent implements OnInit {
     var delmsg = confirm("Are u Sure Want to delete?");
     if(delmsg){
   
-    let apiEvent=this._sectorsService.deleteSectorById$(id)
+    let apiEvent=this._categoriesService.deleteCategoryById$(id)
     .subscribe(
       data => this._handleSubmitSuccess(data,id),
       err => this._handleSubmitError(err)
@@ -126,8 +127,8 @@ export class SectorsListComponent implements OnInit {
     // Redirect to event detail
     if(res.success){
       this.toastr.success(res.message,'Success');  
-      let pos = this.sectors.map(function(e) { return e.id; }).indexOf(id);
-      this.sectors.splice(pos, 1);
+      let pos = this.categories.map(function(e) { return e.id; }).indexOf(id);
+      this.categories.splice(pos, 1);
     }
     else{       
       this.toastr.error(res.message,'Invalid');  
