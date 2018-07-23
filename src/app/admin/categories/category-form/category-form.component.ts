@@ -1,13 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { SectorFormService } from '../../../services/sectors/sector-form.service';
+import { CategoryFormService } from '../../../services/categories/category-form.service';
 import { CategoriesModel, FormCategoriesModel } from '../../../models/categories.model';
 import { ToastsManager } from 'ng2-toastr';
 import { CategoriesService } from '../../../services/categories.service';
 import { Router } from '@angular/router';
 import { SubcategoriesService } from '../../../services/subcategories.service';
-
+import { DropzoneConfigInterface } from '../../../../../node_modules/ngx-dropzone-wrapper';
+import { ENV } from '../../../env.config';
+declare var $: any;
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
@@ -30,16 +32,19 @@ export class SectorFormComponent implements OnInit {
   submitEventSub: Subscription;
   error: boolean;
   submitBtnText: string;
-
-
+  apiEvents = [];
+  uploadFilesObj = {};
+  uploadFiles = [];
+  canRemove: boolean = true;
+  public config: DropzoneConfigInterface = {};
 
   constructor(
     private fb: FormBuilder,
-    public sc: SectorFormService,
+    public sc: CategoryFormService,
     private _subsectorService: SubcategoriesService,
     private router: Router,
     public toastr: ToastsManager,
-    private _sectorsService: CategoriesService,
+    private _categoryService: CategoriesService,
   ) {
     this.categoryForm = new FormGroup({
       name: new FormControl(),
@@ -54,6 +59,83 @@ export class SectorFormComponent implements OnInit {
 
     this.formEvent = this._setFormEvent();
     this._buildForm();
+    let that = this;
+    this.config = {
+      url: ENV.BASE_API + 'lockers/path?token=' + this._categoryService.getToken(),
+      maxFiles: ENV.LOCKER_MAX_FILES,
+      clickable: true,
+      createImageThumbnails: true,
+      addRemoveLinks: true,
+      init: function () {
+        let drop = this;
+        this.on('removedfile', function (file) {
+          /*If reupload already existed file, don t delet the file if max lik=mit crossed error uploaded*/
+          if (file.status === 'error') {
+            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
+            if (index > -1) {
+              return false;
+            }
+          }
+          /*end*/
+          if (that.canRemove) {
+            //Removing values from array which are existing in uploadFiles variable         
+            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
+            if (index > -1) {
+              if (that.uploadFiles.length === ENV.LOCKER_MAX_FILES) {
+                that.formErrors['files'] = '';
+                that._setErrMsgs(that.categoryForm.get('files'), that.formErrors, 'files');
+              }
+              (that.uploadFiles).splice(index, 1);
+              that.removeFile(that.uploadFilesObj[file.upload.uuid]);
+              delete that.uploadFilesObj[file.upload.uuid];
+            }
+          }
+        });
+        this.on('error', function (file, errorMessage) {
+
+          drop.removeFile(file);
+        });
+        this.on('success', function (file) {
+          $('.btn-group').addClass('open');
+        });
+      }
+    };
+  }
+  _setErrMsgs = (control: AbstractControl, errorsObj: any, field: string) => {
+    if (control && control.dirty && control.invalid) {
+      const messages = this.sc.validationMessages[field];
+      for (const key in control.errors) {
+        if (control.errors.hasOwnProperty(key)) {
+          errorsObj[field] += messages[key] + '<br>';
+        }
+      }
+    }
+  };
+
+  public onUploadSuccess(eve) {
+    if ((eve[1].success !== undefined) && eve[1].success) {
+      this.formErrors['files'] = '';
+      Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
+      (this.uploadFiles).push(eve[1].data);
+    }
+    else {
+      this.formErrors['files'] = 'Something Went Wrong';
+    }
+    this._setErrMsgs(this.categoryForm.get('files'), this.formErrors, 'files');
+  }
+
+  public onUploadError(eve) {
+    this.formErrors['files'] = eve[1];
+    this._setErrMsgs(this.categoryForm.get('files'), this.formErrors, 'files');
+  }
+  private removeFile(file) {
+    let apiEvent = this._categoryService.removeFile(file).subscribe(
+      data => {
+        this._handleSubmitSuccess(data);
+      },
+      err => this._handleSubmitError(err)
+    );
+    (this.apiEvents).push(apiEvent);
   }
   private _buildForm() {
     let validRules = {
@@ -92,7 +174,7 @@ export class SectorFormComponent implements OnInit {
 
 
 
-      return new FormCategoriesModel(null, null, null);
+      return new FormCategoriesModel(null, null, null,null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -100,7 +182,10 @@ export class SectorFormComponent implements OnInit {
       return new FormCategoriesModel(
         this.event.category_name,
         this.event.category_desc,
-        this.event.status,
+        this.event.files,
+        this.event.status
+        
+
        
         
 

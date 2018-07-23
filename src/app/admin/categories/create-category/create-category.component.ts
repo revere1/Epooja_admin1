@@ -18,7 +18,7 @@ export class CreateSectorComponent implements OnInit {
    
 
           /*BreadCrumb*/
-          let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Sectors' , url: 'sectors', params: []},
+          let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Categories' , url: 'categories', params: []},
           {label: 'Create' , url: 'create', params: []}];
         this._utils.changeBreadCrumb(bcList);
         this._utils.currentBSource.subscribe(list => {

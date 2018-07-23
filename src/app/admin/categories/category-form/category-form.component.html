@@ -3,7 +3,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
-               <b>Add Categories Form</b>
+               <b>Add Category</b>
             </h4>
         </div>
         <div class="panel-body">
@@ -11,7 +11,8 @@
         <span class="text-muted"><em><span style="color:red;">*</span> Indicates required field</em></span>
       </div>
 <div>
-  <div class="col-md-6">
+    <div class="col-md-2"></div>
+  <div class="col-md-8">
     <div class="form-group">
       <label for="name">Category Name <span style="color:red;">*</span></label>
       <input id="name" type="text" class="form-control" formControlName="name">
@@ -19,14 +20,20 @@
       </span>
     </div>
     <div class="form-group">
-      <label for="name">Image <span style="color:red;">*</span></label>
-      <input id="name" type="text" class="form-control" formControlName="name">
-      <span *ngIf="formErrors.name" class="small text-danger formErrors" [innerHTML]="formErrors.name">
+      <label for="desc">Category Description <span style="color:red;">*</span></label>
+      
+      <textarea id="name" type="text" class="form-control" formControlName="desc"></textarea>
+      <span *ngIf="formErrors.desc" class="small text-danger formErrors" [innerHTML]="formErrors.desc">
       </span>
     </div>
+    <div class="form-group">
+      <label>Choose Category Image:</label>
+      <dropzone class="" [config]="config" [message]="'Click or drag images here to upload'" (success)="onUploadSuccess($event)"
+          (error)="onUploadError($event)" (canceled)="cancelUpload($event)">
+      </dropzone>
+      <div *ngIf="formErrors.files" class="small text-danger formErrors" [innerHTML]="formErrors.files">
+      </div>
   </div>
-  <!-- Sector Status -->
-  <div class="col-md-6">
     <div class="form-group">
       <label for="sector">Status <span style="color:red;">*</span></label>
       <select id="status" class="form-control" formControlName="status">
@@ -53,6 +60,7 @@
     
       </div>
     </div>
+    <div class="col-md-2"></div>
 </div>
 
 </div>

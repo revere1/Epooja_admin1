@@ -264,15 +264,15 @@ const AdminRoutes: Routes = [
           breadcrumb: 'Admins'
         }, loadChildren: 'app/admin/management/management.module#ManagementModule'
       },
-      {
-        path: 'editoriers',
-        data: {
-          breadcrumb: 'Editoriers'
-        }, loadChildren: 'app/admin/editorier/editorier.module#EditorierModule'
-      },
+      // {
+      //   path: 'editoriers',
+      //   data: {
+      //     breadcrumb: 'Editoriers'
+      //   }, loadChildren: 'app/admin/editorier/editorier.module#EditorierModule'
+      // },
 
       { path: 'lockers', loadChildren: 'app/admin/lockers/lockers.module#LockersModule' },
-      { path: 'messages', loadChildren: 'app/admin/admin-messages/admin-messages.module#AdminMessagesModule' },
+      // { path: 'messages', loadChildren: 'app/admin/admin-messages/admin-messages.module#AdminMessagesModule' },
       { 
         path: 'help', data: {breadcrumb: 'Help'},
         loadChildren: 'app/admin/help-comments/help-comments.module#HelpCommentsModule' 
