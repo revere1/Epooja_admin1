@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <form [formGroup]="tickerForm" (ngSubmit)="saveClient()">
+  <form [formGroup]="productForm" (ngSubmit)="saveClient()">
       <div class="panel panel-default">                   
           <div class="panel-heading">
               <h4 class="panel-title">
@@ -16,16 +16,16 @@
             <!-- First Name -->
             <div class="col-md-6">
               <div class="form-group">
-                <label for="name"> Product Name <span style="color:red;">*</span></label>
+                <label for="product_name"> Product Name <span style="color:red;">*</span></label>
                 <input
-                  id="name"
+                  id="product_name"
                   type="text"
                   class="form-control"
-                  formControlName="name">
+                  formControlName="product_name">
                 <div
-                  *ngIf="formErrors.name"
+                  *ngIf="formErrors.product_name"
                   class="small text-danger formErrors"
-                  [innerHTML]="formErrors.name">
+                  [innerHTML]="formErrors.product_name">
                 </div>
               </div>
            
@@ -33,9 +33,9 @@
               <div class="form-group">
                 <label for="sectorId">Categories<span style="color:red;">*</span></label>
                 <select
-                  id="sectorId"
+                  id="category_id"
                   class="form-control"
-                  formControlName="sectorId" >
+                  formControlName="category_id" >
                   <option value=null selected>Select</option>
                   <option *ngFor="let sector of sectors" [value]="sector.id">
                     {{sector.name}}
@@ -50,9 +50,9 @@
               <div class="form-group">
                 <label for="countryId">Sub-Categories</label>
                 <select
-                  id="countryId"
+                  id="subcategory_id"
                   class="form-control"
-                  formControlName="countryId">
+                  formControlName="subcategory_id">
                   <option value=null selected>Select</option>
                   <option *ngFor="let country of countries" [value]="country.id">
                     {{country.name}}
@@ -71,11 +71,11 @@
                   type="text"
                   class="form-control"                 
                   pattern="^\d*\.?\d*$"
-                  formControlName="market_cap">
+                  formControlName="quatity">
                 <div
-                  *ngIf="formErrors.market_cap"
+                  *ngIf="formErrors.quatity"
                   class="small text-danger formErrors"
-                  [innerHTML]="formErrors.market_cap">
+                  [innerHTML]="formErrors.quatity">
                 </div>
               </div>
               <div class="form-group">
@@ -85,26 +85,34 @@
                   type="text"
                   class="form-control"
                   pattern="[0-9]*"
-                  formControlName="share_in_issue">
+                  formControlName="cost">
                 <div
-                  *ngIf="formErrors.share_in_issue"
+                  *ngIf="formErrors.cost"
                   class="small text-danger formErrors"
-                  [innerHTML]="formErrors.share_in_issue">
+                  [innerHTML]="formErrors.cost">
                 </div>
               </div>
+              <div class="form-group">
+                <label>Product Images:</label>
+                <dropzone class="" [config]="config" [message]="'Click or drag images here to upload'" (success)="onUploadSuccess($event)"
+                    (error)="onUploadError($event)" (canceled)="cancelUpload($event)">
+                </dropzone>
+                <div *ngIf="formErrors.files" class="small text-danger formErrors" [innerHTML]="formErrors.files">
+                </div>
+            </div>
             </div>
             <div class="col-md-6">
             </div>     
             <div class="form-group">
-              <label for="about">Product Description<span style="color:red;">*</span></label>
+              <label for="product_description">Product Description<span style="color:red;">*</span></label>
               <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-              <textarea id="about" 
+              <textarea id="product_description" 
                 class="form-control"
-                formControlName="about" ></textarea>
+                formControlName="product_description" ></textarea>
               <div
-                *ngIf="formErrors.about"
+                *ngIf="formErrors.product_description"
                 class="small text-danger formErrors"
-                [innerHTML]="formErrors.about">
+                [innerHTML]="formErrors.product_description">
               </div>
           </div>  
             <!-- Submit -->
@@ -112,7 +120,7 @@
               <button
                 type="submit"
                 class="btn btn-primary"
-                [attr.disabled]="tickerForm.invalid || submitting ? true : null"
+                [attr.disabled]="productForm.invalid || submitting ? true : null"
                 [innerText]="submitBtnText"></button>
               <app-submitting *ngIf="submitting"></app-submitting>
               <a

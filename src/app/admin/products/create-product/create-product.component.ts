@@ -18,7 +18,7 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit() {
        /*BreadCrumb*/
-       let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Products' , url: 'tickers', params: []},
+       let bcList = [{label: 'Home' , url: 'home', params: []},{label: 'Products' , url: 'products', params: []},
        {label: 'Create' , url: 'create', params: []}];
      this._utils.changeBreadCrumb(bcList);
      this._utils.currentBSource.subscribe(list => {

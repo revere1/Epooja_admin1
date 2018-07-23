@@ -1,21 +1,12 @@
 class ProductModel {
     constructor(
-      public name: string,
-      public company: string,
-      public industry : string,
-      public sectorId : number,
-      public countryId: number,      
-      public company_url: string, 
-      public listing_exchange: string,      
-      public currency : string, 
-      public market_cap: number,
-      public share_in_issue: number,
-      public fiftytwo_week_high: number,
-      public fiftytwo_week_low : number,
-      public avg_volume: number,
-      public about: string,
-      public createdBy:string,
-      public updatedBy:string,
+      public product_name: string,
+      public category_id : number,
+      public subcategory_id: number,       
+      public product_description: string,
+      public cost: string,
+      public quatity: number,
+      public files = [],
       public id?: number
       
     ) { }
@@ -23,23 +14,13 @@ class ProductModel {
   
   class FormProductModel {
     constructor(
-        public name: string,
-        public company: string,
-        public industry : string,
-        public sectorId : number,
-        public countryId: number,       
-        public company_url: string,
-        public listing_exchange: string,      
-        public currency : string,
-        public market_cap: number,
-        public share_in_issue: number,
-        public fiftytwo_week_high: number,
-        public fiftytwo_week_low : number,
-        public avg_volume: number,
-        public about: string,
-        public createdBy:string,
-        public updatedBy:string,
-    
+        public product_name: string,
+        public category_id : number,
+        public subcategory_id: number,       
+        public product_description: string,
+        public cost: string,
+        public quatity: number,
+        public files = [],
     ) { }
   }
   
