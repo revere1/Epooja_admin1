@@ -50,7 +50,7 @@ import {CreateSectorComponent} from './categories/create-category/create-categor
 import { UpdateSectorComponent} from './categories/update-category/update-category.component';
 import {SectorsListComponent} from './categories/category-list/categories-list.component';
 import{SectorFormComponent} from './categories/category-form/category-form.component';
-import { SectorFormService} from '../services/sectors/sector-form.service';
+import { CategoryFormService} from '../services/categories/category-form.service';
 import { SidebarComponent } from './widgets/sidebar/sidebar.component';
 //import { HttpModule } from '@angular/http';
 
@@ -173,7 +173,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
       DatePipe,
       CountriesFormService,
       StatesFormService,
-      SectorFormService,
+      CategoryFormService,
       SubSectorFormService,
       DashboardService,
       LockerFormService,
