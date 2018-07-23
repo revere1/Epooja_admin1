@@ -8,11 +8,11 @@ import { ViewClientComponent } from './clients/view-client/view-client.component
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { TickersComponent } from './tickers/tickers.component';
-import { TickersListComponent } from './tickers/tickers-list/tickers-list.component';
-import { CreateTickerComponent } from './tickers/create-ticker/create-ticker.component';
-import { UpdateTickerComponent } from './tickers/update-ticker/update-ticker.component';
-import { ViewTickerComponent } from './tickers/view-ticker/view-ticker.component';
+import { TickersComponent } from './products/products.component';
+import { TickersListComponent } from './products/products-list/tickers-list.component';
+import { CreateTickerComponent } from './products/create-product/create-ticker.component';
+import { UpdateTickerComponent } from './products/update-product/update-ticker.component';
+import { ViewTickerComponent } from './products/view-product/view-ticker.component';
 import { CountriesComponent } from './countries/countries.component';
 import { CreatecountriesComponent } from './countries/createcountries/createcountries.component';
 import { UpdatecountriesComponent } from './countries/updatecountries/updatecountries.component';
@@ -22,16 +22,16 @@ import { StatesListComponent } from './states/states-list/states-list.component'
 import { CreateStatesComponent } from './states/create-states/create-states.component';
 import { UpdateStatesComponent } from './states/update-states/update-states.component';
 
-import { SectorsComponent } from './sectors/sectors.component';
-import { CreateSectorComponent } from './sectors/create-sector/create-sector.component';
-import { UpdateSectorComponent } from './sectors/update-sector/update-sector.component';
-import { SectorsListComponent } from './sectors/sectors-list/sectors-list.component';
+import { SectorsComponent } from './categories/category.component';
+import { CreateSectorComponent } from './categories/create-category/create-category.component';
+import { UpdateSectorComponent } from './categories/update-category/update-category.component';
+import { SectorsListComponent } from './categories/category-list/categories-list.component';
 
 
-import { SubSectorComponent } from './sub-sector/sub-sector.component';
-import { CreateSubSectorComponent } from './sub-sector/create-sub-sector/create-sub-sector.component';
-import { UpdateSubSectorComponent } from './sub-sector/update-sub-sector/update-sub-sector.component';
-import { SubSectorListComponent } from './sub-sector/sub-sector-list/sub-sector-list.component';
+import { SubSectorComponent } from './sub-categories/sub-category.component';
+import { CreateSubSectorComponent } from './sub-categories/create-sub-category/create-sub-sector.component';
+import { UpdateSubSectorComponent } from './sub-categories/update-sub-category/update-sub-sector.component';
+import { SubSectorListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
 
 import { AnalystFormComponent } from './analysts/analyst-form/analyst-form.component';
 import { AnalystsListComponent } from './analysts/analysts-list/analysts-list.component';

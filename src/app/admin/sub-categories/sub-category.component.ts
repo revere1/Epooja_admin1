@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sub-sector',
-  templateUrl: './sub-sector.component.html',
-  styleUrls: ['./sub-sector.component.css']
+  selector: 'app-sub-category',
+  templateUrl: './sub-category.component.html',
+  styleUrls: ['./sub-category.component.css']
 })
 export class SubSectorComponent implements OnInit {
 

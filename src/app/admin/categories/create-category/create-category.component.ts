@@ -4,9 +4,9 @@ import { BreadcrumbsService,IBreadcrumb} from 'ng2-breadcrumbs';
 import { UtilsService } from '../../../services/utils.service';
 
 @Component({
-  selector: 'app-create-sector',
-  templateUrl: './create-sector.component.html',
-  styleUrls: ['./create-sector.component.css']
+  selector: 'app-create-category',
+  templateUrl: './create-category.component.html',
+  styleUrls: ['./create-category.component.css']
 })
 export class CreateSectorComponent implements OnInit {
   pageTitle = 'Create Event';

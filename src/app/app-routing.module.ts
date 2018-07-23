@@ -35,12 +35,12 @@ const routes: Routes = [
   //   data: { role: 2, breadcrumb: 'Home' },
   //   loadChildren: 'app/client/client.module#ClientModule'
   // },
-  {
-    path: 'analyst',
-    canActivate: [RoleGuard],
-    data: { role: 3, breadcrumb: 'Home' },
-    loadChildren: 'app/analyst/analyst.module#AnalystModule'
-  },
+  // {
+  //   path: 'analyst',
+  //   canActivate: [RoleGuard],
+  //   data: { role: 3, breadcrumb: 'Home' },
+  //   loadChildren: 'app/analyst/analyst.module#AnalystModule'
+  // },
   {
     path: 'editorier',
     canActivate: [RoleGuard],

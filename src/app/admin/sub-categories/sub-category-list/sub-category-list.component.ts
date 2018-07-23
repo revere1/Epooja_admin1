@@ -21,9 +21,9 @@ class DataTablesResponse {
   recordsTotal: number;
 }
 @Component({
-  selector: 'app-sub-sector-list',
-  templateUrl: './sub-sector-list.component.html',
-  styleUrls: ['./sub-sector-list.component.css']
+  selector: 'app-sub-category-list',
+  templateUrl: './sub-category-list.component.html',
+  styleUrls: ['./sub-category-list.component.css']
 })
 export class SubSectorListComponent implements OnInit {
 

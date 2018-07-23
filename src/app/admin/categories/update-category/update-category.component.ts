@@ -8,9 +8,9 @@ import { BreadcrumbsService } from 'ng2-breadcrumbs';
 
 
 @Component({
-  selector: 'app-update-sector',
-  templateUrl: './update-sector.component.html',
-  styleUrls: ['./update-sector.component.css']
+  selector: 'app-update-category',
+  templateUrl: './update-category.component.html',
+  styleUrls: ['./update-category.component.css']
 })
 export class UpdateSectorComponent implements OnInit {
 

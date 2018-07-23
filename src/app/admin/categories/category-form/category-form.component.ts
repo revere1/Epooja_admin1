@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 import { SubsectorsService } from '../../../services/subsectors.service';
 
 @Component({
-  selector: 'app-sector-form',
-  templateUrl: './sector-form.component.html',
-  styleUrls: ['./sector-form.component.css']
+  selector: 'app-category-form',
+  templateUrl: './category-form.component.html',
+  styleUrls: ['./category-form.component.css']
 })
 export class SectorFormComponent implements OnInit {
 
