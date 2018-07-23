@@ -1,47 +1,50 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
-import { SubSectorModel ,SubSectorsFormModel } from '../../../models/sub-sector.model';
-import { SubsectorsService } from '../../../services/subsectors.service';
-import { SubSectorFormService } from '../../../services/sub-sectors/sub-sector-form.service';
+import { SubCategoryModel ,SubCategoryFormModel } from '../../../models/sub-category.model';
+import { SubcategoriesService } from '../../../services/subcategories.service';
+import { SubCategoryFormService } from '../../../services/sub-categories/sub-category-form.service';
 import { Subscription } from 'rxjs/Subscription';
 import { CategoriesService } from '../../../services/categories.service';
 import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
-
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { ENV } from '../../../env.config';
 @Component({
   selector: 'app-sub-category-form',
   templateUrl: './sub-category-form.component.html',
   styleUrls: ['./sub-category-form.component.css']
 })
-export class SubSectorFormComponent implements OnInit {
+export class SubCategoryFormComponent implements OnInit {
 
-  @Input() event: SubSectorModel;
+  @Input() event: SubCategoryModel;
   isEdit : boolean;
-  subSectorsForm : FormGroup;
+  subCategoryForm : FormGroup;
+  apiEvents = [];
   // Model storing initial form values
-  formEvent: SubSectorsFormModel;
-
+  formEvent: SubCategoryFormModel;
   // Form validation and disabled logic
   formErrors: any;
   formChangeSub: Subscription;
-
   // Form submission
-  submitEventObj: SubSectorModel;
+  submitEventObj: SubCategoryModel;
   submitting: boolean;
   submitEventSub: Subscription;
   error: boolean;
   submitBtnText: string;
-
-  sectors: Object[];
-
+  categories: Object[];
+  uploadFilesObj = {};
+  uploadFiles = [];
+  canRemove: boolean = true;
+  public config: DropzoneConfigInterface = {};
+  
   constructor(
     private fb: FormBuilder,
     private router : Router,
-    private ssf : SubSectorFormService,
+    private ssf : SubCategoryFormService,
     private _sectorsService: CategoriesService,
-    private _subSectorrService :SubsectorsService ,
+    private _subSectorrService :SubcategoriesService ,
     public toastr : ToastsManager) { 
-    this.subSectorsForm = new FormGroup({
+    this.subCategoryForm = new FormGroup({
       name: new FormControl(),
       sector : new FormControl,
       status: new FormControl()
@@ -52,7 +55,6 @@ export class SubSectorFormComponent implements OnInit {
     this.formErrors = this.ssf.formErrors;
     this.isEdit = !!this.event;
     this.submitBtnText = this.isEdit ? 'Update' : 'Create';
-        // Set initial form data
     this.formEvent = this._setFormEvent(); 
     this._buildForm();
 
@@ -60,27 +62,69 @@ export class SubSectorFormComponent implements OnInit {
     this._sectorsService.getCategory$().subscribe(data => {
       if (data.success === false) {
       } else {
-        this.sectors = data.data;
+        this.categories = data.data;
       }
     });
+
+    let that = this;
+    this.config = {
+      url: ENV.BASE_API + 'lockers/path?token=' + this._subSectorrService.getToken(),
+      maxFiles: ENV.LOCKER_MAX_FILES,
+      clickable: true,
+      createImageThumbnails: true,
+      addRemoveLinks: true,
+      init: function () {
+        let drop = this;
+        this.on('removedfile', function (file) {
+          /*If reupload already existed file, don t delet the file if max lik=mit crossed error uploaded*/
+          if (file.status === 'error') {
+            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
+            if (index > -1) {
+              return false;
+            }
+          }
+          /*end*/
+          if (that.canRemove) {
+            //Removing values from array which are existing in uploadFiles variable         
+            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
+            if (index > -1) {
+              if (that.uploadFiles.length === ENV.LOCKER_MAX_FILES) {
+                that.formErrors['files'] = '';
+                that._setErrMsgs(that.subCategoryForm.get('files'), that.formErrors, 'files');
+              }
+              (that.uploadFiles).splice(index, 1);
+              that.removeFile(that.uploadFilesObj[file.upload.uuid]);
+              delete that.uploadFilesObj[file.upload.uuid];
+            }
+          }
+        });
+        this.on('error', function (file, errorMessage) {
+
+          drop.removeFile(file);
+        });
+        this.on('success', function (file) {
+          $('.btn-group').addClass('open');
+        });
+      }
+    };
   }
   
   private _buildForm() {
     let validRules = {
-      name: [this.formEvent.name, [
+      name: [this.formEvent.subcategory_name, [
         Validators.required
       ]],
-      sector: [this.formEvent.sector_id, [
+      sector: [this.formEvent.category_id, [
         Validators.required
       ]],
       status: [this.formEvent.status,
         Validators.required
       ],
     };
-    this.subSectorsForm = this.fb.group(validRules);
+    this.subCategoryForm = this.fb.group(validRules);
     
     // Subscribe to form value changes
-    this.formChangeSub = this.subSectorsForm
+    this.formChangeSub = this.subCategoryForm
       .valueChanges
       .subscribe(data => this._onValueChanged());
 
@@ -95,12 +139,12 @@ export class SubSectorFormComponent implements OnInit {
           }
         }
       };
-      _markDirty(this.subSectorsForm);
+      _markDirty(this.subCategoryForm);
     }
     this._onValueChanged();
   }
   private _onValueChanged() {
-    if (!this.subSectorsForm) { return; }
+    if (!this.subCategoryForm) { return; }
     const _setErrMsgs = (control: AbstractControl, errorsObj: any, field: string) => {
       if (control && control.dirty && control.invalid) {
         const messages = this.ssf.validationMessages[field];
@@ -116,28 +160,62 @@ export class SubSectorFormComponent implements OnInit {
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {        
         this.formErrors[field] = '';
-        _setErrMsgs(this.subSectorsForm.get(field), this.formErrors, field);         
+        _setErrMsgs(this.subCategoryForm.get(field), this.formErrors, field);         
       }
     }
   }
-  
+  _setErrMsgs = (control: AbstractControl, errorsObj: any, field: string) => {
+    if (control && control.dirty && control.invalid) {
+      const messages = this.ssf.validationMessages[field];
+      for (const key in control.errors) {
+        if (control.errors.hasOwnProperty(key)) {
+          errorsObj[field] += messages[key] + '<br>';
+        }
+      }
+    }
+  };
+  public onUploadSuccess(eve) {
+    if ((eve[1].success !== undefined) && eve[1].success) {
+      this.formErrors['files'] = '';
+      Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
+      (this.uploadFiles).push(eve[1].data);
+    }
+    else {
+      this.formErrors['files'] = 'Something Went Wrong';
+    }
+    this._setErrMsgs(this.subCategoryForm.get('files'), this.formErrors, 'files');
+  }
+
+  public onUploadError(eve) {
+    this.formErrors['files'] = eve[1];
+    this._setErrMsgs(this.subCategoryForm.get('files'), this.formErrors, 'files');
+  }
+  private removeFile(file) {
+    let apiEvent = this._subSectorrService.removeFile(file).subscribe(
+      data => {
+        this._handleSubmitSuccess(data);
+      },
+      err => this._handleSubmitError(err)
+    );
+    (this.apiEvents).push(apiEvent);
+  }
   
   private _setFormEvent() {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new SubSectorModel(null, null, null,null,null);
+      return new SubCategoryModel(null, null, null,null,null);
     } else {
 
       // If editing existing event, create new
       // FormEventModel from existing data
     
-      return new SubSectorsFormModel(
-        this.event.sector_id,
-        this.event.name,
+      return new SubCategoryFormModel(
+        this.event.category_id,
+        this.event.subcategory_name,
+        this.event.subcategory_desc,
         this.event.status,
-        this.event.createdBy,
-        this.event.updatedBy,
+    
       );
     }
   }
@@ -148,17 +226,16 @@ export class SubSectorFormComponent implements OnInit {
     let currentUser = JSON.parse(curUserObj);
     // Convert form startDate/startTime and endDate/endTime
     // to JS dates and populate a new EventModel for submission
-    return new SubSectorModel(
-      this.subSectorsForm.get('sector').value,
-      this.subSectorsForm.get('name').value,
-      this.subSectorsForm.get('status').value,
-      this.event ? this.event.createdBy : currentUser.user.userid,
-      currentUser.user.userid,
+    return new SubCategoryModel(
+      this.subCategoryForm.get('category').value,
+      this.subCategoryForm.get('subcategory_name').value,
+      this.subCategoryForm.get('subcategory_desc').value,
+      this.subCategoryForm.get('status').value,
       this.event ? this.event.id : null
     );
   }
 
-  saveSubSector() {
+  saveSubCategory() {
 
     let curUserObj = localStorage.getItem('currentUser');
     let currentUser = JSON.parse(curUserObj);
@@ -179,7 +256,6 @@ export class SubSectorFormComponent implements OnInit {
       let currentUser = JSON.parse(curUserObj);
       this.submitEventSub = this._subSectorrService
         .editEvent$(this.event.id, this.submitEventObj)
-        
         .subscribe(
           data => this._handleSubmitSuccess(data),
           err => this._handleSubmitError(err)
@@ -192,7 +268,7 @@ export class SubSectorFormComponent implements OnInit {
     // Redirect to event detail
     if(res.success){
       this.toastr.success(res.message,'Success');  
-      this.router.navigate(['/admin/sub-sector']);
+      this.router.navigate(['/admin/sub-category']);
     }
     else{       
       this.toastr.error(res.message,'Invalid');  
@@ -207,7 +283,7 @@ export class SubSectorFormComponent implements OnInit {
     this.error = true;
   }
   resetForm() {
-    this.subSectorsForm.reset();
+    this.subCategoryForm.reset();
   }
 
 }

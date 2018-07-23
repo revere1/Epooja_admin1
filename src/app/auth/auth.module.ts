@@ -13,7 +13,7 @@ import { ScriptService } from '../services/script.service';
 import { UtilsService } from '../services/utils.service';
 import { UserService } from '../services/user.service';
 import { CategoriesService } from '../services/categories.service';
-import { SubsectorsService } from '../services/subsectors.service';
+import { SubcategoriesService } from '../services/subcategories.service';
 import { StatesService } from '../services/states.service';
 import { CountriesService } from '../services/countries.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
@@ -43,7 +43,7 @@ import { CompanyService } from '../services/company.service';
     ClientFormService,
     UserService,
     CategoriesService,
-    SubsectorsService,
+    SubcategoriesService,
     StatesService,
     CountriesService,
     CompanyService

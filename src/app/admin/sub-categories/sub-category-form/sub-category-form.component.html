@@ -1,11 +1,9 @@
 <div class="container-fluid">
-<form [formGroup]="subSectorsForm" (ngSubmit)="saveSubSector()">
+<form [formGroup]="subCategoryForm" (ngSubmit)="saveSubSector()">
     <div class="panel panel-default">
-                       
     <div class="panel-heading">
         <h4 class="panel-title">
            <b>Add Sub-Categorie Form</b>
-
         </h4>
     </div>
     <div class="panel-body">
@@ -37,9 +35,29 @@
     <div *ngIf="formErrors.name" class="small text-danger formErrors" [innerHTML]="formErrors.name">
     </div>
   </div>
+
+  <div class="form-group">
+    <label for="product_description">Sub-Categorie Description<span style="color:red;">*</span></label>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+    <textarea id="product_description" 
+      class="form-control"
+      formControlName="product_description" ></textarea>
+    <div
+      *ngIf="formErrors.product_description"
+      class="small text-danger formErrors"
+      [innerHTML]="formErrors.product_description">
+    </div>
+</div> 
 </div>
 <div class="col-md-6">
-
+  <div class="form-group">
+    <label>Sub-Category Images:</label>
+    <dropzone class="" [config]="config" [message]="'Click or drag images here to upload'" (success)="onUploadSuccess($event)"
+        (error)="onUploadError($event)" (canceled)="cancelUpload($event)">
+    </dropzone>
+    <div *ngIf="formErrors.files" class="small text-danger formErrors" [innerHTML]="formErrors.files">
+    </div>
+</div>
   <div class="form-group">
     <label for="status">Status <span style="color:red;">*</span></label>
     <select id="status" type="text" class="form-control" formControlName="status">
@@ -57,7 +75,7 @@
       <button
         type="submit"
         class="btn btn-primary"
-        [attr.disabled]="subSectorsForm.invalid || submitting ? true : null"
+        [attr.disabled]="subCategoryForm.invalid || submitting ? true : null"
         [innerText]="submitBtnText"></button>
       <app-submitting *ngIf="submitting"></app-submitting>
       <a

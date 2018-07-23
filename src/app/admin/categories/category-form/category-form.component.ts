@@ -6,7 +6,7 @@ import { CategoriesModel, FormCategoriesModel } from '../../../models/categories
 import { ToastsManager } from 'ng2-toastr';
 import { CategoriesService } from '../../../services/categories.service';
 import { Router } from '@angular/router';
-import { SubsectorsService } from '../../../services/subsectors.service';
+import { SubcategoriesService } from '../../../services/subcategories.service';
 
 @Component({
   selector: 'app-category-form',
@@ -36,7 +36,7 @@ export class SectorFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public sc: SectorFormService,
-    private _subsectorService: SubsectorsService,
+    private _subsectorService: SubcategoriesService,
     private router: Router,
     public toastr: ToastsManager,
     private _sectorsService: CategoriesService,

@@ -4,15 +4,20 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { ENV } from '../env.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import { SubSectorModel } from '../models/sub-sector.model';
+import { SubCategoryModel } from '../models/sub-category.model';
 @Injectable()
-export class SubsectorsService {
+export class SubcategoriesService {
 
   private currentUser : any;
 
   constructor(private http: HttpClient,private router: Router) { }
 
   private get _authHeader(): string {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return this.currentUser.token;
+  }
+
+  public getToken(): string {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return this.currentUser.token;
   }
@@ -33,6 +38,17 @@ export class SubsectorsService {
       .catch(this._handleError);
   }
 
+  removeFile(file){
+    return this.http
+      .delete(`${ENV.BASE_API}lockers/remove-file`, {
+        headers: new HttpHeaders()
+                  .set('Authorization', this._authHeader)
+                  .set('file', file)
+      })
+      .catch(this._handleError);
+  }
+
+
   private _handleError(err: HttpErrorResponse | any) {
     const errorMsg = err.message || 'Error: Unable to complete request.';
     if (err.message && err.message.indexOf('No JWT present') > -1) {
@@ -41,7 +57,7 @@ export class SubsectorsService {
     return Observable.throw(errorMsg);
   }
   // POST new event (admin only)
-postEvent$(event: SubSectorModel): Observable<SubSectorModel> {
+postEvent$(event: SubCategoryModel): Observable<SubCategoryModel> {
   return this.http
     .post(`${ENV.BASE_API}subsector`, event, {
       headers: new HttpHeaders().set('authorization', this._authHeader)
@@ -49,7 +65,7 @@ postEvent$(event: SubSectorModel): Observable<SubSectorModel> {
     .catch(this._handleError);
 }
   // PUT existing event (admin only)
-  editEvent$(id: number, event: SubSectorModel): Observable<SubSectorModel> {    
+  editEvent$(id: number, event: SubCategoryModel): Observable<SubCategoryModel> {    
     return this.http
       .put(`${ENV.BASE_API}subsector/${id}`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
