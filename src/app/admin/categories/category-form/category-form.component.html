@@ -1,5 +1,5 @@
 <div class="container-fluid">
-<form [formGroup]="sectorForm" (ngSubmit)="saveCategory()">
+<form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">
@@ -42,7 +42,7 @@
 
     <!-- Submit -->
     <div class="form-group">
-        <button type="submit" class="btn btn-primary" [attr.disabled]="sectorForm.invalid || submitting ? true : null" [innerText]="submitBtnText"></button>
+        <button type="submit" class="btn btn-primary" [attr.disabled]="categoryForm.invalid || submitting ? true : null" [innerText]="submitBtnText"></button>
         <app-submitting *ngIf="submitting"></app-submitting>
         <a *ngIf="!submitting" class="btn btn-link" (click)="resetForm()" tabindex="0">Reset Form</a>
     
