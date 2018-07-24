@@ -43,10 +43,12 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxUIModule } from '@swimlane/ngx-ui';
 import { InsightService } from './services/insights/insight.service';
 import { MyWatchListComponent } from './my-watch-list/my-watch-list.component';
+import { LoginComponent } from './auth/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    LoginComponent,
     LayoutComponent,
     ChangePasswordComponent,
     ProfileComponent,

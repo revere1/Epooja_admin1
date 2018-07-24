@@ -105,12 +105,12 @@ export class EditProfileComponent implements OnInit,AfterViewInit {
     // });
 
     //Fetch Countries
-    this._countriesrService.getCountries$().subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.countries = data.data;
-      }
-    });
+    // this._countriesrService.getCountries$().subscribe(data => {
+    //   if (data.success === false) {
+    //   } else {
+    //     this.countries = data.data;
+    //   }
+    // });
     //Fetch companies
     this._companyService.getcompanies$().subscribe(data => {
       if (data.success === false) {

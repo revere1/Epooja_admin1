@@ -49,9 +49,9 @@ export class CountriesService {
       .catch(this._handleError);
   }
   // POST new event (admin only)
-  getCountries$() {
+  getSubcategories$() {
     return this.http
-      .get(`${ENV.BASE_API}countries`, {
+      .get(`${ENV.BASE_API}subcategories`, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
       })
       .catch(this._handleError);
