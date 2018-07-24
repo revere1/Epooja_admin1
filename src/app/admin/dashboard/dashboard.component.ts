@@ -41,8 +41,9 @@ colorScheme = {
 
 
   public clients:number = 0;
-  public analysts:number = 0;
-  public tickers:number = 0;
+  //public analysts:number = 0;
+  public categories:number = 0;
+  public products:number = 0;
 
 
   constructor(public script:ScriptService,private dashbrdService: DashboardService) { 
@@ -78,8 +79,9 @@ colorScheme = {
     this.dashbrdService.fetchCounts().subscribe(data=>{
       if(data.success){
         this.clients = data.data.clients;
-        this.analysts = data.data.analysts;
-        this.tickers = data.data.tickers;
+        //this.analysts = data.data.analysts;
+        this.categories = data.data.categories;
+        this.products = data.data.products;
       }      
     });
   }
