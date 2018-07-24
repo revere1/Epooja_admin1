@@ -28,7 +28,8 @@ class DataTablesResponse {
   styleUrls: ['./categories-list.component.css']
 })
 export class SectorsListComponent implements OnInit {
-  surl:string = ENV.BASE_API;
+  //surl:string = ENV.BASE_API;
+  public serverURL = ENV.SERVER_URL;
   private allItems: {};
   dtOptions: DataTables.Settings = {};
   error:boolean;
@@ -65,6 +66,7 @@ export class SectorsListComponent implements OnInit {
            let apiEvent= this._categoriesService.filterCategories$(dataTablesParameters,'filterCategories')
             .subscribe(resp => {
               that.categories = resp.data;  
+              console.log(that.categories)
               callback({
                 recordsTotal: resp.recordsTotal,
                 recordsFiltered: resp.recordsFiltered,

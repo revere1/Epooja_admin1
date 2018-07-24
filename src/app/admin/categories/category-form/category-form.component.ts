@@ -62,7 +62,7 @@ export class SectorFormComponent implements OnInit {
     this._buildForm();
     let that = this;
     this.config = {
-      url: ENV.BASE_API + 'lockers/path?token=' + this._categoryService.getToken(),
+      url: ENV.BASE_API + 'categories/path?token=' + this._categoryService.getToken(),
       maxFiles: ENV.LOCKER_MAX_FILES,
       clickable: true,
       createImageThumbnails: true,
