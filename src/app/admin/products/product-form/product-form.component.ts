@@ -84,7 +84,7 @@ export class ProductFormComponent implements OnInit {
     });
     let that = this;
     this.config = {
-      url: ENV.BASE_API + 'lockers/path?token=' + this._productapi.getToken(),
+      url: ENV.BASE_API + 'products/path?token=' + this._productapi.getToken(),
       maxFiles: ENV.LOCKER_MAX_FILES,
       clickable: true,
       createImageThumbnails: true,
