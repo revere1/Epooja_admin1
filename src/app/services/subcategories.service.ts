@@ -9,7 +9,6 @@ import { SubCategoryModel } from '../models/sub-category.model';
 export class SubcategoriesService {
 
   private currentUser : any;
-
   constructor(private http: HttpClient,private router: Router) { }
 
   private get _authHeader(): string {
@@ -30,9 +29,9 @@ export class SubcategoriesService {
   }
   
   // POST new event (admin only)
-  getSubcategory$(sector_id: number) {
+  getSubcategory$(category_id: number) {
     return this.http
-      .get(`${ENV.BASE_API}subcategory?category_id=${sector_id}`, {
+      .get(`${ENV.BASE_API}subcategory?category_id=${category_id}`, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
       })
       .catch(this._handleError);
@@ -40,7 +39,7 @@ export class SubcategoriesService {
 
   removeFile(file){
     return this.http
-      .delete(`${ENV.BASE_API}lockers/remove-file`, {
+      .delete(`${ENV.BASE_API}subcategories/remove-file`, {
         headers: new HttpHeaders()
                   .set('Authorization', this._authHeader)
                   .set('file', file)
@@ -83,7 +82,7 @@ postEvent$(event: SubCategoryModel): Observable<SubCategoryModel> {
 
   // GET list of public, future events
   //getSubSectorById$(id: number): Observable<SubSectorModel> {
-    getSubSectorById$(id: number) {
+    getSubCategoryById$(id: number) {
     return this.http
       .get(`${ENV.BASE_API}subcategory/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
@@ -91,7 +90,7 @@ postEvent$(event: SubCategoryModel): Observable<SubCategoryModel> {
       .catch(this._handleError);
   }
 
-  deleteSubSectorById$(id:number):Observable<number>{
+  deleteSubCategoryById$(id:number):Observable<number>{
     return this.http
     .delete(`${ENV.BASE_API}subcategory/${id}`, {
       headers: new HttpHeaders().set('authorization', this._authHeader)

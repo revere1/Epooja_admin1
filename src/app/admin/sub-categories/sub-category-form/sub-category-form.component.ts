@@ -55,11 +55,6 @@ export class SubCategoryFormComponent implements OnInit {
     $(document).ready(() => {
       let _that = this;
       $('#subcategory_desc').summernote({
-        // callbacks: {
-        //   onImageUpload: function (files) {
-        //     _that.uploadFile(files, this);
-        //   }
-        // },
       });
     });
     this.formErrors = this.ssf.formErrors;
@@ -79,7 +74,7 @@ export class SubCategoryFormComponent implements OnInit {
 
     let that = this;
     this.config = {
-      url: ENV.BASE_API + 'lockers/path?token=' + this._subSectorrService.getToken(),
+      url: ENV.BASE_API + 'subcategories/path?token=' + this._subSectorrService.getToken(),
       maxFiles: ENV.LOCKER_MAX_FILES,
       clickable: true,
       createImageThumbnails: true,
@@ -216,7 +211,7 @@ export class SubCategoryFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new SubCategoryModel(null, null, null,null);
+      return new SubCategoryModel(null, null, null,null,null);
     } else {
 
       // If editing existing event, create new
@@ -226,6 +221,7 @@ export class SubCategoryFormComponent implements OnInit {
         this.event.category_id,
         this.event.subcategory_name,
         this.event.subcategory_desc,
+        this.event.path,
         this.event.status,
     
       );
@@ -242,6 +238,7 @@ export class SubCategoryFormComponent implements OnInit {
       this.subCategoryForm.get('category').value,
       this.subCategoryForm.get('subcategory_name').value,
       $('#subcategory_desc').summernote('code'),
+      this.event ? this.event.path : this.uploadFiles[0],   
       this.subCategoryForm.get('status').value,
       this.event ? this.event.id : null
     );

@@ -188,11 +188,6 @@ export class SectorFormComponent implements OnInit {
         this.event.category_desc,
         this.event.path,
         this.event.status
-        
-
-       
-        
-
       );
     }
   }

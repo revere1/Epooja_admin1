@@ -36,7 +36,7 @@ export class UpdateSubSectorComponent implements OnInit {
     this.loading = true;
     // GET event by ID
     this.subSectorSub = this._subCategoryapi
-      .getSubSectorById$(this.id)
+      .getSubCategoryById$(this.id)
       .subscribe(
         res => {
           if(res.success){
