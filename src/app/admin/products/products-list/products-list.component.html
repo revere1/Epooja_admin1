@@ -19,8 +19,8 @@
     <tbody>
       <tr *ngFor="let product of products">
         <td>
-          <img class="img-responsive" src="{{serverURL+product.path}}" alt="User Pic">
-          <!-- onError="this.src='assets/img/epoojastore-in-logo.png'" -->
+          <img class="img-responsive" src="{{serverURL+product.path}}" onError="this.src='assets/img/epoojastore-in-logo.png'" alt="User Pic">
+          <!--  -->
         </td>
         <td>{{ product.product_name }}</td>
         <td>{{ product.cost }}</td>
