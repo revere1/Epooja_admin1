@@ -90,6 +90,8 @@ import { UsersListComponent } from './users/users-list/users-list.component';
 import { UserFormComponent } from './users/user-form/user-form.component';
 import { CreateUserComponent } from './users/create-user/create-user.component';
 import { UpdateUserComponent } from './users/update-user/update-user.component';
+import { UsersService } from '../services/users/users.service';
+import { UserFormService } from '../services/users/user-form.service';
 
 @NgModule({
   imports: [
@@ -162,10 +164,12 @@ import { UpdateUserComponent } from './users/update-user/update-user.component';
       ClientFormService,
       ProductFormService,
       CompanyFormService,
+      UserFormService,
       UserService,
       ProductService,
       CompanyService,
       CategoriesService,
+      UsersService,
       SubcategoriesService,
       CountriesService,
       StatesService,
