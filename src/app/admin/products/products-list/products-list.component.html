@@ -21,8 +21,8 @@
         <!-- <td>{{ product.product_description }}</td> -->
         <td>{{ product.cost }}</td>
         <td>{{ product.quatity }}</td>
-        <td>{{ product['country.name'] }}</td>
-        <td>{{ product['sector.name']}}</td>
+        <td>{{ product['category.category_name'] }}</td>
+        <td>{{ product['subcategory.subcategory_name']}}</td>
         <td>
             <a (click)="deleteProduct(product.id)"><i class="fa fa-trash"></i></a> /
             <a [routerLink]="['/admin/products/update',product.id]"><i class="fa fa-pencil"></i></a> 

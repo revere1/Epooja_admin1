@@ -11,11 +11,11 @@
 			var scrollTop = $(document).scrollTop();
 			if(scrollTop > $('nav').height()){
 				$('nav').addClass('navbar-scroll');
-				$('#logo').attr('src', '../../assets/images/logo-red.png');
+				$('#logo').attr('src', '../../assets/img/epoojastore-in-logo.png');
 			}
 			else {
 				$('nav').removeClass('navbar-scroll');
-				$('#logo').attr('src', '../../assets/images/logo-white.png');
+				$('#logo').attr('src', '../../assets/img/epoojastore-in-logo.png');
 			}
 		});
 		

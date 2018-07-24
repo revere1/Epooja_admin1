@@ -43,6 +43,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgxUIModule } from '@swimlane/ngx-ui';
 import { InsightService } from './services/insights/insight.service';
 import { MyWatchListComponent } from './my-watch-list/my-watch-list.component';
+
 @NgModule({
   declarations: [
     AppComponent,

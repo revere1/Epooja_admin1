@@ -29,39 +29,38 @@
                 </div>
               </div>
            
-            
               <div class="form-group">
-                <label for="sectorId">Categories<span style="color:red;">*</span></label>
+                <label for="category">Categories<span style="color:red;">*</span></label>
                 <select
-                  id="category_id"
+                  id="category"
                   class="form-control"
-                  formControlName="category_id" >
+                  formControlName="category" >
                   <option value=null selected>Select</option>
-                  <option *ngFor="let sector of sectors" [value]="sector.id">
-                    {{sector.name}}
-                  </option>
-                </select>
-                <div
-                  *ngIf="formErrors.sectorId"
-                  class="small text-danger formErrors"
-                  [innerHTML]="formErrors.sectorId">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="countryId">Sub-Categories</label>
-                <select
-                  id="subcategory_id"
-                  class="form-control"
-                  formControlName="subcategory_id">
-                  <option value=null selected>Select</option>
-                  <option *ngFor="let country of countries" [value]="country.id">
-                    {{country.name}}
+                  <option *ngFor="let category of categories" [value]="category.id">
+                    {{category.category_name}}
                   </option>    
                 </select>
                 <div
-                  *ngIf="formErrors.countryId"
+                  *ngIf="formErrors.category"
                   class="small text-danger formErrors"
-                  [innerHTML]="formErrors.countryId">
+                  [innerHTML]="formErrors.category">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="subcategory">Sub-Categories</label>
+                <select
+                  id="subcategory"
+                  class="form-control"
+                  formControlName="subcategory">
+                  <option value=null selected>Select</option>
+                  <option *ngFor="let subcategory of subcategories" [value]="subcategory.id">
+                    {{subcategory.subcategory_name}}
+                  </option>    
+                </select>
+                <div
+                  *ngIf="formErrors.subcategory"
+                  class="small text-danger formErrors"
+                  [innerHTML]="formErrors.subcategory">
                 </div>
               </div>
               <div class="form-group">

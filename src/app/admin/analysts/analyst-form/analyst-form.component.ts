@@ -88,12 +88,12 @@ export class AnalystFormComponent implements OnInit {
       });
 
     //Fetch Countries
-    this._countriesrService.getCountries$().subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.countries = data.data;
-      }
-    });
+    // this._countriesrService.getCountries$().subscribe(data => {
+    //   if (data.success === false) {
+    //   } else {
+    //     this.countries = data.data;
+    //   }
+    // });
   }
 
 

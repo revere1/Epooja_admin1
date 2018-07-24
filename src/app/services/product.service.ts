@@ -30,7 +30,7 @@ export class ProductService {
 
   removeFile(file){
     return this.http
-      .delete(`${ENV.BASE_API}lockers/remove-file`, {
+      .delete(`${ENV.BASE_API}products/remove-file`, {
         headers: new HttpHeaders()
                   .set('Authorization', this._authHeader)
                   .set('file', file)

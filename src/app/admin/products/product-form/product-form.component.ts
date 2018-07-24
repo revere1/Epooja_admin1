@@ -24,19 +24,16 @@ export class ProductFormComponent implements OnInit {
   isEdit: boolean;
   productForm: FormGroup;
   apiEvents = [];
-  // Model storing initial form values
   formEvent: FormProductModel;
-  // Form validation and disabled logic
   formErrors: any;
   formChangeSub: Subscription;
-  // Form submission
   submitEventObj: ProductModel;
   submitting: boolean;
   submitEventSub: Subscription;
   error: boolean;
   submitBtnText: string;
-  sectors: Object[];
-  countries: Object[];
+  categories: Object[];
+  subcategories: Object[];
   uploadFilesObj = {};
   uploadFiles = [];
   canRemove: boolean = true;
@@ -46,7 +43,7 @@ export class ProductFormComponent implements OnInit {
     private router: Router,
     public cf: ProductFormService,
     private _productapi: ProductService,
-    private _sectorService: CategoriesService,
+    private _categoryService: CategoriesService,
     private _countriesrService: CountriesService,
     public toastr: ToastsManager
   ) { }
@@ -55,36 +52,30 @@ export class ProductFormComponent implements OnInit {
     $(document).ready(() => {
       let _that = this;
       $('#product_description').summernote({
-        // callbacks: {
-        //   onImageUpload: function (files) {
-        //     _that.uploadFile(files, this);
-        //   }
-        // },
       });
     });
     this.formErrors = this.cf.formErrors;
     this.isEdit = !!this.event;
     this.submitBtnText = this.isEdit ? 'Update' : 'Create';
-    // Set initial form data
     this.formEvent = this._setFormEvent();
     this._buildForm();
-    //Fetch sectors
-    this._sectorService.getCategory$().subscribe(data => {
+    this._categoryService.getCategory$().subscribe(data => {
       if (data.success === false) {
       } else {
-        this.sectors = data.data;
+        this.categories = data.data;
       }
     });
     //Fetch Countries
-    this._countriesrService.getCountries$().subscribe(data => {
+    this._countriesrService.getSubcategories$().subscribe(data => {
       if (data.success === false) {
       } else {
-        this.countries = data.data;
+        this.subcategories = data.data;
+        console.log(this.subcategories)
       }
     });
     let that = this;
     this.config = {
-      url: ENV.BASE_API + 'lockers/path?token=' + this._productapi.getToken(),
+      url: ENV.BASE_API + 'products/path?token=' + this._productapi.getToken(),
       maxFiles: ENV.LOCKER_MAX_FILES,
       clickable: true,
       createImageThumbnails: true,
@@ -124,30 +115,15 @@ export class ProductFormComponent implements OnInit {
       }
     };
   }
-  // uploadFile(files, editor) {
-  //   {
-  //     const formData = new FormData();
-  //     for (let i = 0; i < files.length; i++) {
-  //       formData.append("userphoto", files[i], files[i]['name']);
-  //     }
-  //     this._userapi.uploads(formData).subscribe(res => {
-  //       if (res.success) {
-  //         res.data.forEach(path => {
-  //           $(editor).summernote('insertImage', ENV.SERVER_URL + path, '');
-  //         })
-  //       }
-  //     });
-  //   }
-  // }
   private _buildForm() {
     let validRules = {
       product_name: [this.formEvent.product_name, [
         Validators.required
       ]],
-      category_id: [this.formEvent.category_id,
+      category: [this.formEvent.category_id,
       Validators.required
       ],
-      subcategory_id: [this.formEvent.subcategory_id],
+      subcategory: [this.formEvent.subcategory_id],
       product_description: [this.formEvent.product_description, [
         // Validators.required
       ]],
@@ -225,7 +201,7 @@ export class ProductFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormProductModel(null,null, null, null, null, null,[]);
+      return new FormProductModel(null,null, null, null,null,null,[]);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -251,8 +227,8 @@ export class ProductFormComponent implements OnInit {
     // to JS dates and populate a new EventModel for submission
     return new ProductModel(
       this.productForm.get('product_name').value,
-      this.productForm.get('category_id').value,
-      this.productForm.get('subcategory_id').value,
+      this.productForm.get('category').value,
+      this.productForm.get('subcategory').value,
       $('#product_description').summernote('code'),
       this.productForm.get('cost').value,
       this.productForm.get('quatity').value,

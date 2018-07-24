@@ -91,23 +91,23 @@ export class CountriesListComponent implements OnInit,OnDestroy{
   
   }
 
-  download() {
-    this._countriesService.getCountries$()
-    .subscribe(data => {
-    //API data
-    this.allItems = this.countries;
+  // download() {
+  //   this._countriesService.getCountries$()
+  //   .subscribe(data => {
+  //   //API data
+  //   this.allItems = this.countries;
  
 
-    var options = { 
+  //   var options = { 
    
-      headers: ['ID','Name','Status','CreatedBy','UpdatedBy','CreatedAt','UpdatedAt'] 
-       };
+  //     headers: ['ID','Name','Status','CreatedBy','UpdatedBy','CreatedAt','UpdatedAt'] 
+  //      };
 
 
-    new Angular2Csv(this.allItems, 'CountriesList',options);
+  //   new Angular2Csv(this.allItems, 'CountriesList',options);
   
-    }); 
-  }
+  //   }); 
+  // }
   deleteCountry(id:number){
     var delmsg = confirm("Are u Sure Want to delete?");
     if(delmsg){

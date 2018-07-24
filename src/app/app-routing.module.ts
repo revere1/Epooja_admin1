@@ -9,6 +9,7 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MyWatchListComponent } from './my-watch-list/my-watch-list.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   {
