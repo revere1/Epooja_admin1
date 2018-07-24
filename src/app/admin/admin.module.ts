@@ -43,13 +43,9 @@ import { CountriesFormService } from '../services/countries/countries-form.servi
 import { StatesFormService } from '../services/states/states-form.service';
 import { LockerFormService } from '../services/lockers/locker-form.service';
 import { LockersService } from '../services/lockers.service';
-<<<<<<< HEAD
 
 
 import{CategoriesComponent} from './categories/category.component';
-=======
-import{SectorsComponent} from './categories/category.component';
->>>>>>> 8c80db7916026d335d7b2a12ea8ae4608a87a52d
 import {CreateSectorComponent} from './categories/create-category/create-category.component';
 import { UpdateCategoryComponent} from './categories/update-category/update-category.component';
 import {SectorsListComponent} from './categories/category-list/categories-list.component';

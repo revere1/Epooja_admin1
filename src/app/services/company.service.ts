@@ -4,10 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import { ENV } from '../env.config';
-<<<<<<< HEAD
-=======
 import { ProductModel } from '../models/product.model';
->>>>>>> 8c80db7916026d335d7b2a12ea8ae4608a87a52d
 
 @Injectable()
 export class CompanyService {
