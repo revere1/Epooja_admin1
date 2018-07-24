@@ -99,8 +99,16 @@ export class ProductsListComponent implements OnInit {
         this.allItems = this.products;
         console.log(this.allItems)
         var options = {
-          headers: ['ID', 'Product_name', 'Product_description', 'Cost', 'Quatity', 'Category_name','Subcategory_name',
-            'Country', 'CreatedBy']};
+          headers: [
+            'ID', 
+            'Product_name',
+            'Product_description', 
+            'Cost', 
+            'Quatity', 
+            'Category_name',
+            'Subcategory_name',
+            'CreatedAt'
+          ]};
         new Angular2Csv(this.allItems, 'ProductsList', options);
       });
   }

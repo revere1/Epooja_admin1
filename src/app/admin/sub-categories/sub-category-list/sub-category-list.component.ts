@@ -94,7 +94,7 @@ export class SubCategoryListComponent implements OnInit {
       // decimalseparator: '.',
       // showLabels: true, 
       // showTitle: true,
-      headers: ['ID','Name','Sector_ID','Status','CreatedBy','UpdatedBy','CreatedAt','UpdatedAt'] 
+      headers: ['ID','Subcategory Name','Category Name','Status','CreatedAt'] 
        };
 
     new Angular2Csv(this.allItems, 'Sub-SectorList',options);

@@ -103,7 +103,7 @@ export class SectorsListComponent implements OnInit {
       // decimalseparator: '.',
       // showLabels: true, 
       // showTitle: true,
-      headers: ['ID','Name','Status','CreatedBy','UpdatedBy','CreatedAt','UpdatedAt'] 
+      headers: ['ID','Category Name','Status','Category_Desc','CreatedAt'] 
        };
       new Angular2Csv(this.allItems, 'SectorList',options);
       //new Angular2Csv(dummyData, 'My Report',options);
