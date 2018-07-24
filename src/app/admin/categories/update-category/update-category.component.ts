@@ -12,18 +12,18 @@ import { BreadcrumbsService } from 'ng2-breadcrumbs';
   templateUrl: './update-category.component.html',
   styleUrls: ['./update-category.component.css']
 })
-export class UpdateSectorComponent implements OnInit {
+export class UpdateCategoryComponent implements OnInit {
 
-  sectors : CategoriesModel;
+  categories : CategoriesModel;
   private id: number;
   routeSub: Subscription;
   loading: boolean;
-  sectorsSub: Subscription;
+  categoriesSub: Subscription;
   error: boolean;
   
   
     constructor(  private route: ActivatedRoute,  
-                 private _sectorsapi: CategoriesService,
+                 private _categorysapi: CategoriesService,
                  private breadcrumbsService:BreadcrumbsService,
                   public utils: UtilsService) { }
   
@@ -40,19 +40,19 @@ export class UpdateSectorComponent implements OnInit {
       this.routeSub = this.route.params
       .subscribe(params => {
         this.id = params['id'];
-        this._getSectors();
+        this._getCategories();
       });
     }
   
-    private _getSectors() {
+    private _getCategories() {
       this.loading = true;
       // GET event by ID
-      this.sectorsSub = this._sectorsapi
+      this.categoriesSub = this._categorysapi
         .getSectorById$(this.id)
         .subscribe(
           res => {
             if(res.success){
-              this.sectors= res.data;         
+              this.categories= res.data;         
             }          
             this.loading = false;
           },
@@ -66,7 +66,7 @@ export class UpdateSectorComponent implements OnInit {
     ngOnDestroy() {
       this.routeSub.unsubscribe();
       //this.tabSub.unsubscribe();
-      this.sectorsSub.unsubscribe();
+      this.categoriesSub.unsubscribe();
     }
   }
 

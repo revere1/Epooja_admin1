@@ -19,10 +19,10 @@
         <td>{{category.category_name}}</td>
         <td>{{category.category_desc}}</td>
         <td>{{category.path}}</td>
-        <td>{{category.createdAt}}</td>
+        <td>{{category.createdAt | date:'dd-MMM-yyyy hh:mm:ss a'}}</td>
         <td>
             <a (click)="deletesector(category.id)"><i class="fa fa-trash"></i></a> /
-            <a [routerLink]="['/admin/category/update',category.id]"><i class="fa fa-pencil"></i></a> 
+            <a [routerLink]="['/admin/categories/update',category.id]"><i class="fa fa-pencil"></i></a> 
         </td>
       </tr>
       <tr *ngIf="categories?.length == 0">

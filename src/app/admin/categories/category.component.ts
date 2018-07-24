@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
-export class SectorsComponent implements OnInit {
+export class CategoriesComponent implements OnInit {
 
   constructor() { }
 

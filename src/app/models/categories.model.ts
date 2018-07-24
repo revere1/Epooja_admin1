@@ -2,7 +2,7 @@ class CategoriesModel {
     constructor(
       public category_name: string,
       public category_desc: string,
-      public files = [],
+      public path,
       public status:number,
       public id?: number,
     ) { }
@@ -12,7 +12,7 @@ class CategoriesModel {
     constructor(
       public category_name: string,
       public category_desc: string,
-      public files = [],
+      public path,
       public status:number,
     
    
