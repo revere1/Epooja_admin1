@@ -6,7 +6,7 @@ import { CategoriesModel, FormCategoriesModel } from '../../../models/categories
 import { ToastsManager } from 'ng2-toastr';
 import { CategoriesService } from '../../../services/categories.service';
 import { Router } from '@angular/router';
-import { SubsectorsService } from '../../../services/subsectors.service';
+import { SubcategoriesService } from '../../../services/subcategories.service';
 import { DropzoneConfigInterface } from '../../../../../node_modules/ngx-dropzone-wrapper';
 import { ENV } from '../../../env.config';
 declare var $: any;
@@ -41,7 +41,7 @@ export class SectorFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public sc: CategoryFormService,
-    private _subsectorService: SubsectorsService,
+    private _subsectorService: SubcategoriesService,
     private router: Router,
     public toastr: ToastsManager,
     private _categoryService: CategoriesService,

@@ -4,9 +4,9 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { ENV } from '../env.config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
-import { SubSectorModel } from '../models/sub-sector.model';
+import { SubCategoryModel } from '../models/sub-category.model';
 @Injectable()
-export class SubsectorsService {
+export class SubcategoriesService {
 
   private currentUser : any;
 
@@ -16,22 +16,38 @@ export class SubsectorsService {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return this.currentUser.token;
   }
-  getsubSector$() {
+
+  public getToken(): string {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return this.currentUser.token;
+  }
+  getsubCategory$() {
     return this.http
-      .get(`${ENV.BASE_API}subsectors`, {
+      .get(`${ENV.BASE_API}subcategories`, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
   
   // POST new event (admin only)
-  getSubsector$(sector_id: number) {
+  getSubcategory$(sector_id: number) {
     return this.http
-      .get(`${ENV.BASE_API}subsector?sector_id=${sector_id}`, {
+      .get(`${ENV.BASE_API}subcategory?category_id=${sector_id}`, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
+
+  removeFile(file){
+    return this.http
+      .delete(`${ENV.BASE_API}lockers/remove-file`, {
+        headers: new HttpHeaders()
+                  .set('Authorization', this._authHeader)
+                  .set('file', file)
+      })
+      .catch(this._handleError);
+  }
+
 
   private _handleError(err: HttpErrorResponse | any) {
     const errorMsg = err.message || 'Error: Unable to complete request.';
@@ -41,23 +57,23 @@ export class SubsectorsService {
     return Observable.throw(errorMsg);
   }
   // POST new event (admin only)
-postEvent$(event: SubSectorModel): Observable<SubSectorModel> {
+postEvent$(event: SubCategoryModel): Observable<SubCategoryModel> {
   return this.http
-    .post(`${ENV.BASE_API}subsector`, event, {
+    .post(`${ENV.BASE_API}subcategory`, event, {
       headers: new HttpHeaders().set('authorization', this._authHeader)
     })
     .catch(this._handleError);
 }
   // PUT existing event (admin only)
-  editEvent$(id: number, event: SubSectorModel): Observable<SubSectorModel> {    
+  editEvent$(id: number, event: SubCategoryModel): Observable<SubCategoryModel> {    
     return this.http
-      .put(`${ENV.BASE_API}subsector/${id}`, event, {
+      .put(`${ENV.BASE_API}subcategory/${id}`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
     // POST new event (admin only)
-    filterSubSector$(filterInput,endPoint) {
+    filterSubCategory$(filterInput,endPoint) {
       return this.http
         .post(`${ENV.BASE_API}${endPoint}`, filterInput, {
           headers: new HttpHeaders().set('authorization', this._authHeader)
@@ -69,7 +85,7 @@ postEvent$(event: SubSectorModel): Observable<SubSectorModel> {
   //getSubSectorById$(id: number): Observable<SubSectorModel> {
     getSubSectorById$(id: number) {
     return this.http
-      .get(`${ENV.BASE_API}subsector/${id}`, {
+      .get(`${ENV.BASE_API}subcategory/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
@@ -77,7 +93,7 @@ postEvent$(event: SubSectorModel): Observable<SubSectorModel> {
 
   deleteSubSectorById$(id:number):Observable<number>{
     return this.http
-    .delete(`${ENV.BASE_API}subsector/${id}`, {
+    .delete(`${ENV.BASE_API}subcategory/${id}`, {
       headers: new HttpHeaders().set('authorization', this._authHeader)
     })
     .catch(this._handleError);

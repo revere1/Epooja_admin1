@@ -9,7 +9,7 @@ import { UserService } from '../../services/user.service';
 import { ClientModel, FormClientModel } from '../../models/client.model';
 import { Subscription } from 'rxjs/Subscription';
 import { CategoriesService } from '../../services/categories.service';
-import { SubsectorsService } from '../../services/subsectors.service';
+import { SubcategoriesService } from '../../services/subcategories.service';
 import { CountriesService } from '../../services/countries.service';
 import { StatesService } from '../../services/states.service';
 import { EventEmitter } from '@angular/core'
@@ -54,7 +54,7 @@ export class EditProfileComponent implements OnInit,AfterViewInit {
     public cf: ClientFormService,
     private _userapi: UserService,
     private _sectorService: CategoriesService,
-    private _subsectorService: SubsectorsService,
+    private _subsectorService: SubcategoriesService,
     private _stateService: StatesService,
     private _countriesrService: CountriesService,
     private elementRef: ElementRef,
@@ -259,7 +259,7 @@ export class EditProfileComponent implements OnInit,AfterViewInit {
 
   public sectorChange(sectorVal) {
     if (sectorVal !== 'null') {
-      this._subsectorService.getSubsector$(sectorVal).subscribe(data => {
+      this._subsectorService.getSubcategory$(sectorVal).subscribe(data => {
         if (data.success === false) {
         } else {
           this.subsectors = data.data;

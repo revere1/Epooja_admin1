@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class SubSectorFormService {
+export class SubCategoryFormService {
     validationMessages : any;
     //set up errors object
     formErrors = {

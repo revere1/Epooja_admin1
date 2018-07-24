@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
-import { SubSectorModel  } from '../../../models/sub-sector.model';
-import { SubsectorsService } from '../../../services/subsectors.service';
+import { SubCategoryModel  } from '../../../models/sub-category.model';
+import { SubcategoriesService } from '../../../services/subcategories.service';
 @Component({
   selector: 'app-update-sub-sector',
   templateUrl: './update-sub-sector.component.html',
@@ -13,14 +13,14 @@ export class UpdateSubSectorComponent implements OnInit {
 
   loading: boolean;
 
-  subsector: SubSectorModel;
+  subsector: SubCategoryModel;
   routeSub: Subscription;
   private id: number;
   subSectorSub: Subscription;
   error: boolean;
   constructor( private route: ActivatedRoute,    
 
-    private _subSectorapi: SubsectorsService,
+    private _subCategoryapi: SubcategoriesService,
     public utils: UtilsService) { }
 
   ngOnInit() {
@@ -35,7 +35,7 @@ export class UpdateSubSectorComponent implements OnInit {
   private _getSubSector() {
     this.loading = true;
     // GET event by ID
-    this.subSectorSub = this._subSectorapi
+    this.subSectorSub = this._subCategoryapi
       .getSubSectorById$(this.id)
       .subscribe(
         res => {

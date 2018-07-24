@@ -27,7 +27,7 @@ export class CategoriesService {
   // POST new event (admin only)
   getCategory$() {
     return this.http
-      .get(`${ENV.BASE_API}sectors`, {
+      .get(`${ENV.BASE_API}categories`, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
       })
       .catch(this._handleError);

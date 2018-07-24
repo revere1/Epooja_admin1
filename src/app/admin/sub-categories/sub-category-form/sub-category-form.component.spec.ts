@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubSectorFormComponent } from './sub-category-form.component';
+import { SubCategoryFormComponent } from './sub-category-form.component';
 
-describe('SubSectorFormComponent', () => {
-  let component: SubSectorFormComponent;
-  let fixture: ComponentFixture<SubSectorFormComponent>;
+describe('SubCategoryFormComponent', () => {
+  let component: SubCategoryFormComponent;
+  let fixture: ComponentFixture<SubCategoryFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubSectorFormComponent ]
+      declarations: [ SubCategoryFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SubSectorFormComponent);
+    fixture = TestBed.createComponent(SubCategoryFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,9 +2,9 @@ import { Component, OnInit ,OnDestroy} from '@angular/core';
 import { Meta } from '@angular/platform-browser';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { ENV } from '../../../env.config';
-import { SubsectorsService } from '../../../services/subsectors.service';
+import { SubcategoriesService } from '../../../services/subcategories.service';
 import { UtilsService } from '../../../services/utils.service';
-import { SubSectorModel } from '../../../models/sub-sector.model';
+import { SubCategoryModel } from '../../../models/sub-category.model';
 import { ToastsManager } from 'ng2-toastr';
 import {Router} from '@angular/router';
 import { Angular2Csv } from 'angular2-csv';
@@ -25,7 +25,7 @@ class DataTablesResponse {
   templateUrl: './sub-category-list.component.html',
   styleUrls: ['./sub-category-list.component.css']
 })
-export class SubSectorListComponent implements OnInit {
+export class SubCategoryListComponent implements OnInit {
 
   private allItems: {};
   dtOptions: DataTables.Settings = {};
@@ -33,7 +33,7 @@ export class SubSectorListComponent implements OnInit {
   apiEvents=[];
   subsectors: SubSector[];
   constructor(private http: HttpClient, 
-    private _subSectorsService:SubsectorsService, 
+    private _subCategoriesService:SubcategoriesService, 
     private _utils: UtilsService,
     private meta: Meta,
     public toastr: ToastsManager,
@@ -53,7 +53,7 @@ export class SubSectorListComponent implements OnInit {
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
         var myEfficientFn = this._utils.debounce(()=>{           
-          let apiEvent =  this._subSectorsService.filterSubSector$(dataTablesParameters,'filterSubSector')
+          let apiEvent =  this._subCategoriesService.filterSubCategory$(dataTablesParameters,'filterSubCategory')
             .subscribe(resp => {
               that.subsectors = resp.data;  
               callback({
@@ -70,7 +70,7 @@ export class SubSectorListComponent implements OnInit {
         
       },
       columns: [
-            { data: 'name' },
+            { data: 'subcategory_name' },
             { data: 'status' },
             // { data: 'createdBy' },
             // { data: 'updatedBy' },
@@ -81,7 +81,7 @@ export class SubSectorListComponent implements OnInit {
   }
 
   download() {
-    this._subSectorsService.getsubSector$()
+    this._subCategoriesService.getsubCategory$()
     .subscribe(data => {
     //API data
     this.allItems = this.subsectors;
@@ -102,7 +102,7 @@ export class SubSectorListComponent implements OnInit {
   deleteSubSector(id:number){
     var delmsg = confirm("Are u Sure Want to delete?");
     if(delmsg){
-   let apiEvent= this._subSectorsService.deleteSubSectorById$(id)
+   let apiEvent= this._subCategoriesService.deleteSubSectorById$(id)
     .subscribe(
       data => this._handleSubmitSuccess(data,id),
       err => this._handleSubmitError(err)

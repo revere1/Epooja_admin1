@@ -23,7 +23,7 @@ import { ProductFormComponent } from './products/product-form/product-form.compo
 import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';
 import { CategoriesService } from '../services/categories.service';
-import { SubsectorsService } from '../services/subsectors.service';
+import { SubcategoriesService } from '../services/subcategories.service';
 import { CountriesService } from '../services/countries.service';
 import { StatesService } from '../services/states.service';
 import { ClientFormComponent } from './clients/client-form/client-form.component';
@@ -43,23 +43,25 @@ import { CountriesFormService } from '../services/countries/countries-form.servi
 import { StatesFormService } from '../services/states/states-form.service';
 import { LockerFormService } from '../services/lockers/locker-form.service';
 import { LockersService } from '../services/lockers.service';
+<<<<<<< HEAD
 
 
 import{CategoriesComponent} from './categories/category.component';
+=======
+import{SectorsComponent} from './categories/category.component';
+>>>>>>> 8c80db7916026d335d7b2a12ea8ae4608a87a52d
 import {CreateSectorComponent} from './categories/create-category/create-category.component';
 import { UpdateCategoryComponent} from './categories/update-category/update-category.component';
 import {SectorsListComponent} from './categories/category-list/categories-list.component';
 import{SectorFormComponent} from './categories/category-form/category-form.component';
 import { CategoryFormService} from '../services/categories/category-form.service';
 import { SidebarComponent } from './widgets/sidebar/sidebar.component';
-//import { HttpModule } from '@angular/http';
-
 import { SubCategoryComponent } from './sub-categories/sub-category.component';
-import { SubSectorFormComponent } from './sub-categories/sub-category-form/sub-category-form.component';
+import { SubCategoryFormComponent } from './sub-categories/sub-category-form/sub-category-form.component';
 import { CreateSubCategoryComponent } from './sub-categories/create-sub-category/create-sub-category.component';
 import { UpdateSubSectorComponent } from './sub-categories/update-sub-category/update-sub-sector.component';
-import { SubSectorListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
-import { SubSectorFormService} from '../services/sub-sectors/sub-sector-form.service';
+import { SubCategoryListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
+import { SubCategoryFormService} from '../services/sub-categories/sub-category-form.service';
 import { AnalystFormComponent } from './analysts/analyst-form/analyst-form.component';
 import { AnalystsListComponent } from './analysts/analysts-list/analysts-list.component';
 import { CreateAnalystComponent } from './analysts/create-analyst/create-analyst.component';
@@ -69,16 +71,11 @@ import { DashboardService } from '../services/dashboard.service';
 import { RepeatModule } from '../repeat/repeat.module';
 import { HelpFormService } from '../services/help/help-form.service';
 import { HelpService } from '../services/help.service';
-//import { HelpCommentFormComponent } from './help/help-comment-form/help-comment-form.component';
-//import { HelpListComponent } from './help-comments/help-list/help-list.component';
-
 import { MessagesService } from '../services/messages.service';
 import { MessagesFormService } from '../services/messages/messages-form.service';
 import { CommodityService } from '../services/insights/commodity.service';
 import { ComposeService } from '../services/compose.service';
 import { NotificationService } from '../services/notifications.service';
-
-//import { BreadcrumbsModule } from 'ng2-breadcrumbs';
 import { 
   MatAutocompleteModule,
   MatInputModule,
@@ -101,10 +98,8 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
     ReactiveFormsModule,
     DataTablesModule,
     DropzoneModule,
-    //HttpModule,
     RepeatModule,
     NgxChartsModule,
-    //BreadcrumbsModule
     MatAutocompleteModule,
     MatInputModule,
     MatSelectModule
@@ -142,10 +137,10 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
       SectorFormComponent,
       SidebarComponent,
       SubCategoryComponent,
-      SubSectorFormComponent,
+      SubCategoryFormComponent,
       CreateSubCategoryComponent,
       UpdateSubSectorComponent,
-      SubSectorListComponent,
+      SubCategoryListComponent,
       AnalystFormComponent,
       AnalystsListComponent,
       CreateAnalystComponent,
@@ -154,7 +149,6 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
       RegionsComponent,
       CurrencyComponent,
       PrivillegesComponent,
-      //HelpCommentFormComponent,
     
     ],
   providers: [
@@ -166,7 +160,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
       ProductService,
       CompanyService,
       CategoriesService,
-      SubsectorsService,
+      SubcategoriesService,
       CountriesService,
       StatesService,
       UtilsService,
@@ -174,7 +168,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
       CountriesFormService,
       StatesFormService,
       CategoryFormService,
-      SubSectorFormService,
+      SubCategoryFormService,
       DashboardService,
       LockerFormService,
       HelpFormService,
