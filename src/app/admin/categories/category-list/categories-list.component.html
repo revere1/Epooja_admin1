@@ -18,7 +18,7 @@
       <tr *ngFor="let category of categories">
         <td>{{category.category_name}}</td>
         <td>{{category.category_desc}}</td>
-        <td>{{category.path}}</td>
+        <td><img src="{{surl}}uploads/{{category.path}}"></td>
         <td>{{category.createdAt | date:'dd-MMM-yyyy hh:mm:ss a'}}</td>
         <td>
             <a (click)="deletesector(category.id)"><i class="fa fa-trash"></i></a> /

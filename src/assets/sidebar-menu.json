@@ -15,7 +15,7 @@
             "de": "DE_Categories"
         },
         "routerLink": "/admin/categories",
-        "icon": "fa-users"
+        "icon": "fa-list-alt"
     },
     {
         "id": 3,
@@ -24,7 +24,7 @@
             "de": "DE_Sub-Categories"
         },
         "routerLink": "/admin/sub-categories",
-        "icon": "fa-users"
+        "icon": "fa-bars"
     },
     {
         "id": 4,
@@ -34,6 +34,16 @@
         },
         "routerLink": "/admin/products",
         "icon": "fa-book"
+    }
+    ,
+    {
+        "id": 4,
+        "name": {
+            "en": "Users",
+            "de": "DE_Users"
+        },
+        "routerLink": "/admin/users",
+        "icon": "fa-users"
     }
    
    

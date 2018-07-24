@@ -28,13 +28,14 @@ class DataTablesResponse {
   styleUrls: ['./categories-list.component.css']
 })
 export class SectorsListComponent implements OnInit {
-
+  surl:string = ENV.BASE_API;
   private allItems: {};
   dtOptions: DataTables.Settings = {};
   error:boolean;
   apiEvents=[];
   public bcList :IBreadcrumb[];
   categories: Category[];
+  
   constructor(private http: HttpClient, 
     private _categoriesService: CategoriesService, 
     private _utils: UtilsService,

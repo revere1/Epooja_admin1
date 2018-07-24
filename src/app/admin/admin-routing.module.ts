@@ -41,6 +41,10 @@ import { ViewAnalystComponent } from './analysts/view-analyst/view-analyst.compo
 import { RegionsComponent } from './regions/regions.component';
 import { CurrencyComponent } from './currency/currency.component';
 import { PrivillegesComponent } from './clients/privilleges/privilleges.component';
+import { UsersComponent } from './users/users.component';
+import { UsersListComponent } from './users/users-list/users-list.component';
+import { CreateUserComponent } from './users/create-user/create-user.component';
+import { UpdateUserComponent } from './users/update-user/update-user.component';
 
 const AdminRoutes: Routes = [
   {
@@ -247,6 +251,30 @@ const AdminRoutes: Routes = [
           },
         ]
       },
+
+
+      {
+        path: 'users', component: UsersComponent,
+        data: {
+          breadcrumb: 'Users'
+        },
+        children: [
+          { path: '', component: UsersListComponent },
+          {
+            path: 'create', component: CreateUserComponent,
+            data: {
+              breadcrumb: 'Create'
+            }
+          },
+          {
+            path: 'update/:id', component: UpdateUserComponent,
+            data: {
+              breadcrumb: 'Update'
+            }
+          },
+        ]
+      },
+
       {
         path:'regions',  component:RegionsComponent ,
       data:{

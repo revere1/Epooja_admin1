@@ -85,6 +85,11 @@ import { PrivillegesComponent } from './clients/privilleges/privilleges.componen
 import { CompanyFormService } from '../services/company_details/company-form.service';
 import { CompanyService } from '../services/company.service';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { UsersComponent } from './users/users.component';
+import { UsersListComponent } from './users/users-list/users-list.component';
+import { UserFormComponent } from './users/user-form/user-form.component';
+import { CreateUserComponent } from './users/create-user/create-user.component';
+import { UpdateUserComponent } from './users/update-user/update-user.component';
 
 @NgModule({
   imports: [
@@ -145,6 +150,11 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
       RegionsComponent,
       CurrencyComponent,
       PrivillegesComponent,
+      UsersComponent,
+      UsersListComponent,
+      UserFormComponent,
+      CreateUserComponent,
+      UpdateUserComponent,
     
     ],
   providers: [
