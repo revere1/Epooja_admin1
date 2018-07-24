@@ -34,6 +34,7 @@ class DataTablesResponse {
 export class ProductsListComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
+  public serverURL = ENV.SERVER_URL;
   private allItems: {};
   products: Product[];
   error: boolean;
@@ -81,12 +82,12 @@ export class ProductsListComponent implements OnInit {
       },
 
       columns: [
+        { data: 'path' },
         { data: 'product_name' },
-        // { data: 'product_description' },
-        { data: 'cost' },
-        { data: 'quatity' },
         { data: 'category_id' },
         { data: 'subcategory_id' },
+        { data: 'cost' },
+        { data: 'quatity' },
         { data: 'id' }
       ]
     };

@@ -201,7 +201,7 @@ export class ProductFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormProductModel(null,null, null, null,null,null,[]);
+      return new FormProductModel(null,null, null, null,null,null,null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -211,9 +211,10 @@ export class ProductFormComponent implements OnInit {
         this.event.category_id,
         this.event.subcategory_id,
         this.event.product_description,
+        this.event.path,
         this.event.cost,
         this.event.quatity,
-        this.event.files,
+        
       
       );
     }
@@ -230,14 +231,14 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('category').value,
       this.productForm.get('subcategory').value,
       $('#product_description').summernote('code'),
+      this.event ? this.event.path : this.uploadFiles[0],
       this.productForm.get('cost').value,
       this.productForm.get('quatity').value,
-      this.event ? this.event.files : this.uploadFiles,
       this.event ? this.event.id : null
     );
   }
 
-  saveClient() {
+  saveProduct() {
     if ($('#product_description').summernote('isEmpty')) {
       this.formErrors['product_description'] = this.cf.validationMessages['product_description'].required;
       this._setErrMsgs(this.productForm.get('product_description'), this.formErrors, 'product_description');

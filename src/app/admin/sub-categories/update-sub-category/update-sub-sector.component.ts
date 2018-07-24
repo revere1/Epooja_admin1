@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
-import { SubCategoryModel  } from '../../../models/sub-category.model';
+import { SubCategoryModel } from '../../../models/sub-category.model';
 import { SubcategoriesService } from '../../../services/subcategories.service';
 @Component({
   selector: 'app-update-sub-sector',
@@ -12,19 +12,18 @@ import { SubcategoriesService } from '../../../services/subcategories.service';
 export class UpdateSubSectorComponent implements OnInit {
 
   loading: boolean;
-
   subsector: SubCategoryModel;
   routeSub: Subscription;
   private id: number;
   subSectorSub: Subscription;
   error: boolean;
-  constructor( private route: ActivatedRoute,    
+  constructor(private route: ActivatedRoute,
 
     private _subCategoryapi: SubcategoriesService,
     public utils: UtilsService) { }
 
   ngOnInit() {
-   
+
     // Set event ID from route params and subscribe
     this.routeSub = this.route.params
       .subscribe(params => {
@@ -39,9 +38,9 @@ export class UpdateSubSectorComponent implements OnInit {
       .getSubCategoryById$(this.id)
       .subscribe(
         res => {
-          if(res.success){
-            this.subsector = res.data;         
-          }          
+          if (res.success) {
+            this.subsector = res.data;
+          }
           this.loading = false;
         },
         err => {
@@ -53,7 +52,6 @@ export class UpdateSubSectorComponent implements OnInit {
 
   ngOnDestroy() {
     this.routeSub.unsubscribe();
-    //this.tabSub.unsubscribe();
     this.subSectorSub.unsubscribe();
   }
 
