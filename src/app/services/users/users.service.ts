@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ENV } from '../../env.config';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Router } from '../../../../node_modules/@angular/router';
-import { Observable } from '../../../../node_modules/rxjs';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { UsersModel } from '../../models/users.model';
 @Injectable()
 export class UsersService {

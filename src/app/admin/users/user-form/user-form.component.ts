@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DropzoneConfigInterface } from '../../../../../node_modules/ngx-dropzone-wrapper';
-import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '../../../../../node_modules/@angular/forms';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { UserFormService } from '../../../services/users/user-form.service'
 import { FormUsersModel, UsersModel } from '../../../models/users.model';
-import { Subscription } from '../../../../../node_modules/rxjs';
+import { Subscription } from 'rxjs';
 import { ENV } from '../../../env.config';
 import { UsersService } from '../../../services/users/users.service';
 
 import { Router } from '@angular/router';
-import { ToastsManager } from '../../../../../node_modules/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 
 declare var $: any;
 @Component({

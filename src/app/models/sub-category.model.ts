@@ -3,6 +3,7 @@ class SubCategoryModel {
         public category_id: number,
         public subcategory_name: string,
         public subcategory_desc:string,
+        public path,
         public status: string,
         public id?: number
     ) {}
@@ -12,6 +13,7 @@ class SubCategoryFormModel {
         public category_id : number,
         public subcategory_name : string,
         public subcategory_desc:string,
+        public path,
         public status : string,
        
     ){}
