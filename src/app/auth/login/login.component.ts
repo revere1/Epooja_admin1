@@ -46,20 +46,18 @@ export class LoginComponent implements OnInit,AfterViewInit {
               let url = (data.data.status === 'active') ? ['/admin'] : ['/auth/updateprofile'];
               this.router.navigate(url);              
             }    
-            else if(data.data.access_level === 2){
-              let url = (data.data.status === 'active') ? ['/client'] : ['/auth/updateprofile'];
-              this.router.navigate(url);              
-            }    
-            else if(data.data.access_level === 3){
-              let url = (data.data.status === 'active') ? ['/analyst'] : ['/auth/updateprofile'];
-              this.router.navigate(url);              
-            } 
-            else if(data.data.access_level === 4){
-              let url = (data.data.status === 'active') ? ['/editorier'] : ['/auth/updateprofile'];
-              this.router.navigate(url);              
-            }         
-            //else if(data.data.access_level === 3)this.router.navigate(['/analyst']);
-            //else if(data.data.access_level === 4)this.router.navigate(['/editorier']);
+            // else if(data.data.access_level === 2){
+            //   let url = (data.data.status === 'active') ? ['/client'] : ['/auth/updateprofile'];
+            //   this.router.navigate(url);              
+            // }    
+            // else if(data.data.access_level === 3){
+            //   let url = (data.data.status === 'active') ? ['/analyst'] : ['/auth/updateprofile'];
+            //   this.router.navigate(url);              
+            // } 
+            // else if(data.data.access_level === 4){
+            //   let url = (data.data.status === 'active') ? ['/editorier'] : ['/auth/updateprofile'];
+            //   this.router.navigate(url);              
+            // }         
             else this.router.navigate(['/auth/login']);
           }
           this.loginForm.reset();

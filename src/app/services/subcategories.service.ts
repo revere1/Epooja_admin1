@@ -46,7 +46,13 @@ export class SubcategoriesService {
       })
       .catch(this._handleError);
   }
-
+  getSubcategories$() {
+    return this.http
+      .get(`${ENV.BASE_API}subcategories`, {
+        headers: new HttpHeaders().set('authorization', this._authHeader)
+      })
+      .catch(this._handleError);
+  }
 
   private _handleError(err: HttpErrorResponse | any) {
     const errorMsg = err.message || 'Error: Unable to complete request.';

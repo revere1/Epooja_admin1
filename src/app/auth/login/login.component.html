@@ -6,7 +6,6 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
       <p class="login-box-msg">Sign in to start your session</p>
-  
       <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" class="form-signin" novalidate autocomplete="on">
         <div class="form-group has-feedback">
           <input type="email" class="form-control" placeholder="Email" formControlName="email" autofocus>
