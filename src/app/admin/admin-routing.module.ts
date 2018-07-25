@@ -30,7 +30,7 @@ import { SectorsListComponent } from './categories/category-list/categories-list
 
 import { SubCategoryComponent } from './sub-categories/sub-category.component';
 import { CreateSubCategoryComponent } from './sub-categories/create-sub-category/create-sub-category.component';
-import { UpdateSubSectorComponent } from './sub-categories/update-sub-category/update-sub-sector.component';
+import { UpdateSubCategoryComponent } from './sub-categories/update-sub-category/update-sub-category.component';
 import { SubCategoryListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
 
 import { AnalystFormComponent } from './analysts/analyst-form/analyst-form.component';
@@ -244,7 +244,7 @@ const AdminRoutes: Routes = [
             }
           },
           {
-            path: 'update/:id', component: UpdateSubSectorComponent,
+            path: 'update/:id', component: UpdateSubCategoryComponent,
             data: {
               breadcrumb: 'Update'
             }

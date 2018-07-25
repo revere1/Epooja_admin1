@@ -61,36 +61,35 @@ export class AdminLayoutComponent implements OnInit {
     let curUserObj = localStorage.getItem('currentUser');
     let currentUser = JSON.parse(curUserObj);
     //Fetch Messages
-    this._messagesService.messagesCount$(currentUser.user.userid, ).subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.messagesCount = data.count;
-        this.messagesData = data.data
-        //(this.messagesData[0].parent == null) ?this.messagesData[0].id : this.messagesData[0].parent
-      }
-    });
+    // this._messagesService.messagesCount$(currentUser.user.userid, ).subscribe(data => {
+    //   if (data.success === false) {
+    //   } else {
+    //     this.messagesCount = data.count;
+    //     this.messagesData = data.data
+    //   }
+    // });
     //Fetch Problems
-    this._helpService.problemsCount$(currentUser.user.userid, ).subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.problemsCount = data.count;
-        this.problemsData = data.data
-      }
-    });
+    // this._helpService.problemsCount$(currentUser.user.userid, ).subscribe(data => {
+    //   if (data.success === false) {
+    //   } else {
+    //     this.problemsCount = data.count;
+    //     this.problemsData = data.data
+    //   }
+    // });
     //Fetch Problems
-    this._notificationapi.notificationsCount$(currentUser.user.userid).subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.notificationCount = data.count;
-        this.notificationData = data.data;
-      }
-    });
-    this._lockerService.lockersCount$(currentUser.user.userid, ).subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.lockersCount = data.data.count;
-      }
-    });
+    // this._notificationapi.notificationsCount$(currentUser.user.userid).subscribe(data => {
+    //   if (data.success === false) {
+    //   } else {
+    //     this.notificationCount = data.count;
+    //     this.notificationData = data.data;
+    //   }
+    // });
+    // this._lockerService.lockersCount$(currentUser.user.userid, ).subscribe(data => {
+    //   if (data.success === false) {
+    //   } else {
+    //     this.lockersCount = data.data.count;
+    //   }
+    // });
     this.getAvatar();
   }
   ngAfterViewInit() {

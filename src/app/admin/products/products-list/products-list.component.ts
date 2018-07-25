@@ -34,6 +34,7 @@ class DataTablesResponse {
 export class ProductsListComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
+  public serverURL = ENV.SERVER_URL;
   private allItems: {};
   products: Product[];
   error: boolean;
@@ -81,12 +82,12 @@ export class ProductsListComponent implements OnInit {
       },
 
       columns: [
+        { data: 'path' },
         { data: 'product_name' },
-        // { data: 'product_description' },
-        { data: 'cost' },
-        { data: 'quatity' },
         { data: 'category_id' },
         { data: 'subcategory_id' },
+        { data: 'cost' },
+        { data: 'quatity' },
         { data: 'id' }
       ]
     };
@@ -98,8 +99,16 @@ export class ProductsListComponent implements OnInit {
         this.allItems = this.products;
         console.log(this.allItems)
         var options = {
-          headers: ['ID', 'Product_name', 'Product_description', 'Cost', 'Quatity', 'Category_name','Subcategory_name',
-            'Country', 'CreatedBy']};
+          headers: [
+            'ID', 
+            'Product_name',
+            'Product_description', 
+            'Cost', 
+            'Quatity', 
+            'Category_name',
+            'Subcategory_name',
+            'CreatedAt'
+          ]};
         new Angular2Csv(this.allItems, 'ProductsList', options);
       });
   }

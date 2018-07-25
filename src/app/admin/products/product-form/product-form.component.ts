@@ -7,10 +7,10 @@ import { ProductService } from '../../../services/product.service';
 import { ProductModel, FormProductModel } from '../../../models/product.model';
 import { Subscription } from 'rxjs/Subscription';
 import { CategoriesService } from '../../../services/categories.service';
-import { CountriesService } from '../../../services/countries.service';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { ENV } from '../../../env.config';
+import { SubcategoriesService } from '../../../services/subcategories.service';
 declare var $: any;
 
 @Component({
@@ -44,7 +44,7 @@ export class ProductFormComponent implements OnInit {
     public cf: ProductFormService,
     private _productapi: ProductService,
     private _categoryService: CategoriesService,
-    private _countriesrService: CountriesService,
+    private _subcategoriesService: SubcategoriesService,
     public toastr: ToastsManager
   ) { }
 
@@ -66,7 +66,7 @@ export class ProductFormComponent implements OnInit {
       }
     });
     //Fetch Countries
-    this._countriesrService.getSubcategories$().subscribe(data => {
+    this._subcategoriesService.getSubcategories$().subscribe(data => {
       if (data.success === false) {
       } else {
         this.subcategories = data.data;
@@ -201,7 +201,7 @@ export class ProductFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormProductModel(null,null, null, null,null,null,[]);
+      return new FormProductModel(null,null, null, null,null,null,null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -211,9 +211,10 @@ export class ProductFormComponent implements OnInit {
         this.event.category_id,
         this.event.subcategory_id,
         this.event.product_description,
+        this.event.path,
         this.event.cost,
         this.event.quatity,
-        this.event.files,
+        
       
       );
     }
@@ -230,14 +231,14 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('category').value,
       this.productForm.get('subcategory').value,
       $('#product_description').summernote('code'),
+      this.event ? this.event.path : this.uploadFiles[0],
       this.productForm.get('cost').value,
       this.productForm.get('quatity').value,
-      this.event ? this.event.files : this.uploadFiles,
       this.event ? this.event.id : null
     );
   }
 
-  saveClient() {
+  saveProduct() {
     if ($('#product_description').summernote('isEmpty')) {
       this.formErrors['product_description'] = this.cf.validationMessages['product_description'].required;
       this._setErrMsgs(this.productForm.get('product_description'), this.formErrors, 'product_description');

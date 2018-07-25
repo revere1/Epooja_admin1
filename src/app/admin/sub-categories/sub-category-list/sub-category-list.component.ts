@@ -8,11 +8,11 @@ import { SubCategoryModel } from '../../../models/sub-category.model';
 import { ToastsManager } from 'ng2-toastr';
 import {Router} from '@angular/router';
 import { Angular2Csv } from 'angular2-csv';
-class SubSector {
-  id: number;
-  name: string;
+class SubCategory {
+  subcategory_name: string;
   status: string;
   createdBy : number
+  id:number
 }
 class DataTablesResponse {
   data: any[];
@@ -28,10 +28,11 @@ class DataTablesResponse {
 export class SubCategoryListComponent implements OnInit {
 
   private allItems: {};
+  public serverURL = ENV.SERVER_URL;
   dtOptions: DataTables.Settings = {};
   error:boolean;
   apiEvents=[];
-  subsectors: SubSector[];
+  subcategories: SubCategory[];
   constructor(private http: HttpClient, 
     private _subCategoriesService:SubcategoriesService, 
     private _utils: UtilsService,
@@ -39,9 +40,9 @@ export class SubCategoryListComponent implements OnInit {
     public toastr: ToastsManager,
     public route : Router
   ) { 
-      this.meta.addTag({ name: 'description', content: 'All the list of Subsectors' });
+      this.meta.addTag({ name: 'description', content: 'All the list of Subcategories' });
       this.meta.addTag({ name: 'author', content: ENV.AUTHOR });
-      this.meta.addTag({ name: 'keywords', content: 'Subsectors, revere, equity' });
+      this.meta.addTag({ name: 'keywords', content: 'Subcategories, revere, equity' });
     }
 
   ngOnInit() {
@@ -55,7 +56,7 @@ export class SubCategoryListComponent implements OnInit {
         var myEfficientFn = this._utils.debounce(()=>{           
           let apiEvent =  this._subCategoriesService.filterSubCategory$(dataTablesParameters,'filterSubCategory')
             .subscribe(resp => {
-              that.subsectors = resp.data;  
+              that.subcategories = resp.data;  
               callback({
                 recordsTotal: resp.recordsTotal,
                 recordsFiltered: resp.recordsFiltered,
@@ -70,10 +71,11 @@ export class SubCategoryListComponent implements OnInit {
         
       },
       columns: [
+            { data: 'category_id' },
             { data: 'subcategory_name' },
             { data: 'status' },
-            // { data: 'createdBy' },
-            // { data: 'updatedBy' },
+            { data: 'path' },
+            { data: 'createdAt' },
             { data: 'id' }
           ]
     };
@@ -84,7 +86,7 @@ export class SubCategoryListComponent implements OnInit {
     this._subCategoriesService.getsubCategory$()
     .subscribe(data => {
     //API data
-    this.allItems = this.subsectors;
+    this.allItems = this.subcategories;
  
     var options = { 
       // fieldSeparator: ',',
@@ -92,7 +94,7 @@ export class SubCategoryListComponent implements OnInit {
       // decimalseparator: '.',
       // showLabels: true, 
       // showTitle: true,
-      headers: ['ID','Name','Sector_ID','Status','CreatedBy','UpdatedBy','CreatedAt','UpdatedAt'] 
+      headers: ['ID','Subcategory Name','Category Name','Status','CreatedAt'] 
        };
 
     new Angular2Csv(this.allItems, 'Sub-SectorList',options);
@@ -102,7 +104,7 @@ export class SubCategoryListComponent implements OnInit {
   deleteSubSector(id:number){
     var delmsg = confirm("Are u Sure Want to delete?");
     if(delmsg){
-   let apiEvent= this._subCategoriesService.deleteSubSectorById$(id)
+   let apiEvent= this._subCategoriesService.deleteSubCategoryById$(id)
     .subscribe(
       data => this._handleSubmitSuccess(data,id),
       err => this._handleSubmitError(err)
@@ -116,8 +118,8 @@ export class SubCategoryListComponent implements OnInit {
     // Redirect to event detail
     if(res.success){
       this.toastr.success(res.message,'Success');  
-      let pos = this.subsectors.map(function(e) { return e.id; }).indexOf(id);
-      this.subsectors.splice(pos, 1);
+      let pos = this.subcategories.map(function(e) { return e.id; }).indexOf(id);
+      this.subcategories.splice(pos, 1);
     }
   
 

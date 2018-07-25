@@ -7,7 +7,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { CategoriesService } from '../../../services/categories.service';
 import { Router } from '@angular/router';
 import { SubcategoriesService } from '../../../services/subcategories.service';
-import { DropzoneConfigInterface } from '../../../../../node_modules/ngx-dropzone-wrapper';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { ENV } from '../../../env.config';
 declare var $: any;
 @Component({
@@ -21,12 +21,9 @@ export class SectorFormComponent implements OnInit {
 
   categoryForm: FormGroup;
   isEdit: boolean;
-  //Modelstoringinitialformvalues
   formEvent: FormCategoriesModel;
-  //Formvalidationanddisabledlogic
   formErrors: any;
   formChangeSub: Subscription;
-  //Formsubmission
   submitEventObj: FormCategoriesModel;
   submitting: boolean;
   submitEventSub: Subscription;
@@ -57,7 +54,6 @@ export class SectorFormComponent implements OnInit {
     this.formErrors = this.sc.formErrors;
     this.isEdit = !!this.event;
     this.submitBtnText = this.isEdit ? 'Update' : 'Create';
-
     this.formEvent = this._setFormEvent();
     this._buildForm();
     let that = this;
@@ -175,24 +171,15 @@ export class SectorFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-
-
-
       return new FormCategoriesModel(null, null, null,null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
-
       return new FormCategoriesModel(
         this.event.category_name,
         this.event.category_desc,
         this.event.path,
         this.event.status
-        
-
-       
-        
-
       );
     }
   }
@@ -227,7 +214,6 @@ export class SectorFormComponent implements OnInit {
   private _getSubmitObj() {
     let curUserObj = localStorage.getItem('currentUser');
     let currentUser = JSON.parse(curUserObj);
-
     // Convert form startDate/startTime and endDate/endTime
     // to JS dates and populate a new EventModel for submission
     return new CategoriesModel(
@@ -260,11 +246,8 @@ export class SectorFormComponent implements OnInit {
 
   saveCategory() {
     this.submitting = true;
-
     this.submitEventObj = this._getSubmitObj();
-
     if (!this.isEdit) {
-
       this.submitEventSub = this._categoryService
         .postEvent$(this.submitEventObj)
         .subscribe(
@@ -273,13 +256,10 @@ export class SectorFormComponent implements OnInit {
         );
 
     } else {
-
       this.submitEventSub = this._categoryService
         .editEvent$(this.event.id, this.submitEventObj)
         .subscribe(
-
           data => this._handleSubmitSuccess(data),
-
           err => this._handleSubmitError(err)
         );
     }
