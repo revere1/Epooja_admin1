@@ -5,11 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { SubCategoryModel } from '../../../models/sub-category.model';
 import { SubcategoriesService } from '../../../services/subcategories.service';
 @Component({
-  selector: 'app-update-sub-sector',
-  templateUrl: './update-sub-sector.component.html',
-  styleUrls: ['./update-sub-sector.component.css']
+  selector: 'app-update-sub-category',
+  templateUrl: './update-sub-category.component.html',
+  styleUrls: ['./update-sub-category.component.css']
 })
-export class UpdateSubSectorComponent implements OnInit {
+export class UpdateSubCategoryComponent implements OnInit {
 
   loading: boolean;
   subsector: SubCategoryModel;

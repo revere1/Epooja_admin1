@@ -40,7 +40,7 @@ export class SubCategoryFormComponent implements OnInit {
     private fb: FormBuilder,
     private router : Router,
     private ssf : SubCategoryFormService,
-    private _sectorsService: CategoriesService,
+    private _categoriesService: CategoriesService,
     private _subSectorrService :SubcategoriesService ,
     public toastr : ToastsManager) { 
     this.subCategoryForm = new FormGroup({
@@ -64,7 +64,7 @@ export class SubCategoryFormComponent implements OnInit {
     this._buildForm();
 
     //Fetch Countries
-    this._sectorsService.getCategory$().subscribe(data => {
+    this._categoriesService.getCategory$().subscribe(data => {
       if (data.success === false) {
       } else {
         this.categories = data.data;

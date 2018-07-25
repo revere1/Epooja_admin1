@@ -7,7 +7,7 @@ import { ToastsManager } from 'ng2-toastr';
 import { CategoriesService } from '../../../services/categories.service';
 import { Router } from '@angular/router';
 import { SubcategoriesService } from '../../../services/subcategories.service';
-import { DropzoneConfigInterface } from '../../../../../node_modules/ngx-dropzone-wrapper';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { ENV } from '../../../env.config';
 declare var $: any;
 @Component({

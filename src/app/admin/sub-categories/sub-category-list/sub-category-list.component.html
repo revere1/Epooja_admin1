@@ -21,7 +21,7 @@
           <img class="img-responsive" src="{{serverURL+subcategory.path}}" alt="User Pic">
           <!-- onError="this.src='assets/img/epoojastore-in-logo.png'" -->
         </td>
-        <td>{{subcategory.category_id}}</td>
+        <td>{{subcategory['category.category_name'] }}</td>
         <td>{{subcategory.subcategory_name }}</td>
         <td>{{subcategory.status }}</td>
         <td>{{subcategory.createdAt | date:'dd-MMM-yyyy hh:mm:ss a'}}</td>
