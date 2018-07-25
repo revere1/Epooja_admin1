@@ -37,14 +37,31 @@
     }
     ,
     {
-        "id": 4,
+        "id": 5,
         "name": {
             "en": "Users",
             "de": "DE_Users"
         },
         "routerLink": "/admin/users",
         "icon": "fa-users"
+    },
+    {
+        "id": 6,
+        "name": {
+            "en": "Countries",
+            "de": "DE_Countries"
+        },
+        "routerLink": "/admin/countries",
+        "icon": "fa-flag"
+    },
+    {
+        "id": 7,
+        "name": {
+            "en": "States",
+            "de": "DE_States"
+        },
+        "routerLink": "/admin/states",
+        "icon": "fa-shield"
     }
-   
    
 ]
