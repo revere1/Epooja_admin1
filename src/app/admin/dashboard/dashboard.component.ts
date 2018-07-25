@@ -44,6 +44,7 @@ colorScheme = {
   //public analysts:number = 0;
   public categories:number = 0;
   public products:number = 0;
+  public subcategories:number = 0;
 
 
   constructor(public script:ScriptService,private dashbrdService: DashboardService) { 
@@ -81,6 +82,7 @@ colorScheme = {
         this.clients = data.data.clients;
         //this.analysts = data.data.analysts;
         this.categories = data.data.categories;
+        this.subcategories = data.data.subcategories;
         this.products = data.data.products;
       }      
     });
