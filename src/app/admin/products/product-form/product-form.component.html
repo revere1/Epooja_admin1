@@ -114,6 +114,16 @@
                 [innerHTML]="formErrors.product_description">
               </div>
           </div>  
+          <div class="form-group">
+            <label for="sector">Status <span style="color:red;">*</span></label>
+            <select id="status" class="form-control" formControlName="status">
+              <option value=null selected>Select</option>
+              <option>active</option>
+              <option>Inactive</option>
+            </select>
+            <div *ngIf="formErrors.status" class="small text-danger formErrors" [innerHTML]="formErrors.status">
+            </div>
+          </div>
             <!-- Submit -->
             <div class="form-group" style="padding-left:40%">
               <button
