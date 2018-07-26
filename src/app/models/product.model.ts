@@ -7,6 +7,7 @@ class ProductModel {
       public path,
       public cost: string,
       public quatity: number,
+      public status:number,
       public id?: number
       
     ) { }
@@ -21,6 +22,7 @@ class ProductModel {
         public path,
         public cost: string,
         public quatity: number,
+        public status:number,
     ) { }
   }
   

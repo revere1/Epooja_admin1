@@ -85,7 +85,7 @@ export class SectorsListComponent implements OnInit {
             { data: 'category_desc' },
             { data: 'path' },
             { data: 'status' },
-            // { data: 'created_on' },
+            { data: 'createdAt' },
             { data: 'id' }
           ]
     };

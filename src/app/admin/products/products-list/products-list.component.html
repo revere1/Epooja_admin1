@@ -10,9 +10,10 @@
         <th>Product Image</th>
         <th>Product Name</th>
         <th>Cost</th>
-        <th>Quatity</th>
+        <th>Quantity</th>
         <th>Category</th>
         <th>Sub_category</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -27,6 +28,7 @@
         <td>{{ product.quatity }}</td>
         <td>{{ product['category.category_name'] }}</td>
         <td>{{ product['subcategory.subcategory_name']}}</td>
+        <td>{{ product.status}}</td>
         <td>
           <a (click)="deleteProduct(product.id)">
             <i class="fa fa-trash"></i>

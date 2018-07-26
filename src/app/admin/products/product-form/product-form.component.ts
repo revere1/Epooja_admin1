@@ -129,6 +129,9 @@ export class ProductFormComponent implements OnInit {
       ]],
       cost: [this.formEvent.cost, Validators.pattern["0-9*"]],
       quatity: [this.formEvent.quatity, Validators.pattern["0-9*"]],
+      status: [this.formEvent.status, [
+        Validators.required
+      ]]
     };
     this.productForm = this.fb.group(validRules);
 
@@ -201,7 +204,7 @@ export class ProductFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormProductModel(null,null, null, null,null,null,null);
+      return new FormProductModel(null,null, null, null,null,null,null,null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -214,6 +217,7 @@ export class ProductFormComponent implements OnInit {
         this.event.path,
         this.event.cost,
         this.event.quatity,
+        this.event.status
         
       
       );
@@ -234,6 +238,7 @@ export class ProductFormComponent implements OnInit {
       this.event ? this.event.path : this.uploadFiles[0],
       this.productForm.get('cost').value,
       this.productForm.get('quatity').value,
+      this.productForm.get('status').value,
       this.event ? this.event.id : null
     );
   }
