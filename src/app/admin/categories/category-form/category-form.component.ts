@@ -219,7 +219,7 @@ export class SectorFormComponent implements OnInit {
     return new CategoriesModel(
       this.categoryForm.get('category_name').value,
       this.categoryForm.get('category_desc').value, 
-      this.event ? this.event.path : this.uploadFiles[0],     
+      this.uploadFiles[0] ? this.uploadFiles[0] : this.event.path,     
       this.categoryForm.get('status').value,
       this.event ? this.event.id : null
     );

@@ -9,8 +9,7 @@
       <tr>
         <th>Name</th>
         <th>Email</th>
-        <th>Mobile</th>
-        <th>Profile Pic</th>
+        <th>Status</th>
         <th>Created On</th>
         <th>Action</th>
       </tr>
@@ -19,8 +18,7 @@
       <tr *ngFor="let user of users">
         <td>{{user.user_name}}</td>
         <td>{{user.user_email}}</td>
-        <td>{{user.user_mobile}}</td>
-        <td><img src="{{surl}}uploads/{{user.path}}"></td>
+        <td>{{user.status}}</td>
         <td>{{user.createdAt | date:'dd-MMM-yyyy hh:mm:ss a'}}</td>
         <td>
             <a (click)="deletesector(user.id)"><i class="fa fa-trash"></i></a> /
@@ -28,7 +26,7 @@
         </td>
       </tr>
       <tr *ngIf="users?.length == 0">
-        <td colspan="3" class="no-data-available">No data!</td>
+        <td colspan="5" style="text-align: center;" class="no-data-available">No users available.</td>
       </tr>
     </tbody>
   </table>

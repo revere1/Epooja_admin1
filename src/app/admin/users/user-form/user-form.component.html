@@ -14,7 +14,7 @@
       <div class="col-md-2"></div>
     <div class="col-md-8">
       <div class="form-group">
-        <label for="user_name">User Name <span style="color:red;">*</span></label>
+        <label for="user_name">Full name <span style="color:red;">*</span></label>
         <input id="user_name" type="text" class="form-control" formControlName="user_name">
         <span *ngIf="formErrors.user_name" class="small text-danger formErrors" [innerHTML]="formErrors.user_name">
         </span>
@@ -25,20 +25,14 @@
         <span *ngIf="formErrors.user_email" class="small text-danger formErrors" [innerHTML]="formErrors.user_email">
         </span>
       </div>
+
       <div class="form-group">
-        <label for="user_mobile"> Mobile <span style="color:red;">*</span></label>        
-        <input id="user_mobile" type="text" class="form-control" formControlName="user_mobile">
-        <span *ngIf="formErrors.user_mobile" class="small text-danger formErrors" [innerHTML]="formErrors.user_mobile">
+        <label for="password"> Password <span style="color:red;">*</span></label>        
+        <input id="password" type="password" class="form-control" formControlName="password">
+        <span *ngIf="formErrors.password" class="small text-danger formErrors" [innerHTML]="formErrors.password">
         </span>
       </div>
-      <div class="form-group">
-        <label>Choose Profile Pic:</label>
-        <dropzone class="" [config]="config" [message]="'Click or drag images here to upload'" (success)="onUploadSuccess($event)"
-            (error)="onUploadError($event)" (canceled)="cancelUpload($event)">
-        </dropzone>
-        <div *ngIf="formErrors.files" class="small text-danger formErrors" [innerHTML]="formErrors.files">
-        </div>
-    </div>
+      
       <div class="form-group">
         <label for="sector">Status <span style="color:red;">*</span></label>
         <select id="status" class="form-control" formControlName="status">
