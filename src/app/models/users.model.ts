@@ -2,8 +2,16 @@ class UsersModel {
     constructor(
       public user_name: string,
       public user_email: string,
-      public user_mobile: string,
-      public path,
+      public password: string,
+      public status:number,
+      public id?: number,
+    ) { }
+  }
+
+  class UsersUpdateModel {
+    constructor(
+      public user_name: string,
+      public user_email: string,
       public status:number,
       public id?: number,
     ) { }
@@ -13,13 +21,21 @@ class UsersModel {
     constructor(
         public user_name: string,
         public user_email: string,
-        public user_mobile: string,
-        public path,
+        public password: string,
         public status:number,
-    
+        public id?: number,
    
      
     ) { }
   }
-  
-  export {UsersModel, FormUsersModel };
+  class FormUsersUpdateModel {
+    constructor(
+        public user_name: string,
+        public user_email: string,
+        public status:number,
+        public id?: number,
+   
+     
+    ) { }
+  }
+  export {UsersModel,UsersUpdateModel, FormUsersModel,FormUsersUpdateModel };

@@ -18,7 +18,7 @@
       <tr *ngFor="let user of users">
         <td>{{user.user_name}}</td>
         <td>{{user.user_email}}</td>
-        <td>{{user.status}}</td>
+        <td>{{user.status?'Active':"Inactive"}}</td>
         <td>{{user.createdAt | date:'dd-MMM-yyyy hh:mm:ss a'}}</td>
         <td>
             <a (click)="deletesector(user.id)"><i class="fa fa-trash"></i></a> /

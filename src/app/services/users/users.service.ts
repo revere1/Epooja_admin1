@@ -3,7 +3,7 @@ import { ENV } from '../../env.config';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UsersModel } from '../../models/users.model';
+import { UsersModel, UsersUpdateModel } from '../../models/users.model';
 @Injectable()
 export class UsersService {
 
@@ -22,16 +22,16 @@ export class UsersService {
   // POST new event (admin only)
   postEvent$(event: UsersModel): Observable<UsersModel> {
     return this.http
-      .post(`${ENV.BASE_API}users`, event, {
+      .post(`${ENV.BASE_API}user`, event, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
 
    // PUT existing event (admin only)
-   editEvent$(id: number, event: UsersModel): Observable<UsersModel> {    
+   editEvent$(id: number, event: UsersUpdateModel): Observable<UsersUpdateModel> {    
     return this.http
-      .put(`${ENV.BASE_API}users/${id}`, event, {
+      .put(`${ENV.BASE_API}user/${id}`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);

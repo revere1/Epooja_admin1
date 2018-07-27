@@ -28,7 +28,7 @@ export class UsersListComponent implements OnInit {
       processing: true,
       ajax: (dataTablesParameters: any, callback) => {
         var myEfficientFn = this._utils.debounce(()=>{           
-           let apiEvent= this._userService.filterUsers$(dataTablesParameters,'mobile-users')
+           let apiEvent= this._userService.filterUsers$(dataTablesParameters,'filterUsers')
             .subscribe(resp => {
               that.users = resp.data;  
               console.log(that.users)

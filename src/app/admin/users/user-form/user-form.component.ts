@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { UserFormService } from '../../../services/users/user-form.service'
-import { FormUsersModel, UsersModel } from '../../../models/users.model';
+import { FormUsersModel,FormUsersUpdateModel, UsersModel,UsersUpdateModel, } from '../../../models/users.model';
 import { Subscription } from 'rxjs';
 import { ENV } from '../../../env.config';
 import { UsersService } from '../../../services/users/users.service';
@@ -31,6 +31,7 @@ export class UserFormComponent implements OnInit {
   error: boolean;
 
   submitEventObj: FormUsersModel;
+  updateEventObj:FormUsersUpdateModel;
   canRemove: boolean = true;
 
   submitBtnText: string;
@@ -104,20 +105,35 @@ export class UserFormComponent implements OnInit {
 
 
   private _buildForm() {
-    let validRules = {
+    let validRules;
+    if(!this.isEdit){
+    validRules = {
       user_name: [this.formEvent.user_name, [
         Validators.required
       ]],
       user_email: [this.formEvent.user_email, [
         Validators.required
       ]],
-      user_mobile: [this.formEvent.user_mobile, [
+      password: [this.formEvent.password, [
         Validators.required
       ]],
       status: [this.formEvent.status, [
         Validators.required
       ]]
     };
+  }else{
+    validRules = {
+      user_name: [this.formEvent.user_name, [
+        Validators.required
+      ]],
+      user_email: [this.formEvent.user_email, [
+        Validators.required
+      ]],     
+      status: [this.formEvent.status, [
+        Validators.required
+      ]]
+    };
+  }
 
     this.userForm = this.fb.group(validRules);
     // Subscribe to form value changes
@@ -144,7 +160,7 @@ export class UserFormComponent implements OnInit {
 
 
 
-      return new FormUsersModel(null, null,null, null,null);
+      return new FormUsersModel(null, null,null, null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -152,8 +168,7 @@ export class UserFormComponent implements OnInit {
       return new FormUsersModel(
         this.event.user_name,
         this.event.user_email,
-        this.event.user_mobile,
-        this.event.path,
+        this.event.password,
         this.event.status        
 
       );
@@ -243,16 +258,19 @@ export class UserFormComponent implements OnInit {
 
   public saveUser(){
     this.submitting = true;
-    this.submitEventObj = this._getSubmitObj();
+   
+    console.log(this.submitEventObj);
     if (!this.isEdit) {
+      this.submitEventObj = this._getSubmitObj();
       this.submitEventSub = this._userService.postEvent$(this.submitEventObj)
       .subscribe(
         data => this._handleSubmitSuccess(data),
         err => this._handleSubmitError(err)
       );
     }else{
+      this.updateEventObj = this._getUpdateObj();
       this.submitEventSub = this._userService
-        .editEvent$(this.event.id, this.submitEventObj)
+        .editEvent$(this.event.id, this.updateEventObj)
         .subscribe(
 
           data => this._handleSubmitSuccess(data),
@@ -266,11 +284,20 @@ export class UserFormComponent implements OnInit {
   private _getSubmitObj() {
     let curUserObj = localStorage.getItem('currentUser');
     let currentUser = JSON.parse(curUserObj);
-    return new UsersModel(
+   
+      return new UsersModel(
+        this.userForm.get('user_name').value,
+        this.userForm.get('user_email').value, 
+        this.userForm.get('password').value,
+        this.userForm.get('status').value,
+        this.event ? this.event.id : null
+      );
+    
+  }
+  private _getUpdateObj() {
+    return new UsersUpdateModel(
       this.userForm.get('user_name').value,
       this.userForm.get('user_email').value, 
-      this.userForm.get('user_mobile').value, 
-      this.event ? this.event.path : this.uploadFiles[0],     
       this.userForm.get('status').value,
       this.event ? this.event.id : null
     );
