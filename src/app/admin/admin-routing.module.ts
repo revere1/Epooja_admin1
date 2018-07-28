@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AnalystsComponent } from './analysts/analysts.component';
 import { ClientsComponent } from './clients/clients.component';
 import { CreateClientComponent } from './clients/create-client/create-client.component';
 import { UpdateClientComponent } from './clients/update-client/update-client.component';
@@ -33,11 +32,7 @@ import { CreateSubCategoryComponent } from './sub-categories/create-sub-category
 import { UpdateSubCategoryComponent } from './sub-categories/update-sub-category/update-sub-category.component';
 import { SubCategoryListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
 
-import { AnalystFormComponent } from './analysts/analyst-form/analyst-form.component';
-import { AnalystsListComponent } from './analysts/analysts-list/analysts-list.component';
-import { CreateAnalystComponent } from './analysts/create-analyst/create-analyst.component';
-import { UpdateAnalystComponent } from './analysts/update-analyst/update-analyst.component';
-import { ViewAnalystComponent } from './analysts/view-analyst/view-analyst.component';
+
 import { RegionsComponent } from './regions/regions.component';
 import { CurrencyComponent } from './currency/currency.component';
 import { PrivillegesComponent } from './clients/privilleges/privilleges.component';
@@ -45,6 +40,7 @@ import { UsersComponent } from './users/users.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { CreateUserComponent } from './users/create-user/create-user.component';
 import { UpdateUserComponent } from './users/update-user/update-user.component';
+import { UserDetailsComponent } from './users/user-details/user-details.component';
 
 const AdminRoutes: Routes = [
   {
@@ -137,33 +133,6 @@ const AdminRoutes: Routes = [
               breadcrumb: 'Update'
             }
           },
-        ]
-      },
-      {
-        path: 'analysts', component: AnalystsComponent,
-        data: {
-          breadcrumb: 'Analysts'
-        },
-        children: [
-          { path: '', component: AnalystsListComponent },
-          {
-            path: 'create', component: CreateAnalystComponent,
-            data: {
-              breadcrumb: 'Create'
-            }
-          },
-          {
-            path: 'update/:id', component: UpdateAnalystComponent,
-            data: {
-              breadcrumb: 'Update'
-            }
-          },
-          {
-            path: 'view/:id', component: ViewAnalystComponent,
-            data: {
-              breadcrumb: 'View'
-            }
-          }
         ]
       },
       {
@@ -270,6 +239,12 @@ const AdminRoutes: Routes = [
             path: 'update/:id', component: UpdateUserComponent,
             data: {
               breadcrumb: 'Update'
+            }
+          },
+          {
+            path: 'view/:id', component: UserDetailsComponent,
+            data: {
+              breadcrumb: 'Details'
             }
           },
         ]

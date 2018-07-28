@@ -5,7 +5,6 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductsComponent } from './products/products.component';
-import { AnalystsComponent } from './analysts/analysts.component';
 import { ClientsComponent } from './clients/clients.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { ScriptService } from '../services/script.service';
@@ -58,11 +57,6 @@ import { CreateSubCategoryComponent } from './sub-categories/create-sub-category
 import { UpdateSubCategoryComponent } from './sub-categories/update-sub-category/update-sub-category.component';
 import { SubCategoryListComponent } from './sub-categories/sub-category-list/sub-category-list.component';
 import { SubCategoryFormService} from '../services/sub-categories/sub-category-form.service';
-import { AnalystFormComponent } from './analysts/analyst-form/analyst-form.component';
-import { AnalystsListComponent } from './analysts/analysts-list/analysts-list.component';
-import { CreateAnalystComponent } from './analysts/create-analyst/create-analyst.component';
-import { UpdateAnalystComponent } from './analysts/update-analyst/update-analyst.component';
-import { ViewAnalystComponent } from './analysts/view-analyst/view-analyst.component';
 import { DashboardService } from '../services/dashboard.service';
 import { RepeatModule } from '../repeat/repeat.module';
 import { HelpFormService } from '../services/help/help-form.service';
@@ -92,6 +86,7 @@ import { CreateUserComponent } from './users/create-user/create-user.component';
 import { UpdateUserComponent } from './users/update-user/update-user.component';
 import { UsersService } from '../services/users/users.service';
 import { UserFormService } from '../services/users/user-form.service';
+import { UserDetailsComponent } from './users/user-details/user-details.component';
 
 @NgModule({
   imports: [
@@ -110,7 +105,6 @@ import { UserFormService } from '../services/users/user-form.service';
   declarations: [
       DashboardComponent, 
       ProductsComponent, 
-      AnalystsComponent,
       ClientsComponent,
       AdminLayoutComponent, 
       CreateClientComponent, 
@@ -144,11 +138,6 @@ import { UserFormService } from '../services/users/user-form.service';
       CreateSubCategoryComponent,
       UpdateSubCategoryComponent,
       SubCategoryListComponent,
-      AnalystFormComponent,
-      AnalystsListComponent,
-      CreateAnalystComponent,
-      UpdateAnalystComponent,
-      ViewAnalystComponent,
       RegionsComponent,
       CurrencyComponent,
       PrivillegesComponent,
@@ -157,6 +146,7 @@ import { UserFormService } from '../services/users/user-form.service';
       UserFormComponent,
       CreateUserComponent,
       UpdateUserComponent,
+      UserDetailsComponent,
     
     ],
   providers: [

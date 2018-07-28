@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { UserService } from '../../../services/user.service';
+import { ToastsManager } from '../../../../../node_modules/ng2-toastr';
 
 @Component({
   selector: 'app-users-list',
@@ -11,11 +12,12 @@ export class UsersListComponent implements OnInit {
 
   public users:any[] = [];
   dtOptions: DataTables.Settings = {};
-  
+  error:boolean;
   apiEvents = [];
   constructor(
     private _utils: UtilsService,
-    private _userService:UserService
+    private _userService:UserService,
+    public toastr: ToastsManager
   ) { }
 
   ngOnInit() {
@@ -53,4 +55,40 @@ export class UsersListComponent implements OnInit {
     };
   }
 
+  deletesUser(id:number)
+  {
+    var delmsg = confirm("Are u Sure Want to delete?");
+    if(delmsg)
+    {  
+      let apiEvent=this._userService.deleteUserById$(id)
+      .subscribe(
+        data => this._handleSubmitSuccess(data,id),
+        err => this._handleSubmitError(err)
+      );
+      (this.apiEvents).push(apiEvent);
+    }
+  }
+  private _handleSubmitSuccess(res,id=0)
+  {
+    this.error = false;
+  
+    // Redirect to event detail
+    if(res.success){
+      this.toastr.success(res.message,'Success');  
+      let pos = this.users.map(function(e) { return e.id; }).indexOf(id);
+      this.users.splice(pos, 1);
+    }
+    else{       
+      this.toastr.error(res.message,'Invalid');  
+    }
+   
+  }
+
+
+  private _handleSubmitError(err)
+  {
+    this.toastr.error(err.message,'Error');
+  
+    this.error = true;
+  }
 }
