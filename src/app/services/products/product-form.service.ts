@@ -9,8 +9,9 @@ export class ProductFormService {
   // Set up errors object
   formErrors = {
     product_name: '',
-    sector: '',
-    country:'',
+    product_code: '',
+    category: '',
+    subcategory:'',
     cost:'',
     quatity:'',
     description:''
@@ -22,16 +23,19 @@ export class ProductFormService {
       product_name: {
         required: `Product_name is <strong>required</strong>.`
       },
-      sector: {
+      product_code: {
+        required: `Product_code is <strong>required</strong>.`
+      },
+      category: {
         required: `Category is <strong>required</strong>.`
       },      
    
-      country:{
+      subcategory:{
         required: `Sub-category is <strong>required</strong>.`
         
       },
       cost:{
-        required: `cost is <strong>required</strong>.`,
+        required: `price is <strong>required</strong>.`,
         pattern:'Only Numbers Allowed'
       },
       quatity:{

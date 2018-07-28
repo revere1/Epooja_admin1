@@ -17,7 +17,7 @@ import { CreateProductComponent } from './products/create-product/create-product
 import { UpdateProductComponent } from './products/update-product/update-product.component';
 import { ViewProductComponent } from './products/view-product/view-product.component';
 import { ProductsListComponent } from './products/products-list/products-list.component';
-import { ProductFormService } from '../services/tickers/product-form.service';
+import { ProductFormService } from '../services/products/product-form.service';
 import { ProductFormComponent } from './products/product-form/product-form.component';
 import { ProductService } from '../services/product.service';
 import { UserService } from '../services/user.service';

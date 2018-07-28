@@ -30,20 +30,8 @@ export const ENV = {
      PUBLISHED: 'published'   
   },
   SUMMER_SETUP:{
-    // toolbar:[
-    //   ['style', ['style']],
-    //   ['font', ['bold', 'underline', 'italic']],
-    //   ['para', ['ul', 'ol', 'paragraph','hr']],
-    //   ['table', ['table']],
-    //   ['insert', ['link', 'picture']],
-    //   ['view', ['codeview']],
-    //   ['myButton', ['save']]
-    // ]
-    addclass: {
-      debug: false,
-      classTags: [
-        {title:"Button","value":"btn btn-success"},"Highligted"]
-              },
+ 
+
   height: 100,
   toolbar: [
       ['style', ['style', 'addclass','caption']],

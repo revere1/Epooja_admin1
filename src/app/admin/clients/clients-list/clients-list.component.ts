@@ -125,18 +125,18 @@ export class ClientsListComponent implements OnInit, OnDestroy {
   }
 
 
-  deleteClient(id: number) {
-    var delmsg = confirm("Are u Sure Want to delete?");
-    if (delmsg) {
-      let apiEvent = this._userApi.deleteClientById$(id)
-        .subscribe(
-          data => this._handleSubmitSuccess(data, id),
-          err => this._handleSubmitError(err)
-        );
+  // deleteClient(id: number) {
+  //   var delmsg = confirm("Are u Sure Want to delete?");
+  //   if (delmsg) {
+  //     let apiEvent = this._userApi.deleteClientById$(id)
+  //       .subscribe(
+  //         data => this._handleSubmitSuccess(data, id),
+  //         err => this._handleSubmitError(err)
+  //       );
 
-      (this.apiEvents).push(apiEvent);
-    }
-  }
+  //     (this.apiEvents).push(apiEvent);
+  //   }
+  // }
   private _handleSubmitSuccess(res, id = 0) {
     this.error = false;
 

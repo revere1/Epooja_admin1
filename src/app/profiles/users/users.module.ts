@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersLayoutComponent } from './users-layout/users-layout.component';
 import { UsersOverviewComponent } from './users-layout/users-overview/users-overview.component';

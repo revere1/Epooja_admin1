@@ -28,6 +28,31 @@
                   [innerHTML]="formErrors.product_name">
                 </div>
               </div>
+              <div class="form-group">
+                <label for="product_code"> Product Code<span style="color:red;">*</span></label>
+                <input
+                  id="product_code"
+                  type="text"
+                  class="form-control"
+                  formControlName="product_code">
+                <div
+                  *ngIf="formErrors.product_code"
+                  class="small text-danger formErrors"
+                  [innerHTML]="formErrors.product_code">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="product_description">Product Description<span style="color:red;">*</span></label>
+                <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+                <textarea id="product_description" 
+                  class="form-control"
+                  formControlName="product_description" ></textarea>
+                <div
+                  *ngIf="formErrors.product_description"
+                  class="small text-danger formErrors"
+                  [innerHTML]="formErrors.product_description">
+                </div>
+            </div> 
            
               <div class="form-group">
                 <label for="category">Categories<span style="color:red;">*</span></label>
@@ -78,7 +103,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="share_in_issue">Cost <span style="color:red;">*</span></label>
+                <label for="share_in_issue">Price<span style="color:red;">*</span></label>
                 <input
                   id="share_in_issue"
                   type="text"
@@ -102,18 +127,7 @@
             </div>
             <div class="col-md-6">
             </div>     
-            <div class="form-group">
-              <label for="product_description">Product Description<span style="color:red;">*</span></label>
-              <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-              <textarea id="product_description" 
-                class="form-control"
-                formControlName="product_description" ></textarea>
-              <div
-                *ngIf="formErrors.product_description"
-                class="small text-danger formErrors"
-                [innerHTML]="formErrors.product_description">
-              </div>
-          </div>  
+         
           <div class="form-group">
             <label for="sector">Status <span style="color:red;">*</span></label>
             <select id="status" class="form-control" formControlName="status">

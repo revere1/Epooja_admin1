@@ -84,6 +84,7 @@ export class ProductsListComponent implements OnInit {
       columns: [
         { data: 'path' },
         { data: 'product_name' },
+        { data: 'product_code' },
         { data: 'category_id' },
         { data: 'subcategory_id' },
         { data: 'cost' },
