@@ -73,7 +73,7 @@ export class UserService {
   }
 
   //Delete Ticker
-  deleteClientById$(id: number): Observable<number>{
+  deleteUserById$(id: number): Observable<number>{
     return this.http
       .delete(`${ENV.BASE_API}user/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)

@@ -110,7 +110,7 @@ export class SectorsListComponent implements OnInit {
       }); 
     }
   
-  deletesector(id:number){
+  deleteCategory(id:number){
     var delmsg = confirm("Are u Sure Want to delete?");
     if(delmsg){
   
