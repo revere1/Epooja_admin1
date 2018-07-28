@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
-import { ProductFormService } from '../../../services/tickers/product-form.service';
+import { ProductFormService } from '../../../services/products/product-form.service';
 import { ProductService } from '../../../services/product.service';
 import { ProductModel, FormProductModel } from '../../../models/product.model';
 import { Subscription } from 'rxjs/Subscription';
@@ -110,7 +110,7 @@ export class ProductFormComponent implements OnInit {
           drop.removeFile(file);
         });
         this.on('success', function (file) {
-          $('.btn-group').addClass('open');
+         // $('.btn-group').addClass('open');
         });
       }
     };
@@ -118,6 +118,9 @@ export class ProductFormComponent implements OnInit {
   private _buildForm() {
     let validRules = {
       product_name: [this.formEvent.product_name, [
+        Validators.required
+      ]],
+      product_code:  [this.formEvent.product_code, [
         Validators.required
       ]],
       category: [this.formEvent.category_id,
@@ -204,13 +207,14 @@ export class ProductFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormProductModel(null,null, null, null,null,null,null,null);
+      return new FormProductModel(null,null, null, null,null,null,null,null,null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
 
       return new FormProductModel(
         this.event.product_name,
+        this.event.product_code,
         this.event.category_id,
         this.event.subcategory_id,
         this.event.product_description,
@@ -232,6 +236,7 @@ export class ProductFormComponent implements OnInit {
     // to JS dates and populate a new EventModel for submission
     return new ProductModel(
       this.productForm.get('product_name').value,
+      this.productForm.get('product_code').value,
       this.productForm.get('category').value,
       this.productForm.get('subcategory').value,
       $('#product_description').summernote('code'),

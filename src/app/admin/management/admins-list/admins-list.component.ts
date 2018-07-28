@@ -113,17 +113,17 @@ export class AdminsListComponent implements OnInit {
   }
 
 
-  deleteClient(id:number){
-    var delmsg = confirm("Are u Sure Want to delete?");
-    if(delmsg){
-    let apiEvent=this._userApi.deleteClientById$(id)
-    .subscribe(
-        data => this._handleSubmitSuccess(data,id),
-        err => this._handleSubmitError(err)
-    );
-    (this.apiEvents).push(apiEvent);
-  }
-}
+//   deleteClient(id:number){
+//     var delmsg = confirm("Are u Sure Want to delete?");
+//     if(delmsg){
+//     let apiEvent=this._userApi.deleteClientById$(id)
+//     .subscribe(
+//         data => this._handleSubmitSuccess(data,id),
+//         err => this._handleSubmitError(err)
+//     );
+//     (this.apiEvents).push(apiEvent);
+//   }
+// }
 private _handleSubmitSuccess(res,id=0) {
   this.error = false;
 
