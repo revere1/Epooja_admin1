@@ -113,8 +113,10 @@ export class ProductFormComponent implements OnInit {
          // $('.btn-group').addClass('open');
         });
       }
+      
     };
   }
+
   private _buildForm() {
     let validRules = {
       product_name: [this.formEvent.product_name, [
@@ -131,6 +133,7 @@ export class ProductFormComponent implements OnInit {
         // Validators.required
       ]],
       cost: [this.formEvent.cost, Validators.pattern["0-9*"]],
+      delivery_days: [this.formEvent.delivery_days, Validators.pattern["0-9*"]],
       quatity: [this.formEvent.quatity, Validators.pattern["0-9*"]],
       status: [this.formEvent.status, [
         Validators.required
@@ -207,7 +210,7 @@ export class ProductFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormProductModel(null,null, null, null,null,null,null,null,null);
+      return new FormProductModel(null,null, null, null,null,[],null,null,null,null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -218,8 +221,10 @@ export class ProductFormComponent implements OnInit {
         this.event.category_id,
         this.event.subcategory_id,
         this.event.product_description,
-        this.event.path,
+        //this.event.path,
+        this.event.files,
         this.event.cost,
+        this.event.delivery_days,
         this.event.quatity,
         this.event.status
         
@@ -240,8 +245,10 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('category').value,
       this.productForm.get('subcategory').value,
       $('#product_description').summernote('code'),
-      this.event ? this.event.path : this.uploadFiles[0],
+      //this.event ? this.event.path : this.uploadFiles[0],
+      this.event ? this.event.files : this.uploadFiles,
       this.productForm.get('cost').value,
+      this.productForm.get('delivery_days').value,
       this.productForm.get('quatity').value,
       this.productForm.get('status').value,
       this.event ? this.event.id : null
@@ -307,5 +314,19 @@ export class ProductFormComponent implements OnInit {
     }
     this.formChangeSub.unsubscribe();
   }
+//  public  readURL(input) {
+//     if (input.files && input.files[0]) {
+//         var reader = new FileReader();
+
+//         reader.onload = function (e) {
+//             $('#blah')
+//                 .attr('src', e.target.result)
+//                 .width(150)
+//                 .height(200);
+//         };
+
+//         reader.readAsDataURL(input.files[0]);
+//     }
+// }
 
 }

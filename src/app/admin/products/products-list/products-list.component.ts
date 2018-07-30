@@ -88,6 +88,7 @@ export class ProductsListComponent implements OnInit {
         { data: 'category_id' },
         { data: 'subcategory_id' },
         { data: 'cost' },
+        { data: 'delivery_days' },
         { data: 'quatity' },
         { data: 'status' },
         { data: 'id' }
