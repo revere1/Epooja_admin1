@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 import { ProductFormService } from '../../../services/products/product-form.service';
 import { ProductService } from '../../../services/product.service';
@@ -23,7 +23,9 @@ export class ProductFormComponent implements OnInit {
   @Input() event: ProductModel;
   isEdit: boolean;
   productForm: FormGroup;
+  public serverURL = ENV.SERVER_URL
   apiEvents = [];
+  products = [];
   formEvent: FormProductModel;
   formErrors: any;
   formChangeSub: Subscription;
@@ -31,11 +33,14 @@ export class ProductFormComponent implements OnInit {
   submitting: boolean;
   submitEventSub: Subscription;
   error: boolean;
+  productsData: any;
   submitBtnText: string;
   categories: Object[];
   subcategories: Object[];
   uploadFilesObj = {};
   uploadFiles = [];
+  routeSub: Subscription;
+  public id: number;
   canRemove: boolean = true;
   public config: DropzoneConfigInterface = {};
 
@@ -43,6 +48,7 @@ export class ProductFormComponent implements OnInit {
     private router: Router,
     public cf: ProductFormService,
     private _productapi: ProductService,
+    private route: ActivatedRoute,
     private _categoryService: CategoriesService,
     private _subcategoriesService: SubcategoriesService,
     public toastr: ToastsManager
@@ -53,6 +59,25 @@ export class ProductFormComponent implements OnInit {
       let _that = this;
       $('#product_description').summernote({
       });
+    });
+    this.routeSub = this.route.params
+    .subscribe(params => {
+      this.id = params['id'];
+    });
+
+    let apiEvent = this._productapi.getComposeById$(this.id).subscribe(data => {
+      if (data.success === false) {
+      }
+      else {
+        //this.finished = true;
+        this.productsData = data.data;
+        console.log(this.productsData)
+       // this.insight_img = (this.productsData.insight_img) ? ENV.SERVER_URL + this.productsData.insight_img : null;   
+        // this.insightsData.insight_attachements.forEach(ele => {
+        //   this.totalsize += parseFloat(ele.fsize);
+        // });
+        }
+      
     });
     this.formErrors = this.cf.formErrors;
     this.isEdit = !!this.event;
@@ -73,6 +98,12 @@ export class ProductFormComponent implements OnInit {
         console.log(this.subcategories)
       }
     });
+
+
+
+
+
+
     let that = this;
     this.config = {
       url: ENV.BASE_API + 'products/path?token=' + this._productapi.getToken(),
@@ -286,6 +317,37 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
+  deleteInsightAttachment(id: number, fsize: number) {
+
+    var delmsg = confirm("Are u Sure Want to delete?");
+    if (delmsg) {
+      let apiEvent = this._productapi.deleteInsAttachmentById$(id)
+        .subscribe(
+          data => {
+           
+            this._handleSubmitSuccess1(data, id);
+          },
+          err => this._handleSubmitError(err)
+        );
+
+      (this.apiEvents).push(apiEvent);
+      //this.totalsize = this.totalsize - fsize;
+    }
+
+  }
+
+  private _handleSubmitSuccess1(res, id = 0) {
+    this.error = false;
+    // Redirect to event detail
+    if (res.success) {
+      this.toastr.success(res.message, 'Success');
+      let pos = this.products.map(function (e) { return e.id; }).indexOf(id);
+      this.products.splice(pos, 1);
+    }
+    else {
+      this.toastr.error(res.message, 'Invalid');
+    }
+  }
   private _handleSubmitSuccess(res) {
     this.error = false;
     this.submitting = false;

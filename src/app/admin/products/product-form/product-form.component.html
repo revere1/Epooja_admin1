@@ -152,10 +152,15 @@
               <div *ngIf="formErrors.files" class="small text-danger formErrors" [innerHTML]="formErrors.files">
               </div>
           </div>
+          <span *ngIf="productsData?.product_images" class="productimg">
+            <p  *ngFor="let file of productsData.product_images"   id="atta-{{file.id}}">
+                <i class="fa fa-trash" aria-hidden="true" (click)="deleteInsightAttachment(file.id,file.fsize)"></i>
+                <a href="{{serverURL+file.path}}" download> {{file.orgName}}</a>
+                <img class="img-responsive" src="{{serverURL+file.path}}" alt="User Pic">
+               
+            </p>
+            </span>
             </div>
-            <div class="col-md-6">
-            </div>     
-         
           <div class="form-group">
             <label for="sector">Status <span style="color:red;">*</span></label>
             <select id="status" class="form-control" formControlName="status">

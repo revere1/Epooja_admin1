@@ -20,6 +20,24 @@ export class ProductService {
     return this.currentUser.token;
   }
 
+      //getHelpById$(createdBy: number): Observable<HelpModel> {
+        getComposeById$(id: number) {
+          return this.http
+            .get(`${ENV.BASE_API}product/${id}`, {
+              headers: new HttpHeaders().set('Authorization', this._authHeader)
+            })
+            .catch(this._handleError);
+        }
+
+           //delete insights-attachments
+      deleteInsAttachmentById$(id: number): Observable<number>{
+        return this.http
+          .delete(`${ENV.BASE_API}insight-attachment/${id}`, {
+            headers: new HttpHeaders().set('Authorization', this._authHeader)
+          })
+          .catch(this._handleError);
+      }
+
   getproducts$() {
     return this.http
       .get(`${ENV.BASE_API}products`, {
