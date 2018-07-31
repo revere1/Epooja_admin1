@@ -13,6 +13,7 @@ export class ProductFormService {
     category: '',
     subcategory:'',
     cost:'',
+    delivery_days:'',
     quatity:'',
     description:''
   };
@@ -36,6 +37,10 @@ export class ProductFormService {
       },
       cost:{
         required: `price is <strong>required</strong>.`,
+        pattern:'Only Numbers Allowed'
+      },
+      delivery_days:{
+        required: `product delivery days is <strong>required</strong>.`,
         pattern:'Only Numbers Allowed'
       },
       quatity:{
