@@ -82,7 +82,7 @@ export class ProductsListComponent implements OnInit {
       },
 
       columns: [
-        { data: 'path' },
+        { data: 'product_img' },
         { data: 'product_name' },
         { data: 'product_code' },
         { data: 'category_id' },

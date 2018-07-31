@@ -85,21 +85,6 @@ export class ProductFormComponent implements OnInit {
     this.submitBtnText = this.isEdit ? 'Update' : 'Create';
     this.formEvent = this._setFormEvent();
     this._buildForm();
-    this._categoryService.getCategory$().subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.categories = data.data;
-      }
-    });
-    //Fetch Countries
-    this._subcategoriesService.getSubcategories$().subscribe(data => {
-      if (data.success === false) {
-      } else {
-        this.subcategories = data.data;
-        console.log(this.subcategories)
-      }
-    });
-
     let that = this;
     this.config = {
       url: ENV.BASE_API + 'products/path?token=' + this._productapi.getToken(),
@@ -123,6 +108,7 @@ export class ProductFormComponent implements OnInit {
           }
           /*end*/
           if (that.canRemove) {
+
             that.totalsize -= parseFloat((file.size / (1000 * 1000)).toFixed(2));
             //Removing values from array which are existing in uploadFiles variable         
             let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
@@ -133,7 +119,7 @@ export class ProductFormComponent implements OnInit {
               }
               (that.uploadFiles).splice(index, 1);
               //that.removeFile(that.uploadFilesObj[file.upload.uuid]);
-              delete that.uploadFilesObj[file.upload.uuid];
+              //delete that.uploadFilesObj[file.upload.uuid];
             }
           }
         });
@@ -143,9 +129,48 @@ export class ProductFormComponent implements OnInit {
         this.on('success', function (file) {
         });
       },
-   
+      /* Check for total all files size*/
+      accept: function (file, done) {
+        if (that.totalsize <= ENV.HELP_MAX_SIZE) {
+          done();
+        } else {
+          done('Total size exceeded');
+        }
+      }
     };
+    this._buildForm();
+    this._categoryService.getCategory$().subscribe(data => {
+      if (data.success === false) {
+      } else {
+        this.categories = data.data;
+      }
+    });
+    //Fetch Countries
+    this._subcategoriesService.getSubcategories$().subscribe(data => {
+      if (data.success === false) {
+      } else {
+        this.subcategories = data.data;
+        console.log(this.subcategories)
+      }
+    });
+
   }
+
+  public onUploadSuccess(eve) {
+    if ((eve[1].success !== undefined) && eve[1].success) {
+      this.formErrors['files'] = '';
+      Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
+      (this.uploadFiles).push(eve[1].data);
+    }
+    else {
+      this.formErrors['files'] = 'Something Went Wrong';
+    }
+    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
+  };
+  public onUploadError(eve) {
+    this.formErrors['files'] = eve[1];
+    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
+  };
 
   private _buildForm() {
     let validRules = {
@@ -209,21 +234,8 @@ export class ProductFormComponent implements OnInit {
       }
     }
   };
-  public onUploadSuccess(eve) {
-    if ((eve[1].success !== undefined) && eve[1].success) {
-      this.formErrors['files'] = '';
-      Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
-      (this.uploadFiles).push(eve[1].data);
-    }
-    else {
-      this.formErrors['files'] = 'Something Went Wrong';
-    }
-    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
-  };
-  public onUploadError(eve) {
-    this.formErrors['files'] = eve[1];
-    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
-  };
+
+
   // private removeFile(file) {
   //   let apiEvent = this._productapi.removeFile(file).subscribe(
   //     data => {
@@ -238,7 +250,7 @@ export class ProductFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormProductModel(null,null, null, null,null,[],null,null,null,null);
+      return new FormProductModel(null,null, null, null,null,null,null,null,null,[]);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -249,12 +261,11 @@ export class ProductFormComponent implements OnInit {
         this.event.category_id,
         this.event.subcategory_id,
         this.event.product_description,
-        //this.event.path,
-        this.event.files,
         this.event.cost,
         this.event.delivery_days,
         this.event.quatity,
-        this.event.status
+        this.event.status,
+        this.event.files,
         
       
       );
@@ -273,11 +284,11 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('category').value,
       this.productForm.get('subcategory').value,
       $('#product_description').summernote('code'),
-      this.event ? this.event.files : this.uploadFiles,
       this.productForm.get('cost').value,
       this.productForm.get('delivery_days').value,
       this.productForm.get('quatity').value,
       this.productForm.get('status').value,
+      this.event ? this.event.files : this.uploadFiles,
       this.event ? this.event.id : null
     );
   }
@@ -297,15 +308,22 @@ export class ProductFormComponent implements OnInit {
     this.submitEventObj = this._getSubmitObj();
     console.log(this.submitEventObj);
     if (!this.isEdit) {
-      this.submitEventSub = this._productapi
+      let apiEvent = this.submitEventSub = this._productapi
         .postEvent$(this.submitEventObj)
         .subscribe(
-          data => this._handleSubmitSuccess(data),
+          data => {
+            this._handleSubmitSuccess(data);
+            this.canRemove = false;
+            //this.router.navigate(['/analyst/help']);
+          },
           err => this._handleSubmitError(err)
         );
+      (this.apiEvents).push(apiEvent);
     } else {
+      console.log(this.submitEventObj)
       this.submitEventSub = this._productapi
-        .editEvent$(this.event.id, this.submitEventObj)
+     
+        .editEvent$(this.id, this.submitEventObj)
         .subscribe(
           data => this._handleSubmitSuccess(data),
           err => this._handleSubmitError(err)

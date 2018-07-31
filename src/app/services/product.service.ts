@@ -15,6 +15,14 @@ export class ProductService {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return this.currentUser.token;
   }
+
+  uploads(formData) {
+    return this.http
+    .post(`${ENV.BASE_API}/products/files`, formData,{
+      headers: new HttpHeaders().set('Authorization', this._authHeader)
+    })
+    .catch(this._handleError);
+  }
   public getToken(): string {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return this.currentUser.token;
@@ -86,9 +94,9 @@ export class ProductService {
       .catch(this._handleError);
   }
 
-  editEvent$(id, event) {
+  editEvent$(id: number, event: ProductModel): Observable<ProductModel> {    
     return this.http
-      .put(`${ENV.BASE_API}product/${id}`, event, {
+      .put(`${ENV.BASE_API}updateproduct/${id}`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);

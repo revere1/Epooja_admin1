@@ -15,6 +15,7 @@ export class ProductFormService {
     cost:'',
     delivery_days:'',
     quatity:'',
+    files:'',
     description:''
   };
  
@@ -46,6 +47,9 @@ export class ProductFormService {
       quatity:{
         required: `quatity is <strong>required</strong>.`,
         pattern:'Only Numbers Allowed'
+      },
+      files: {         
+        exceeded: `You already <strong>exceeded</strong> the limit of files upload.`,
       },
       description:{
        required :`product description is <strong>required</strong>`

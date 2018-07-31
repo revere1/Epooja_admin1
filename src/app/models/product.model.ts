@@ -6,11 +6,12 @@ class ProductModel {
       public subcategory_id: number,       
       public product_description: string,
       //public path,
-      public files = [],
+    
       public cost: string,
       public delivery_days:number,
       public quatity: number,
       public status:number,
+      public files = [],
       public id?: number
       
     ) { }
@@ -24,11 +25,11 @@ class ProductModel {
         public subcategory_id: number,       
         public product_description: string,
         //public path,
-        public files = [],
         public cost: string,
         public delivery_days:number,
         public quatity: number,
         public status:number,
+        public files = [],
     ) { }
   }
   

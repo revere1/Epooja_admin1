@@ -146,16 +146,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.scrmenu();
     })
 
-<<<<<<< HEAD
-    // this._userapi.getRoleByAccess$(this.currentUser.access_level).subscribe(data => {
-    //   if (data.success === false) {
-    //   } else {
-    //     this.role = data.data.name;
-    //   }
-    // })
-=======
  
->>>>>>> 3e04e13b8571e308b975c318d95d944844c63148
 
     this.carouselBanner = {
       grid: { xs: 1, sm: 2, md: 2, lg: 2, all: 0 },
