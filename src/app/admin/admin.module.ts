@@ -5,13 +5,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductsComponent } from './products/products.component';
-import { ClientsComponent } from './clients/clients.component';
+
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { ScriptService } from '../services/script.service';
-import { CreateClientComponent } from './clients/create-client/create-client.component';
-import { UpdateClientComponent } from './clients/update-client/update-client.component';
-import { ViewClientComponent } from './clients/view-client/view-client.component';
-import { ClientsListComponent } from './clients/clients-list/clients-list.component';
 import { ClientFormService } from '../services/clients/client-form.service';
 import { CreateProductComponent } from './products/create-product/create-product.component';
 import { UpdateProductComponent } from './products/update-product/update-product.component';
@@ -25,7 +21,7 @@ import { CategoriesService } from '../services/categories.service';
 import { SubcategoriesService } from '../services/subcategories.service';
 import { CountriesService } from '../services/countries.service';
 import { StatesService } from '../services/states.service';
-import { ClientFormComponent } from './clients/client-form/client-form.component';
+
 import { UtilsService } from '../services/utils.service';
 import { DataTablesModule } from 'angular-datatables';
 import { StatesComponent } from './states/states.component';
@@ -75,7 +71,6 @@ import {
 import { RegionsComponent } from './regions/regions.component';
 import { CurrencyComponent } from './currency/currency.component';
 import { MacroTypeService } from '../services/macrotype.service';
-import { PrivillegesComponent } from './clients/privilleges/privilleges.component';
 import { CompanyFormService } from '../services/company_details/company-form.service';
 import { CompanyService } from '../services/company.service';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
@@ -87,6 +82,7 @@ import { UpdateUserComponent } from './users/update-user/update-user.component';
 import { UsersService } from '../services/users/users.service';
 import { UserFormService } from '../services/users/user-form.service';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
+import { BannersComponent } from './banners/banners.component';
 
 @NgModule({
   imports: [
@@ -105,13 +101,7 @@ import { UserDetailsComponent } from './users/user-details/user-details.componen
   declarations: [
       DashboardComponent, 
       ProductsComponent, 
-      ClientsComponent,
       AdminLayoutComponent, 
-      CreateClientComponent, 
-      UpdateClientComponent, 
-      ViewClientComponent, 
-      ClientsListComponent,
-      ClientFormComponent,
       CreateProductComponent, 
       UpdateProductComponent, 
       ViewProductComponent, 
@@ -140,13 +130,13 @@ import { UserDetailsComponent } from './users/user-details/user-details.componen
       SubCategoryListComponent,
       RegionsComponent,
       CurrencyComponent,
-      PrivillegesComponent,
-      UsersComponent,
+       UsersComponent,
       UsersListComponent,
       UserFormComponent,
       CreateUserComponent,
       UpdateUserComponent,
       UserDetailsComponent,
+      BannersComponent,
     
     ],
   providers: [

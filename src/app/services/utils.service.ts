@@ -244,11 +244,7 @@ export class UtilsService {
     });
   }
   showMatchedAnalysts(keyword, cb) {
-    this._us.elasticAnalysts(keyword).subscribe(data => {
-      if (data.success) {
-        (data.data !== undefined && data.data.users.length) ? cb(data.data.users) : cb([]);
-      }
-    });
+   
   }
   hint() {
     let results;
