@@ -43,6 +43,7 @@ export class ProductFormComponent implements OnInit {
   public id: number;
   canRemove: boolean = true;
   public config: DropzoneConfigInterface = {};
+  public totalsize: number = 0.0;
 
   constructor(private fb: FormBuilder,
     private router: Router,
@@ -99,20 +100,19 @@ export class ProductFormComponent implements OnInit {
       }
     });
 
-
-
-
-
-
     let that = this;
     this.config = {
       url: ENV.BASE_API + 'products/path?token=' + this._productapi.getToken(),
-      maxFiles: ENV.LOCKER_MAX_FILES,
+      maxFiles: ENV.PRODUCT_MAX_FILES,
+      maxFilesize: ENV.HELP_MAX_SIZE,
       clickable: true,
       createImageThumbnails: true,
       addRemoveLinks: true,
       init: function () {
         let drop = this;
+        this.on("addedfile", function (file) {
+          that.totalsize += parseFloat((file.size / (1000 * 1000)).toFixed(2));
+        });
         this.on('removedfile', function (file) {
           /*If reupload already existed file, don t delet the file if max lik=mit crossed error uploaded*/
           if (file.status === 'error') {
@@ -123,28 +123,27 @@ export class ProductFormComponent implements OnInit {
           }
           /*end*/
           if (that.canRemove) {
+            that.totalsize -= parseFloat((file.size / (1000 * 1000)).toFixed(2));
             //Removing values from array which are existing in uploadFiles variable         
             let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
             if (index > -1) {
-              if (that.uploadFiles.length === ENV.LOCKER_MAX_FILES) {
+              if (that.uploadFiles.length === ENV.PRODUCT_MAX_FILES) {
                 that.formErrors['files'] = '';
                 that._setErrMsgs(that.productForm.get('files'), that.formErrors, 'files');
               }
               (that.uploadFiles).splice(index, 1);
-              that.removeFile(that.uploadFilesObj[file.upload.uuid]);
+              //that.removeFile(that.uploadFilesObj[file.upload.uuid]);
               delete that.uploadFilesObj[file.upload.uuid];
             }
           }
         });
         this.on('error', function (file, errorMessage) {
-
           drop.removeFile(file);
         });
         this.on('success', function (file) {
-         // $('.btn-group').addClass('open');
         });
-      }
-      
+      },
+   
     };
   }
 
@@ -161,7 +160,6 @@ export class ProductFormComponent implements OnInit {
       ],
       subcategory: [this.formEvent.subcategory_id],
       product_description: [this.formEvent.product_description, [
-        // Validators.required
       ]],
       cost: [this.formEvent.cost, Validators.pattern["0-9*"]],
       delivery_days: [this.formEvent.delivery_days, Validators.pattern["0-9*"]],
@@ -211,7 +209,6 @@ export class ProductFormComponent implements OnInit {
       }
     }
   };
-
   public onUploadSuccess(eve) {
     if ((eve[1].success !== undefined) && eve[1].success) {
       this.formErrors['files'] = '';
@@ -222,21 +219,21 @@ export class ProductFormComponent implements OnInit {
       this.formErrors['files'] = 'Something Went Wrong';
     }
     this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
-  }
-
+  };
   public onUploadError(eve) {
     this.formErrors['files'] = eve[1];
     this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
-  }
-  private removeFile(file) {
-    let apiEvent = this._productapi.removeFile(file).subscribe(
-      data => {
-        this._handleSubmitSuccess(data);
-      },
-      err => this._handleSubmitError(err)
-    );
-    (this.apiEvents).push(apiEvent);
-  }
+  };
+  // private removeFile(file) {
+  //   let apiEvent = this._productapi.removeFile(file).subscribe(
+  //     data => {
+  //       this._handleSubmitSuccess(data);
+  //     },
+  //     err => this._handleSubmitError(err)
+  //   );
+  //   (this.apiEvents).push(apiEvent);
+  // }
+  
   private _setFormEvent() {
     if (!this.isEdit) {
       // If creating a new event, create new
@@ -276,7 +273,6 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('category').value,
       this.productForm.get('subcategory').value,
       $('#product_description').summernote('code'),
-      //this.event ? this.event.path : this.uploadFiles[0],
       this.event ? this.event.files : this.uploadFiles,
       this.productForm.get('cost').value,
       this.productForm.get('delivery_days').value,
@@ -317,19 +313,16 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  deleteInsightAttachment(id: number, fsize: number) {
-
+  deleteProductAttachment(id: number, fsize: number) {
     var delmsg = confirm("Are u Sure Want to delete?");
     if (delmsg) {
-      let apiEvent = this._productapi.deleteInsAttachmentById$(id)
+      let apiEvent = this._productapi.deleteProductAttachmentById$(id)
         .subscribe(
           data => {
-           
             this._handleSubmitSuccess1(data, id);
           },
           err => this._handleSubmitError(err)
         );
-
       (this.apiEvents).push(apiEvent);
       //this.totalsize = this.totalsize - fsize;
     }
@@ -376,19 +369,5 @@ export class ProductFormComponent implements OnInit {
     }
     this.formChangeSub.unsubscribe();
   }
-//  public  readURL(input) {
-//     if (input.files && input.files[0]) {
-//         var reader = new FileReader();
-
-//         reader.onload = function (e) {
-//             $('#blah')
-//                 .attr('src', e.target.result)
-//                 .width(150)
-//                 .height(200);
-//         };
-
-//         reader.readAsDataURL(input.files[0]);
-//     }
-// }
 
 }

@@ -96,33 +96,18 @@ export class ClientsListComponent implements OnInit, OnDestroy {
     };
   }
 
-  download() {
-    this.allItems = this.persons;
-    this._userApi.getClient$()
-      .subscribe(data => {
-        // let user
-        // this.persons.forEach(val => {
-        //   user={
-        //     id : val.id,
-        //     first_name: val.first_name,
-        //     last_name:val.last_name,
-        //     email: val.email,
-        //     contact_number: val.contact_number,
-        //     createdBy:val.user.first_name+' '+val.user.last_name,
-        //   }
-        //   this.allItems.push(user)
-        // })
-        var options = {
-          // fieldSeparator: ',',
-          // quoteStrings: '"',
-          // decimalseparator: '.',
-          // showLabels: true, 
-          // showTitle: true,
-          headers: ['ID', 'First_name', 'Last_name', 'Email', 'Contact_number', 'CreatedBy']
-        };
-        new Angular2Csv(this.allItems, 'ClientList', options);
-      });
-  }
+  // download() {
+  //   this.allItems = this.persons;
+  //   this._userApi.getClient$()
+  //     .subscribe(data => {
+        
+  //       var options = {
+         
+  //         headers: ['ID', 'First_name', 'Last_name', 'Email', 'Contact_number', 'CreatedBy']
+  //       };
+  //       new Angular2Csv(this.allItems, 'ClientList', options);
+  //     });
+  // }
 
 
   // deleteClient(id: number) {

@@ -138,10 +138,7 @@
                 <div>
                     <input type="file" id="productdisplay_img" required class="form-control" #fileInput name="company_logo" accept="image/*" placeholder="Upload file..."
                     />
-                   
                 </div>
-                <!-- <input type='file' onchange="readURL(this);" />
-                <img  src="#"/> -->
             </div>
 
             <div class="form-group">
@@ -154,7 +151,7 @@
           </div>
           <span *ngIf="productsData?.product_images" class="productimg">
             <p  *ngFor="let file of productsData.product_images"   id="atta-{{file.id}}">
-                <i class="fa fa-trash" aria-hidden="true" (click)="deleteInsightAttachment(file.id,file.fsize)"></i>
+                <i class="fa fa-trash" aria-hidden="true" (click)="deleteProductAttachment(file.id,file.fsize)"></i>
                 <a href="{{serverURL+file.path}}" download> {{file.orgName}}</a>
                 <img class="img-responsive" src="{{serverURL+file.path}}" alt="User Pic">
                
@@ -184,7 +181,6 @@
                 class="btn btn-link"
                 (click)="resetForm()"
                 tabindex="0">Reset Form</a>
-
               <!-- API submission error -->
               <p *ngIf="error" class="mt-3 alert alert-danger">
                 <strong>Error:</strong> There was a problem submitting the form. Please try again.

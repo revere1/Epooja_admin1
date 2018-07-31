@@ -33,12 +33,12 @@ export class CompanyTeamComponent implements OnInit {
         } else {
           this.companyId =  data.data.id;
           // comapny team by company id
-          this._userapi.getUsersByCompany$(this.companyId).subscribe(data => {
-            if (data.success === false) {
-            } else {
-              this.users = data.data;
-            }
-          });
+          // this._userapi.getUsersByCompany$(this.companyId).subscribe(data => {
+          //   if (data.success === false) {
+          //   } else {
+          //     this.users = data.data;
+          //   }
+          // });
         }
       });
   }

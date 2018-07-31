@@ -50,14 +50,14 @@ export class UsersLayoutComponent implements OnInit {
     if(!this.currentUser){
             
     }
-    else{
-      this._userapi.getRoleByAccess$(this.currentUser.user.access_level).subscribe(data => {
-        if(data.success === false){
-        }else{
-          this.role = data.data.name;
-        }
-      });
-    }
+    // else{
+    //   this._userapi.getRoleByAccess$(this.currentUser.user.access_level).subscribe(data => {
+    //     if(data.success === false){
+    //     }else{
+    //       this.role = data.data.name;
+    //     }
+    //   });
+    // }
     
     this.routeSub = this.route.params
     .subscribe(params => {
@@ -100,14 +100,14 @@ addFollowers(userId: number){
       'analyst_id':userId,
       'followedBy':this.currentUser.user.userid
     }
-    this._userapi.analystFollowers$(followerObj).subscribe(data => {
-      if(data.success){         
-        this.toastr.success(data.message,'Success');
-        }  
-        else{       
-          this.toastr.error(data.message,'Invalid');  
-        } 
-    })
+    // this._userapi.analystFollowers$(followerObj).subscribe(data => {
+    //   if(data.success){         
+    //     this.toastr.success(data.message,'Success');
+    //     }  
+    //     else{       
+    //       this.toastr.error(data.message,'Invalid');  
+    //     } 
+    // })
   }else{
     this.router.navigate(['/auth/login'])
   }

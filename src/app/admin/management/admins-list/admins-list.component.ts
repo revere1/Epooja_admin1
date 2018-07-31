@@ -91,26 +91,17 @@ export class AdminsListComponent implements OnInit {
           ]
     };
   }
-  download() {
-    this._userApi.getClient$()
-    .subscribe(data => {
-    //API data
-    this.allItems =this.persons;
-
-  
-     
-    var options = { 
-    // fieldSeparator: ',',
-    // quoteStrings: '"',
-    // decimalseparator: '.',
-    // showLabels: true, 
-    // showTitle: true,
-    headers: ['ID','First_name','Last_name','Email','Contact_number','CreatedBy','UpdatedBy']
-     };
-    new Angular2Csv(this.allItems, 'AdminsList',options);
-    //new Angular2Csv(dummyData, 'My Report',options);
-    }); 
-  }
+  // download() {
+  //   this._userApi.getClient$()
+  //   .subscribe(data => {
+  //   this.allItems =this.persons;
+  //   var options = { 
+  //   headers: ['ID','First_name','Last_name','Email','Contact_number','CreatedBy','UpdatedBy']
+  //    };
+  //   new Angular2Csv(this.allItems, 'AdminsList',options);
+    
+  //   }); 
+  // }
 
 
 //   deleteClient(id:number){

@@ -86,33 +86,33 @@ export class PrivillegesComponent implements OnInit {
     this.privillagesub = this.route.params
       .subscribe(params => {
         this.id = params['id'];
-        this._getPrivillages();
+        //this._getPrivillages();
       });
-    this._getPrivillages();
+    //this._getPrivillages();
   }
 
 
-  private _getPrivillages() {    
-    this.privillagesub= this._userapi
-      .getPrivillageById$(this.id)
-      .subscribe(
-        response =>  {
+  // private _getPrivillages() {    
+  //   this.privillagesub= this._userapi
+  //     .getPrivillageById$(this.id)
+  //     .subscribe(
+  //       response =>  {
 
-          for(let i=0;i<response.data.length;i++){
-            this.privillegeForm.controls[response.data[i].privillege].setValue(1);
-          }
+  //         for(let i=0;i<response.data.length;i++){
+  //           this.privillegeForm.controls[response.data[i].privillege].setValue(1);
+  //         }
           
-          if(response.success){
-            this.privillage= response.data;                  
-          }          
+  //         if(response.success){
+  //           this.privillage= response.data;                  
+  //         }          
          
-        },
-        err => {
+  //       },
+  //       err => {
         
-          this.error = true;
-        }
-      );
-  }
+  //         this.error = true;
+  //       }
+  //     );
+  // }
 
 
 
@@ -139,22 +139,22 @@ export class PrivillegesComponent implements OnInit {
   }
   savePrivillege() {
     this.submitting = true;
-    if (!this.isEdit) {
-      this.submitEventSub = this._userapi
-        .postEvents$(this.privillegeForm.value)
-        .subscribe(
-          data => this._handleSubmitSuccess(data),
-          err => this._handleSubmitError(err)
-        );
-    }
-    else {
-      this.submitEventSub = this._userapi
-        .editEvent$(this.event.id, this.privillegeForm.value)
-        .subscribe(
-          data => this._handleSubmitSuccess(data),
-          err => this._handleSubmitError(err)
-        );
-    }
+    // if (!this.isEdit) {
+    //   this.submitEventSub = this._userapi
+    //     .postEvents$(this.privillegeForm.value)
+    //     .subscribe(
+    //       data => this._handleSubmitSuccess(data),
+    //       err => this._handleSubmitError(err)
+    //     );
+    // }
+    // else {
+    //   this.submitEventSub = this._userapi
+    //     .editEvent$(this.event.id, this.privillegeForm.value)
+    //     .subscribe(
+    //       data => this._handleSubmitSuccess(data),
+    //       err => this._handleSubmitError(err)
+    //     );
+    // }
 
   }
 
