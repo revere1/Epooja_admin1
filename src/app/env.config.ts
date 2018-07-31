@@ -6,7 +6,7 @@ const getHost = () => {
 };
 
 const apiURI = _isDev ? 'http://192.168.2.6:1332/v1/' : `http://192.168.2.6:1332/v1/`;
-const serverURI = _isDev ? 'http://192.168.2.6:1332/' : `http://192.168.2.6:1332/`;
+const serverURI = _isDev ? 'http://192.168.2.6:1332/' : `http://19.168.2.6:1332/`;
 
 export const ENV = {
   BASE_URI: getHost(),
@@ -17,6 +17,7 @@ export const ENV = {
   HELP_MAX_SIZE:10,
   LOCKER_MAX_FILES:5,
   BANNERS_MAX_FILES:1,
+  PRODUCT_MAX_FILES:5,
   DEFAULT_PWD:'revere',
   '#' : 'Insight',
   '@' : 'Insight Provider',

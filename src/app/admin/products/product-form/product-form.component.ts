@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
 import { ProductFormService } from '../../../services/products/product-form.service';
 import { ProductService } from '../../../services/product.service';
@@ -23,7 +23,9 @@ export class ProductFormComponent implements OnInit {
   @Input() event: ProductModel;
   isEdit: boolean;
   productForm: FormGroup;
+  public serverURL = ENV.SERVER_URL
   apiEvents = [];
+  products = [];
   formEvent: FormProductModel;
   formErrors: any;
   formChangeSub: Subscription;
@@ -31,18 +33,23 @@ export class ProductFormComponent implements OnInit {
   submitting: boolean;
   submitEventSub: Subscription;
   error: boolean;
+  productsData: any;
   submitBtnText: string;
   categories: Object[];
   subcategories: Object[];
   uploadFilesObj = {};
   uploadFiles = [];
+  routeSub: Subscription;
+  public id: number;
   canRemove: boolean = true;
   public config: DropzoneConfigInterface = {};
+  public totalsize: number = 0.0;
 
   constructor(private fb: FormBuilder,
     private router: Router,
     public cf: ProductFormService,
     private _productapi: ProductService,
+    private route: ActivatedRoute,
     private _categoryService: CategoriesService,
     private _subcategoriesService: SubcategoriesService,
     public toastr: ToastsManager
@@ -54,10 +61,83 @@ export class ProductFormComponent implements OnInit {
       $('#product_description').summernote({
       });
     });
+    this.routeSub = this.route.params
+    .subscribe(params => {
+      this.id = params['id'];
+    });
+
+    let apiEvent = this._productapi.getComposeById$(this.id).subscribe(data => {
+      if (data.success === false) {
+      }
+      else {
+        //this.finished = true;
+        this.productsData = data.data;
+        console.log(this.productsData)
+       // this.insight_img = (this.productsData.insight_img) ? ENV.SERVER_URL + this.productsData.insight_img : null;   
+        // this.insightsData.insight_attachements.forEach(ele => {
+        //   this.totalsize += parseFloat(ele.fsize);
+        // });
+        }
+      
+    });
     this.formErrors = this.cf.formErrors;
     this.isEdit = !!this.event;
     this.submitBtnText = this.isEdit ? 'Update' : 'Create';
     this.formEvent = this._setFormEvent();
+    this._buildForm();
+    let that = this;
+    this.config = {
+      url: ENV.BASE_API + 'products/path?token=' + this._productapi.getToken(),
+      maxFiles: ENV.PRODUCT_MAX_FILES,
+      maxFilesize: ENV.HELP_MAX_SIZE,
+      clickable: true,
+      createImageThumbnails: true,
+      addRemoveLinks: true,
+      init: function () {
+        let drop = this;
+        this.on("addedfile", function (file) {
+          that.totalsize += parseFloat((file.size / (1000 * 1000)).toFixed(2));
+        });
+        this.on('removedfile', function (file) {
+          /*If reupload already existed file, don t delet the file if max lik=mit crossed error uploaded*/
+          if (file.status === 'error') {
+            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
+            if (index > -1) {
+              return false;
+            }
+          }
+          /*end*/
+          if (that.canRemove) {
+
+            that.totalsize -= parseFloat((file.size / (1000 * 1000)).toFixed(2));
+            //Removing values from array which are existing in uploadFiles variable         
+            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
+            if (index > -1) {
+              if (that.uploadFiles.length === ENV.PRODUCT_MAX_FILES) {
+                that.formErrors['files'] = '';
+                that._setErrMsgs(that.productForm.get('files'), that.formErrors, 'files');
+              }
+              (that.uploadFiles).splice(index, 1);
+              //that.removeFile(that.uploadFilesObj[file.upload.uuid]);
+              //delete that.uploadFilesObj[file.upload.uuid];
+            }
+          }
+        });
+        this.on('error', function (file, errorMessage) {
+          drop.removeFile(file);
+        });
+        this.on('success', function (file) {
+        });
+      },
+      /* Check for total all files size*/
+      accept: function (file, done) {
+        if (that.totalsize <= ENV.HELP_MAX_SIZE) {
+          done();
+        } else {
+          done('Total size exceeded');
+        }
+      }
+    };
     this._buildForm();
     this._categoryService.getCategory$().subscribe(data => {
       if (data.success === false) {
@@ -73,49 +153,24 @@ export class ProductFormComponent implements OnInit {
         console.log(this.subcategories)
       }
     });
-    let that = this;
-    this.config = {
-      url: ENV.BASE_API + 'products/path?token=' + this._productapi.getToken(),
-      maxFiles: ENV.LOCKER_MAX_FILES,
-      clickable: true,
-      createImageThumbnails: true,
-      addRemoveLinks: true,
-      init: function () {
-        let drop = this;
-        this.on('removedfile', function (file) {
-          /*If reupload already existed file, don t delet the file if max lik=mit crossed error uploaded*/
-          if (file.status === 'error') {
-            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
-            if (index > -1) {
-              return false;
-            }
-          }
-          /*end*/
-          if (that.canRemove) {
-            //Removing values from array which are existing in uploadFiles variable         
-            let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
-            if (index > -1) {
-              if (that.uploadFiles.length === ENV.LOCKER_MAX_FILES) {
-                that.formErrors['files'] = '';
-                that._setErrMsgs(that.productForm.get('files'), that.formErrors, 'files');
-              }
-              (that.uploadFiles).splice(index, 1);
-              that.removeFile(that.uploadFilesObj[file.upload.uuid]);
-              delete that.uploadFilesObj[file.upload.uuid];
-            }
-          }
-        });
-        this.on('error', function (file, errorMessage) {
 
-          drop.removeFile(file);
-        });
-        this.on('success', function (file) {
-         // $('.btn-group').addClass('open');
-        });
-      }
-      
-    };
   }
+
+  public onUploadSuccess(eve) {
+    if ((eve[1].success !== undefined) && eve[1].success) {
+      this.formErrors['files'] = '';
+      Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
+      (this.uploadFiles).push(eve[1].data);
+    }
+    else {
+      this.formErrors['files'] = 'Something Went Wrong';
+    }
+    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
+  };
+  public onUploadError(eve) {
+    this.formErrors['files'] = eve[1];
+    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
+  };
 
   private _buildForm() {
     let validRules = {
@@ -130,7 +185,6 @@ export class ProductFormComponent implements OnInit {
       ],
       subcategory: [this.formEvent.subcategory_id],
       product_description: [this.formEvent.product_description, [
-        // Validators.required
       ]],
       cost: [this.formEvent.cost, Validators.pattern["0-9*"]],
       delivery_days: [this.formEvent.delivery_days, Validators.pattern["0-9*"]],
@@ -181,36 +235,22 @@ export class ProductFormComponent implements OnInit {
     }
   };
 
-  public onUploadSuccess(eve) {
-    if ((eve[1].success !== undefined) && eve[1].success) {
-      this.formErrors['files'] = '';
-      Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
-      (this.uploadFiles).push(eve[1].data);
-    }
-    else {
-      this.formErrors['files'] = 'Something Went Wrong';
-    }
-    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
-  }
 
-  public onUploadError(eve) {
-    this.formErrors['files'] = eve[1];
-    this._setErrMsgs(this.productForm.get('files'), this.formErrors, 'files');
-  }
-  private removeFile(file) {
-    let apiEvent = this._productapi.removeFile(file).subscribe(
-      data => {
-        this._handleSubmitSuccess(data);
-      },
-      err => this._handleSubmitError(err)
-    );
-    (this.apiEvents).push(apiEvent);
-  }
+  // private removeFile(file) {
+  //   let apiEvent = this._productapi.removeFile(file).subscribe(
+  //     data => {
+  //       this._handleSubmitSuccess(data);
+  //     },
+  //     err => this._handleSubmitError(err)
+  //   );
+  //   (this.apiEvents).push(apiEvent);
+  // }
+  
   private _setFormEvent() {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormProductModel(null,null, null, null,null,[],null,null,null,null);
+      return new FormProductModel(null,null, null, null,null,null,null,null,null,[]);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -221,12 +261,11 @@ export class ProductFormComponent implements OnInit {
         this.event.category_id,
         this.event.subcategory_id,
         this.event.product_description,
-        //this.event.path,
-        this.event.files,
         this.event.cost,
         this.event.delivery_days,
         this.event.quatity,
-        this.event.status
+        this.event.status,
+        this.event.files,
         
       
       );
@@ -245,12 +284,11 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('category').value,
       this.productForm.get('subcategory').value,
       $('#product_description').summernote('code'),
-      //this.event ? this.event.path : this.uploadFiles[0],
-      this.event ? this.event.files : this.uploadFiles,
       this.productForm.get('cost').value,
       this.productForm.get('delivery_days').value,
       this.productForm.get('quatity').value,
       this.productForm.get('status').value,
+      this.event ? this.event.files : this.uploadFiles,
       this.event ? this.event.id : null
     );
   }
@@ -270,15 +308,22 @@ export class ProductFormComponent implements OnInit {
     this.submitEventObj = this._getSubmitObj();
     console.log(this.submitEventObj);
     if (!this.isEdit) {
-      this.submitEventSub = this._productapi
+      let apiEvent = this.submitEventSub = this._productapi
         .postEvent$(this.submitEventObj)
         .subscribe(
-          data => this._handleSubmitSuccess(data),
+          data => {
+            this._handleSubmitSuccess(data);
+            this.canRemove = false;
+            //this.router.navigate(['/analyst/help']);
+          },
           err => this._handleSubmitError(err)
         );
+      (this.apiEvents).push(apiEvent);
     } else {
+      console.log(this.submitEventObj)
       this.submitEventSub = this._productapi
-        .editEvent$(this.event.id, this.submitEventObj)
+     
+        .editEvent$(this.id, this.submitEventObj)
         .subscribe(
           data => this._handleSubmitSuccess(data),
           err => this._handleSubmitError(err)
@@ -286,6 +331,34 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
+  deleteProductAttachment(id: number, fsize: number) {
+    var delmsg = confirm("Are u Sure Want to delete?");
+    if (delmsg) {
+      let apiEvent = this._productapi.deleteProductAttachmentById$(id)
+        .subscribe(
+          data => {
+            this._handleSubmitSuccess1(data, id);
+          },
+          err => this._handleSubmitError(err)
+        );
+      (this.apiEvents).push(apiEvent);
+      //this.totalsize = this.totalsize - fsize;
+    }
+
+  }
+
+  private _handleSubmitSuccess1(res, id = 0) {
+    this.error = false;
+    // Redirect to event detail
+    if (res.success) {
+      this.toastr.success(res.message, 'Success');
+      let pos = this.products.map(function (e) { return e.id; }).indexOf(id);
+      this.products.splice(pos, 1);
+    }
+    else {
+      this.toastr.error(res.message, 'Invalid');
+    }
+  }
   private _handleSubmitSuccess(res) {
     this.error = false;
     this.submitting = false;
@@ -314,19 +387,5 @@ export class ProductFormComponent implements OnInit {
     }
     this.formChangeSub.unsubscribe();
   }
-//  public  readURL(input) {
-//     if (input.files && input.files[0]) {
-//         var reader = new FileReader();
-
-//         reader.onload = function (e) {
-//             $('#blah')
-//                 .attr('src', e.target.result)
-//                 .width(150)
-//                 .height(200);
-//         };
-
-//         reader.readAsDataURL(input.files[0]);
-//     }
-// }
 
 }

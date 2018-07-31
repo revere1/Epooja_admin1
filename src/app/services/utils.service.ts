@@ -243,9 +243,13 @@ export class UtilsService {
         (data.data !== undefined && data.data.tickers.length) ? cb(data.data.tickers) : cb([]);
     });
   }
-  showMatchedAnalysts(keyword, cb) {
-   
-  }
+  // showMatchedAnalysts(keyword, cb) {
+  //   this._us.elasticAnalysts(keyword).subscribe(data => {
+  //     if (data.success) {
+  //       (data.data !== undefined && data.data.users.length) ? cb(data.data.users) : cb([]);
+  //     }
+  //   });
+  // }
   hint() {
     let results;
     let _this = this;
@@ -266,11 +270,11 @@ export class UtilsService {
       },
       {
         match: /\B@(\w*)$/,
-        search: function (keyword, callback) {
-          _this.showMatchedAnalysts(keyword, ((items) => {
-            callback(items);
-          }));
-        },
+        // search: function (keyword, callback) {
+        //   _this.showMatchedAnalysts(keyword, ((items) => {
+        //     callback(items);
+        //   }));
+        // },
         template: function (item) {
           return item.first_name + ' ' + item.last_name;
         },

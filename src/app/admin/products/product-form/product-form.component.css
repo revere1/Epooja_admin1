@@ -1,3 +1,7 @@
+.productimg img {
+    width: 100px;
+    height: 100px;
+}
 @media (min-width:320px) and (max-width:480px)
 {
 .panel

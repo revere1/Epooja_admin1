@@ -8,16 +8,42 @@ import { ProductModel } from '../models/product.model';
 
 @Injectable()
 export class ProductService {
-  private currentUser : any;
-  constructor(private http: HttpClient,private router: Router) { }
+  private currentUser: any;
+  constructor(private http: HttpClient, private router: Router) { }
 
   private get _authHeader(): string {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return this.currentUser.token;
   }
+
+  uploads(formData) {
+    return this.http
+    .post(`${ENV.BASE_API}/products/files`, formData,{
+      headers: new HttpHeaders().set('Authorization', this._authHeader)
+    })
+    .catch(this._handleError);
+  }
   public getToken(): string {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return this.currentUser.token;
+  }
+
+  //getHelpById$(createdBy: number): Observable<HelpModel> {
+  getComposeById$(id: number) {
+    return this.http
+      .get(`${ENV.BASE_API}product/${id}`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .catch(this._handleError);
+  }
+
+  //delete insights-attachments
+  deleteProductAttachmentById$(id: number): Observable<number> {
+    return this.http
+      .delete(`${ENV.BASE_API}products/${id}`, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader)
+      })
+      .catch(this._handleError);
   }
 
   getproducts$() {
@@ -28,20 +54,20 @@ export class ProductService {
       .catch(this._handleError);
   }
 
-  removeFile(file){
-    return this.http
-      .delete(`${ENV.BASE_API}products/remove-file`, {
-        headers: new HttpHeaders()
-                  .set('Authorization', this._authHeader)
-                  .set('file', file)
-      })
-      .catch(this._handleError);
-  }
+  // removeFile(file) {
+  //   return this.http
+  //     .delete(`${ENV.BASE_API}products/remove-file`, {
+  //       headers: new HttpHeaders()
+  //         .set('Authorization', this._authHeader)
+  //         .set('file', file)
+  //     })
+  //     .catch(this._handleError);
+  // }
 
 
   // GET list of public, future events
   //getUserById$(id: number): Observable<ClientModel> {
-    getUserById$(id: number) {
+  getUserById$(id: number) {
     return this.http
       .get(`${ENV.BASE_API}product/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
@@ -50,7 +76,7 @@ export class ProductService {
   }
 
   // POST new event (admin only)
-    postEvent$(event) {
+  postEvent$(event) {
     return this.http
       .post(`${ENV.BASE_API}product`, event, {
         headers: new HttpHeaders().set('authorization', this._authHeader)
@@ -59,25 +85,25 @@ export class ProductService {
   }
 
 
- // POST new event (admin only)
- filterProducts$(filterInput,endPoint) {
-  return this.http
-    .post(`${ENV.BASE_API}${endPoint}`, filterInput, {
-      headers: new HttpHeaders().set('authorization', this._authHeader)
-    })
-    .catch(this._handleError);
-}
-
-  editEvent$(id, event) {    
+  // POST new event (admin only)
+  filterProducts$(filterInput, endPoint) {
     return this.http
-      .put(`${ENV.BASE_API}product/${id}`, event, {
+      .post(`${ENV.BASE_API}${endPoint}`, filterInput, {
+        headers: new HttpHeaders().set('authorization', this._authHeader)
+      })
+      .catch(this._handleError);
+  }
+
+  editEvent$(id: number, event: ProductModel): Observable<ProductModel> {    
+    return this.http
+      .put(`${ENV.BASE_API}updateproduct/${id}`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
 
   //Delete Product
-  deleteProductById$(id: number): Observable<number>{
+  deleteProductById$(id: number): Observable<number> {
     return this.http
       .delete(`${ENV.BASE_API}product/${id}`, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
