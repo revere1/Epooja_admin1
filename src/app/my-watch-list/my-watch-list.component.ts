@@ -146,12 +146,7 @@ export class MyWatchListComponent implements OnInit {
           this.onChanges();
         }
       });
-      // this._userapi.getRoleByAccess$(this.currentUser.user.access_level).subscribe(data => {
-      //   if (data.success === false) {
-      //   } else {
-      //     this.role = data.data.name;
-      //   }
-      // });
+     
     }
   }
   onChanges() {

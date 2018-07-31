@@ -99,12 +99,7 @@ export class UsersInsightsComponent implements OnInit {
     this.onChanges();
     this.dtOptions.columns[3].search['value'] = this.id;
     if(this.currentUser){
-      // this._userapi.getRoleByAccess$(this.currentUser.user.access_level).subscribe(data => {
-      //   if(data.success === false){
-      //   }else{
-      //     this.role = data.data.name;
-      //   }
-      // })
+      
     }
     var isMobile = {
       Android: function() {

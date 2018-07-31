@@ -70,14 +70,9 @@ export class MainLayoutComponent implements OnInit,AfterViewInit{
     });
     if (!this.currentUser) {
     }
-    // else {
-    //   this._userapi.getRoleByAccess$(this.currentUser.user.access_level).subscribe(data => {
-    //     if (data.success === false) {
-    //     } else {
-    //       this.role = data.data.name;
-    //     }
-    //   });
-    // }
+    else {
+      
+    }
     if (this.currentUser) {
       this.user = true;
       var  access_level = this.currentUser.user.access_level;

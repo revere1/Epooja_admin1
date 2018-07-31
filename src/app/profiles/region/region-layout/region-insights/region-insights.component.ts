@@ -108,14 +108,7 @@ export class RegionInsightsComponent implements OnInit {
         'analyst_id': userId,
         'followedBy': this.currentUser.user.userid
       }
-      // this._userapi.analystFollowers$(followerObj).subscribe(data => {
-      //   if (data.success) {
-      //     this.toastr.success(data.message, 'Success');
-      //   }
-      //   else {
-      //     this.toastr.error(data.message, 'Invalid');
-      //   }
-      // })
+     
     } else {
       this.router.navigate(['/auth/login'])
     }
