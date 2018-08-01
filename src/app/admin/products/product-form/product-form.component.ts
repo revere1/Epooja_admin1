@@ -159,6 +159,7 @@ export class ProductFormComponent implements OnInit {
   public onUploadSuccess(eve) {
     if ((eve[1].success !== undefined) && eve[1].success) {
       this.formErrors['files'] = '';
+      console.log(this.uploadFiles)
       Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
       (this.uploadFiles).push(eve[1].data);
     }
@@ -289,7 +290,7 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('quatity').value,
       this.productForm.get('status').value,
       this.event ? this.event.files : this.uploadFiles,
-      this.event ? this.event.id : null
+      this.event ? this.event.id : null,
     );
   }
 
@@ -323,7 +324,7 @@ export class ProductFormComponent implements OnInit {
       console.log(this.submitEventObj)
       this.submitEventSub = this._productapi
      
-        .editEvent$(this.id, this.submitEventObj)
+        .editEvent$(this.event.id, this.submitEventObj)
         .subscribe(
           data => this._handleSubmitSuccess(data),
           err => this._handleSubmitError(err)
