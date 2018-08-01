@@ -83,6 +83,7 @@ import { UsersService } from '../services/users/users.service';
 import { UserFormService } from '../services/users/user-form.service';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 import { BannersComponent } from './banners/banners.component';
+import { BannersService } from '../services/banners.service';
 
 @NgModule({
   imports: [
@@ -170,7 +171,8 @@ import { BannersComponent } from './banners/banners.component';
       CommodityService,
       ComposeService,
       NotificationService,
-      MacroTypeService
+      MacroTypeService,
+      BannersService
       
     ]
     

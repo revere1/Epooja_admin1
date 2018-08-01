@@ -16,6 +16,7 @@ export const ENV = {
   HELP_MAX_FILES:5,
   HELP_MAX_SIZE:10,
   LOCKER_MAX_FILES:5,
+  BANNERS_MAX_FILES:1,
   PRODUCT_MAX_FILES:5,
   DEFAULT_PWD:'revere',
   '#' : 'Insight',
