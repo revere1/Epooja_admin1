@@ -36,6 +36,10 @@ import { CreateUserComponent } from './users/create-user/create-user.component';
 import { UpdateUserComponent } from './users/update-user/update-user.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 import { BannersComponent } from './banners/banners.component';
+import { OffersComponent } from './offers/offers.component';
+import { OffersListComponent } from './offers/offers-list/offers-list.component';
+import { CreateOfferComponent } from './offers/create-offer/create-offer.component';
+import { UpdateOffersComponent } from './offers/update-offers/update-offers.component';
 
 const AdminRoutes: Routes = [
   {
@@ -73,6 +77,33 @@ const AdminRoutes: Routes = [
               breadcrumb: 'View'
             }
           }
+        ]
+      },
+      {
+        path: 'offers', component: OffersComponent,
+        data: {
+          breadcrumb: 'Offers'
+        },
+        children: [
+          { path: '', component: OffersListComponent },
+          {
+            path: 'create', component: CreateOfferComponent,
+            data: {
+              breadcrumb: 'Create'
+            }
+          },
+          {
+            path: 'update/:id', component: UpdateOffersComponent,
+            data: {
+              breadcrumb: 'Update'
+            }
+          },
+          // {
+          //   path: 'view/:id', component: ViewProductComponent,
+          //   data: {
+          //     breadcrumb: 'View'
+          //   }
+          // }
         ]
       },
       {
@@ -211,23 +242,24 @@ const AdminRoutes: Routes = [
         ]
       },
       {
-        path:'banners',  component:BannersComponent ,
-      data:{
-        breadcrumb:'Banners'
-      }
-    },
+        path: 'banners', component: BannersComponent,
+        data: {
+          breadcrumb: 'Banners'
+        }
+      },
       {
-        path:'regions',  component:RegionsComponent ,
-      data:{
-        breadcrumb:'Regions'
-      }
-    },
-      {path:'currency',component:CurrencyComponent,
-      data:{
-        breadcrumb:'Currency'
-      }
-    },
-     
+        path: 'regions', component: RegionsComponent,
+        data: {
+          breadcrumb: 'Regions'
+        }
+      },
+      {
+        path: 'currency', component: CurrencyComponent,
+        data: {
+          breadcrumb: 'Currency'
+        }
+      },
+
       // {
       //   path: 'editoriers',
       //   data: {
@@ -237,9 +269,9 @@ const AdminRoutes: Routes = [
 
       { path: 'lockers', loadChildren: 'app/admin/lockers/lockers.module#LockersModule' },
       // { path: 'messages', loadChildren: 'app/admin/admin-messages/admin-messages.module#AdminMessagesModule' },
-      { 
-        path: 'help', data: {breadcrumb: 'Help'},
-        loadChildren: 'app/admin/help-comments/help-comments.module#HelpCommentsModule' 
+      {
+        path: 'help', data: { breadcrumb: 'Help' },
+        loadChildren: 'app/admin/help-comments/help-comments.module#HelpCommentsModule'
       },
       { path: 'insights', loadChildren: 'app/admin/admin-insights/admin-insights.module#AdminInsightsModule' },
       // {

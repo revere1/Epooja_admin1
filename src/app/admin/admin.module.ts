@@ -84,6 +84,11 @@ import { UserFormService } from '../services/users/user-form.service';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 import { BannersComponent } from './banners/banners.component';
 import { BannersService } from '../services/banners.service';
+import { OfferFormComponent } from './offers/offer-form/offer-form.component';
+import { OffersComponent } from './offers/offers.component';
+import { OffersListComponent } from './offers/offers-list/offers-list.component';
+import { UpdateOffersComponent } from './offers/update-offers/update-offers.component';
+import { CreateOfferComponent } from './offers/create-offer/create-offer.component';
 
 @NgModule({
   imports: [
@@ -138,6 +143,11 @@ import { BannersService } from '../services/banners.service';
       UpdateUserComponent,
       UserDetailsComponent,
       BannersComponent,
+      OfferFormComponent,
+      OffersComponent,
+      OffersListComponent,
+      UpdateOffersComponent,
+      CreateOfferComponent,
     
     ],
   providers: [
