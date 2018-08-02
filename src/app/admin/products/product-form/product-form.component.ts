@@ -189,7 +189,7 @@ export class ProductFormComponent implements OnInit {
       ]],
       cost: [this.formEvent.cost, Validators.pattern["0-9*"]],
       delivery_days: [this.formEvent.delivery_days, Validators.pattern["0-9*"]],
-      quatity: [this.formEvent.quatity, Validators.pattern["0-9*"]],
+      quantity: [this.formEvent.quantity, Validators.pattern["0-9*"]],
       status: [this.formEvent.status, [
         Validators.required
       ]]
@@ -264,7 +264,7 @@ export class ProductFormComponent implements OnInit {
         this.event.product_description,
         this.event.cost,
         this.event.delivery_days,
-        this.event.quatity,
+        this.event.quantity,
         this.event.status,
         this.event.files,
         
@@ -287,7 +287,7 @@ export class ProductFormComponent implements OnInit {
       $('#product_description').summernote('code'),
       this.productForm.get('cost').value,
       this.productForm.get('delivery_days').value,
-      this.productForm.get('quatity').value,
+      this.productForm.get('quantity').value,
       this.productForm.get('status').value,
       this.event ? this.event.files : this.uploadFiles,
       this.event ? this.event.id : null,

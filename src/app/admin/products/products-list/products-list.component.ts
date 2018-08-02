@@ -107,7 +107,7 @@ export class ProductsListComponent implements OnInit {
             'Product_name',
             'Product_description', 
             'Cost', 
-            'Quatity', 
+            'Quantity', 
             'Category_name',
             'Subcategory_name',
             'CreatedAt'

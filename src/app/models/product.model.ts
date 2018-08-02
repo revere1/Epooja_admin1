@@ -9,7 +9,7 @@ class ProductModel {
     
       public cost: string,
       public delivery_days:number,
-      public quatity: number,
+      public quantity: number,
       public status:number,
       public files = [],
       public id?: number
@@ -27,7 +27,7 @@ class ProductModel {
         //public path,
         public cost: string,
         public delivery_days:number,
-        public quatity: number,
+        public quantity: number,
         public status:number,
         public files = [],
     ) { }
