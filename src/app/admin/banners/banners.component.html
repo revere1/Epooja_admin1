@@ -25,6 +25,17 @@
             <!-- <div *ngIf="formErrors.files" class="small text-danger formErrors" [innerHTML]="formErrors.files">
             </div> -->
         </div>
+        <div class="form-group">
+          <label for="sector">Banner Type:</label>
+          <input type="radio" name="btype" value="1" (change)="bannerType($event)">Category
+          <input type="radio" name="btype" value="2" (change)="bannerType($event)">Product
+        </div>
+        <div class="form-group">
+          <label for="sector">Select:</label>
+          <select name="btype_id">
+            <option value=""> Select</option>
+          </select>
+        </div>
           <div class="form-group">
             <label for="sector">Status <span style="color:red;">*</span></label>
             <select id="status" class="form-control" formControlName="status">

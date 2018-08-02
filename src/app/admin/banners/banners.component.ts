@@ -28,5 +28,8 @@ export class BannersComponent implements OnInit {
   {    
     this.showModel = true;
   }
+  bannerType(event:any){
+console.log(event);
+  }
 
 }
