@@ -94,13 +94,20 @@ export class ProductService {
       .catch(this._handleError);
   }
 
-  editEvent$(id: number, event: ProductModel): Observable<ProductModel> {    
+  editEvent$(id: number, event): Observable<ProductModel> {    
     return this.http
       .put(`${ENV.BASE_API}updateproduct/${id}`, event, {
         headers: new HttpHeaders().set('Authorization', this._authHeader)
       })
       .catch(this._handleError);
   }
+  // editEvent$(id: number, event): Observable<ComposeModel> {    
+  //   return this.http
+  //     .put(`${ENV.BASE_API}updateinsight/${id}`, event, {
+  //       headers: new HttpHeaders().set('Authorization', this._authHeader)
+  //     })
+  //     .catch(this._handleError);
+  // }
 
   //Delete Product
   deleteProductById$(id: number): Observable<number> {

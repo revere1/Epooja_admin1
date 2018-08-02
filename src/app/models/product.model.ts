@@ -8,6 +8,7 @@ class ProductModel {
       //public path,
     
       public cost: string,
+      public offer_price: string,
       public delivery_days:number,
       public quantity: number,
       public status:number,
@@ -26,6 +27,7 @@ class ProductModel {
         public product_description: string,
         //public path,
         public cost: string,
+        public offer_price: string,
         public delivery_days:number,
         public quantity: number,
         public status:number,
