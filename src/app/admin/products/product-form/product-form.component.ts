@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy, Output, NgModule, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
@@ -21,6 +21,7 @@ declare var $: any;
 export class ProductFormComponent implements OnInit {
 
   @Input() event: ProductModel;
+  @ViewChild('fileInput') fileInput;
   isEdit: boolean;
   productForm: FormGroup;
   public serverURL = ENV.SERVER_URL
@@ -39,9 +40,11 @@ export class ProductFormComponent implements OnInit {
   subcategories: Object[];
   uploadFilesObj = {};
   uploadFiles = [];
+  product_img: any;
   routeSub: Subscription;
   public id: number;
   canRemove: boolean = true;
+  finished: boolean = false;
   public config: DropzoneConfigInterface = {};
   public totalsize: number = 0.0;
 
@@ -65,21 +68,40 @@ export class ProductFormComponent implements OnInit {
     .subscribe(params => {
       this.id = params['id'];
     });
-
-    let apiEvent = this._productapi.getComposeById$(this.id).subscribe(data => {
+    if (this.event && this.event['product_img'] !== undefined) {
+      this.product_img = this.event['product_img'];
+    }
+    // let apiEvent = this._productapi.getComposeById$(this.id).subscribe(data => {
+    //   if (data.success === false) {
+    //   }
+    //   else {
+    //     //this.finished = true;
+    //     this.productsData = data.data;
+    //     console.log(this.productsData)
+    //    // this.insight_img = (this.productsData.insight_img) ? ENV.SERVER_URL + this.productsData.insight_img : null;   
+    //     // this.insightsData.insight_attachements.forEach(ele => {
+    //     //   this.totalsize += parseFloat(ele.fsize);
+    //     // });
+    //     }
+      
+    // });
+    let apiEvent = this._productapi.getComposeById$(this.id).subscribe(data =>  {
       if (data.success === false) {
       }
       else {
-        //this.finished = true;
+        this.finished = true;
         this.productsData = data.data;
-        console.log(this.productsData)
-       // this.insight_img = (this.productsData.insight_img) ? ENV.SERVER_URL + this.productsData.insight_img : null;   
-        // this.insightsData.insight_attachements.forEach(ele => {
-        //   this.totalsize += parseFloat(ele.fsize);
-        // });
-        }
-      
-    });
+        this.product_img = (this.productsData.product_img) ? ENV.SERVER_URL + this.productsData.product_img : null;   
+        this.productsData.product_attachements.forEach(ele => {
+          this.totalsize += parseFloat(ele.fsize);
+        });
+        // this.type = this.insightsData.type
+        // this.SummaryForm.controls['headline'].patchValue(this.insightsData.headline);
+        // this.SummaryForm.controls['summary'].patchValue(this.insightsData.summary);
+        // this.SummaryForm.controls['description'].patchValue(this.insightsData.description);
+      }
+      });
+
     this.formErrors = this.cf.formErrors;
     this.isEdit = !!this.event;
     this.submitBtnText = this.isEdit ? 'Update' : 'Create';
@@ -188,6 +210,7 @@ export class ProductFormComponent implements OnInit {
       product_description: [this.formEvent.product_description, [
       ]],
       cost: [this.formEvent.cost, Validators.pattern["0-9*"]],
+      offer_price: [this.formEvent.offer_price, Validators.pattern["0-9*"]],
       delivery_days: [this.formEvent.delivery_days, Validators.pattern["0-9*"]],
       quantity: [this.formEvent.quantity, Validators.pattern["0-9*"]],
       status: [this.formEvent.status, [
@@ -251,7 +274,7 @@ export class ProductFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormProductModel(null,null, null, null,null,null,null,null,null,[]);
+      return new FormProductModel(null,null, null, null,null,null,null,null,null,null,[]);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -263,6 +286,7 @@ export class ProductFormComponent implements OnInit {
         this.event.subcategory_id,
         this.event.product_description,
         this.event.cost,
+        this.event.offer_price,
         this.event.delivery_days,
         this.event.quantity,
         this.event.status,
@@ -286,6 +310,7 @@ export class ProductFormComponent implements OnInit {
       this.productForm.get('subcategory').value,
       $('#product_description').summernote('code'),
       this.productForm.get('cost').value,
+      this.productForm.get('offer_price').value,
       this.productForm.get('delivery_days').value,
       this.productForm.get('quantity').value,
       this.productForm.get('status').value,
@@ -308,6 +333,14 @@ export class ProductFormComponent implements OnInit {
     this.submitting = true;
     this.submitEventObj = this._getSubmitObj();
     console.log(this.submitEventObj);
+    let fileBrowser = this.fileInput.nativeElement;
+    let formData = new FormData();
+    if (fileBrowser.files && fileBrowser.files[0]) {
+      formData.append("insight_img", this.fileInput.nativeElement.files[0], this.fileInput.nativeElement.files[0].name);
+    }
+    for (let k in this.submitEventObj) {
+      formData.append(k, this.submitEventObj[k]);
+    }
     if (!this.isEdit) {
       let apiEvent = this.submitEventSub = this._productapi
         .postEvent$(this.submitEventObj)
@@ -321,10 +354,20 @@ export class ProductFormComponent implements OnInit {
         );
       (this.apiEvents).push(apiEvent);
     } else {
+      this.submitting = true;
+      this.submitEventObj = this._getSubmitObj();
+      let fileBrowser = this.fileInput.nativeElement;
+      let formData = new FormData();
+      if (fileBrowser.files && fileBrowser.files[0]) {
+        formData.append("product_img", this.fileInput.nativeElement.files[0], this.fileInput.nativeElement.files[0].name);
+      }
+      for (let k in this.submitEventObj) {
+        formData.append(k, this.submitEventObj[k]);
+      }
       console.log(this.submitEventObj)
       this.submitEventSub = this._productapi
      
-        .editEvent$(this.event.id, this.submitEventObj)
+        .editEvent$(this.event.id, formData)
         .subscribe(
           data => this._handleSubmitSuccess(data),
           err => this._handleSubmitError(err)
