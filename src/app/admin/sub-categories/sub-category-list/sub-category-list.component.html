@@ -18,7 +18,7 @@
     <tbody>
       <tr *ngFor="let subcategory of subcategories">
         <td>
-          <img class="img-responsive" src="{{serverURL+subcategory.path}}" alt="User Pic">
+          <img class="img-responsive" src="{{serverURL+subcategory.path}}" style="height: 80px;width: 80px;" onError="this.src='assets/img/no-image-available.jpg'" alt="User Pic">
           <!-- onError="this.src='assets/img/epoojastore-in-logo.png'" -->
         </td>
         <td>{{subcategory['category.category_name'] }}</td>
