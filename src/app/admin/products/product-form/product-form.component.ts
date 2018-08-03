@@ -39,6 +39,7 @@ export class ProductFormComponent implements OnInit {
   categories: Object[];
   subcategories: Object[];
   uploadFilesObj = {};
+  
   uploadFiles = [];
   product_img: any;
   routeSub: Subscription;
@@ -168,7 +169,6 @@ export class ProductFormComponent implements OnInit {
   public onUploadSuccess(eve) {
     if ((eve[1].success !== undefined) && eve[1].success) {
       this.formErrors['files'] = '';
-      console.log(this.uploadFiles)
       Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
       (this.uploadFiles).push(eve[1].data);
     }
