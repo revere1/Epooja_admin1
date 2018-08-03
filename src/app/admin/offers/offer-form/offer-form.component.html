@@ -64,7 +64,11 @@
             <label for="limit">Limit
               <span style="color:red;">*</span>
             </label>
-            <input id="limit" type="text" class="form-control" pattern="^\d*\.?\d*$" formControlName="limit">
+            <select id="discount_type" class="form-control" formControlName="limit">
+              <option value=null selected>Select</option>
+              <option>0</option>
+              <option>1</option>
+            </select>
             <div *ngIf="formErrors.limit" class="small text-danger formErrors" [innerHTML]="formErrors.limit">
             </div>
           </div>
