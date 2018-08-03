@@ -2,13 +2,13 @@ class OfferModel {
     constructor(
       public offer_name: string,
       public offer_code: string,
-      public offer_description: string,
+      public desc:string,
       public discount_type:string,
       public discount_value :string,
       public limit: string,
-      public limit_value: number,
-      public status:number,
-      public files = [],
+      public limit_value: string,
+      public offer_img,
+      public status:string,
       public id?: number
       
     ) { }
@@ -18,13 +18,14 @@ class OfferModel {
     constructor(
         public offer_name: string,
         public offer_code: string,
-        public offer_description: string,
+        public desc: string,
         public discount_type:string, 
         public discount_value :string,     
         public limit: string,
-        public limit_value: number,
-        public status:number,
-        public files = [],
+        public limit_value: string,
+        public offer_img,
+        public status:string,
+       
     ) { }
   }
   

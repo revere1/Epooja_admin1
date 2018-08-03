@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
-import { DropzoneConfigInterface } from '../../../../node_modules/ngx-dropzone-wrapper';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { ENV } from '../../env.config';
 import { BannersService } from '../../services/banners.service';
 import { FormControl,FormGroup, Validators } from '@angular/forms';

@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { UserService } from '../../../services/user.service';
 import { UsersModel } from '../../../models/users.model';
-import { Subscription } from '../../../../../node_modules/rxjs';
-import { ActivatedRoute } from '../../../../../node_modules/@angular/router';
-import { BreadcrumbsService } from '../../../../../node_modules/ng2-breadcrumbs';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { BreadcrumbsService } from 'ng2-breadcrumbs';
 
 @Component({
   selector: 'app-update-user',

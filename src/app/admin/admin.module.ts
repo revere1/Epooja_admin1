@@ -89,6 +89,8 @@ import { OffersComponent } from './offers/offers.component';
 import { OffersListComponent } from './offers/offers-list/offers-list.component';
 import { UpdateOffersComponent } from './offers/update-offers/update-offers.component';
 import { CreateOfferComponent } from './offers/create-offer/create-offer.component';
+import { OffersService } from '../services/offers.service ';
+import { OfferFormService } from '../services/offers/offer-form.service';
 
 @NgModule({
   imports: [
@@ -160,6 +162,7 @@ import { CreateOfferComponent } from './offers/create-offer/create-offer.compone
       ProductService,
       CompanyService,
       CategoriesService,
+      OffersService,
       UsersService,
       SubcategoriesService,
       CountriesService,
@@ -169,6 +172,7 @@ import { CreateOfferComponent } from './offers/create-offer/create-offer.compone
       CountriesFormService,
       StatesFormService,
       CategoryFormService,
+      OfferFormService,
       SubCategoryFormService,
       DashboardService,
       LockerFormService,

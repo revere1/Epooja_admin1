@@ -2,15 +2,14 @@ import { Component, OnInit, Input, ViewChild, OnDestroy, Output, NgModule, After
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr';
-import { ProductFormService } from './../../../services/products/product-form.service';
-import { ProductService } from './../../../services/product.service';
-import { OfferModel, FormOfferModel } from './../../../models/offer.model';
+import { OfferFormService } from '../../../services/offers/offer-form.service';
+import { OffersService } from '../../../services/offers.service ';
+import { OfferModel, FormOfferModel } from '../../../models/offer.model';
 import { Subscription } from 'rxjs/Subscription';
-import { CategoriesService } from './../../../services/categories.service';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
-import { ENV } from './../../../env.config';
-import { SubcategoriesService } from './../../../services/subcategories.service';
+import { ENV } from '../../../env.config';
+
 declare var $: any;
 
 @Component({
@@ -26,7 +25,7 @@ export class OfferFormComponent implements OnInit {
   offerForm: FormGroup;
   public serverURL = ENV.SERVER_URL
   apiEvents = [];
-  products = [];
+  offers = [];
   formEvent: FormOfferModel;
   formErrors: any;
   formChangeSub: Subscription;
@@ -40,7 +39,7 @@ export class OfferFormComponent implements OnInit {
   subcategories: Object[];
   uploadFilesObj = {};
   uploadFiles = [];
-  product_img: any;
+  offer_img: any;
   routeSub: Subscription;
   public id: number;
   canRemove: boolean = true;
@@ -50,11 +49,9 @@ export class OfferFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private router: Router,
-    public cf: ProductFormService,
-    private _productapi: ProductService,
+    public cf: OfferFormService,
+    private _offerapi: OffersService,
     private route: ActivatedRoute,
-    private _categoryService: CategoriesService,
-    private _subcategoriesService: SubcategoriesService,
     public toastr: ToastsManager
   ) { }
 
@@ -69,19 +66,6 @@ export class OfferFormComponent implements OnInit {
       this.id = params['id'];
     });
   
-    let apiEvent = this._productapi.getComposeById$(this.id).subscribe(data =>  {
-      if (data.success === false) {
-      }
-      else {
-        this.finished = true;
-        this.offersData = data.data;
-        // this.product_img = (this.productsData.product_img) ? ENV.SERVER_URL + this.productsData.product_img : null;   
-        // this.productsData.product_attachements.forEach(ele => {
-        //   this.totalsize += parseFloat(ele.fsize);
-        // });
-        
-      }
-      });
 
     this.formErrors = this.cf.formErrors;
     this.isEdit = !!this.event;
@@ -90,7 +74,7 @@ export class OfferFormComponent implements OnInit {
     this._buildForm();
     let that = this;
     this.config = {
-      url: ENV.BASE_API + 'products/path?token=' + this._productapi.getToken(),
+      url: ENV.BASE_API + 'offers/path?token=' + this._offerapi.getToken(),
       maxFiles: ENV.PRODUCT_MAX_FILES,
       maxFilesize: ENV.HELP_MAX_SIZE,
       clickable: true,
@@ -169,14 +153,17 @@ export class OfferFormComponent implements OnInit {
       offer_code:  [this.formEvent.offer_code, [
         Validators.required
       ]],
-      offer_description: [this.formEvent.offer_description, [
+      offer_description: [this.formEvent.desc, [
       ]],
       discount_type: [this.formEvent.discount_type, [
         Validators.required
       ]],
-      discount_value:[this.formEvent.discount_value, Validators.pattern["0-9*"]],
-      limit: [this.formEvent.limit, Validators.pattern["0-9*"]],
-      limit_value: [this.formEvent.limit_value, Validators.pattern["0-9*"]],
+      discount_value:[this.formEvent.discount_value, 
+        Validators.required, Validators.pattern["0-9*"]],
+      limit: [this.formEvent.limit, 
+        Validators.required, Validators.pattern["0-9*"]],
+      limit_value: [this.formEvent.limit_value, 
+         Validators.required, Validators.pattern["0-9*"]],
       status: [this.formEvent.status, [
         Validators.required
       ]]
@@ -238,7 +225,7 @@ export class OfferFormComponent implements OnInit {
     if (!this.isEdit) {
       // If creating a new event, create new
       // FormEventModel with default null data
-      return new FormOfferModel(null,null, null, null,null,null,null,null,[]);
+      return new FormOfferModel(null,null,null,null,null,null,null,null,null);
     } else {
       // If editing existing event, create new
       // FormEventModel from existing data
@@ -246,17 +233,21 @@ export class OfferFormComponent implements OnInit {
       return new FormOfferModel(
         this.event.offer_name,
         this.event.offer_code,
-        this.event.offer_description,
+        this.event.desc,
         this.event.discount_type,
         this.event.discount_value,
         this.event.limit,
         this.event.limit_value,
+        this.event.offer_img,
         this.event.status,
-        this.event.files,
+       
         
       
       );
     }
+  }
+  resetForm() {
+    this.offerForm.reset();
   }
 
   private _getSubmitObj() {
@@ -273,124 +264,74 @@ export class OfferFormComponent implements OnInit {
       this.offerForm.get('discount_value').value,
       this.offerForm.get('limit').value,
       this.offerForm.get('limit_value').value,
+      this.event ? this.event.offer_img : this.uploadFiles[0],  
       this.offerForm.get('status').value,
-      this.event ? this.event.files : this.uploadFiles,
       this.event ? this.event.id : null,
     );
   }
 
-  saveOffer() {
-    if ($('#offer_description').summernote('isEmpty')) {
-      this.formErrors['offer_description'] = this.cf.validationMessages['offer_description'].required;
-      this._setErrMsgs(this.offerForm.get('offer_description'), this.formErrors, 'offer_description');
-      return false;
-    }
-    else {
-      this.formErrors['offer_description'] = '';
-      this._setErrMsgs(this.offerForm.get('offer_description'), this.formErrors, 'offer_description');
-    }
-
-    this.submitting = true;
-    this.submitEventObj = this._getSubmitObj();
-    console.log(this.submitEventObj);
-    // let fileBrowser = this.fileInput.nativeElement;
-    // let formData = new FormData();
-    // if (fileBrowser.files && fileBrowser.files[0]) {
-    //   formData.append("insight_img", this.fileInput.nativeElement.files[0], this.fileInput.nativeElement.files[0].name);
-    // }
-    // for (let k in this.submitEventObj) {
-    //   formData.append(k, this.submitEventObj[k]);
-    // }
-    if (!this.isEdit) {
-      let apiEvent = this.submitEventSub = this._productapi
-        .postEvent$(this.submitEventObj)
-        .subscribe(
-          data => {
-            this._handleSubmitSuccess(data);
-            this.canRemove = false;
-            //this.router.navigate(['/analyst/help']);
-          },
-          err => this._handleSubmitError(err)
-        );
-      (this.apiEvents).push(apiEvent);
-    } else {
-      this.submitting = true;
-      this.submitEventObj = this._getSubmitObj();
-      let fileBrowser = this.fileInput.nativeElement;
-      let formData = new FormData();
-      if (fileBrowser.files && fileBrowser.files[0]) {
-        formData.append("product_img", this.fileInput.nativeElement.files[0], this.fileInput.nativeElement.files[0].name);
-      }
-      for (let k in this.submitEventObj) {
-        formData.append(k, this.submitEventObj[k]);
-      }
-      console.log(this.submitEventObj)
-      this.submitEventSub = this._productapi
-     
-        .editEvent$(this.event.id, formData)
-        .subscribe(
-          data => this._handleSubmitSuccess(data),
-          err => this._handleSubmitError(err)
-        );
-    }
-  }
-
-  deleteProductAttachment(id: number, fsize: number) {
-    var delmsg = confirm("Are u Sure Want to delete?");
-    if (delmsg) {
-      let apiEvent = this._productapi.deleteProductAttachmentById$(id)
-        .subscribe(
-          data => {
-            this._handleSubmitSuccess1(data, id);
-          },
-          err => this._handleSubmitError(err)
-        );
-      (this.apiEvents).push(apiEvent);
-      //this.totalsize = this.totalsize - fsize;
-    }
-
-  }
-
-  private _handleSubmitSuccess1(res, id = 0) {
-    this.error = false;
-    // Redirect to event detail
-    if (res.success) {
-      this.toastr.success(res.message, 'Success');
-      let pos = this.products.map(function (e) { return e.id; }).indexOf(id);
-      this.products.splice(pos, 1);
-    }
-    else {
-      this.toastr.error(res.message, 'Invalid');
-    }
-  }
   private _handleSubmitSuccess(res) {
     this.error = false;
     this.submitting = false;
     // Redirect to event detail
     if (res.success) {
       this.toastr.success(res.message, 'Success');
-      this.router.navigate(['/admin/products']);
+      this.router.navigate(['/admin/offers']);
     }
     else {
       this.toastr.error(res.message, 'Invalid');
     }
+
   }
 
   private _handleSubmitError(err) {
     this.toastr.error(err.message, 'Error');
     this.submitting = false;
     this.error = true;
-  };
-  resetForm() {
-    this.offerForm.reset();
-  };
-
-  ngOnDestroy() {
-    if (this.submitEventSub) {
-      this.submitEventSub.unsubscribe();
-    }
-    this.formChangeSub.unsubscribe();
   }
 
-}
+
+  saveOffer() {
+    // if ($('#offer_description').summernote('isEmpty')) {
+    //   this.formErrors['offer_description'] = this.cf.validationMessages['offer_description'].required;
+    //   this._setErrMsgs(this.offerForm.get('offer_description'), this.formErrors, 'offer_description');
+    //   return false;
+    // }
+    // else {
+    //   this.formErrors['offer_description'] = '';
+    //   this._setErrMsgs(this.offerForm.get('offer_description'), this.formErrors, 'offer_description');
+    // }
+
+    this.submitting = true;
+    this.submitEventObj = this._getSubmitObj();
+    console.log(this.submitEventObj)
+    if (!this.isEdit) {
+      this.submitEventSub = this._offerapi
+        .postEvent$(this.submitEventObj)
+        .subscribe(
+          data => this._handleSubmitSuccess(data),
+          err => this._handleSubmitError(err)
+        );
+
+    } else {
+      this.submitEventSub = this._offerapi
+        .editEvent$(this.event.id, this.submitEventObj)
+        .subscribe(
+          data => this._handleSubmitSuccess(data),
+          err => this._handleSubmitError(err)
+        );
+    }
+  }
+  }
+
+
+
+
+
+
+ 
+
+ 
+
+
 

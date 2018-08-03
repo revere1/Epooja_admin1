@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbsService } from '../../../../../node_modules/ng2-breadcrumbs';
+import { BreadcrumbsService } from 'ng2-breadcrumbs';
 import { UtilsService } from '../../../services/utils.service';
-import { ActivatedRoute } from '../../../../../node_modules/@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { Subscription } from 'rxjs/Subscription';
 @Component({
