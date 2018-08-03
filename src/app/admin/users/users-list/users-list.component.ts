@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from '../../../services/utils.service';
 import { UserService } from '../../../services/user.service';
-import { ToastsManager } from '../../../../../node_modules/ng2-toastr';
+import { ToastsManager } from 'ng2-toastr';
 
 @Component({
   selector: 'app-users-list',

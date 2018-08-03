@@ -1,8 +1,9 @@
-import { Injectable } from "../../../node_modules/@angular/core";
+
 import { HttpClient, HttpHeaders, HttpErrorResponse } from "../../../node_modules/@angular/common/http";
 import { ENV } from "../env.config";
 import { Observable } from "../../../node_modules/rxjs";
 import { Router } from "../../../node_modules/@angular/router";
+import { Injectable } from "@angular/core";
 
 @Injectable()
 export class BannersService {

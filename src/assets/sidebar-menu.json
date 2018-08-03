@@ -38,6 +38,15 @@
     {
         "id": 5,
         "name": {
+            "en": "Offers",
+            "de": "DE_Offers"
+        },
+        "routerLink": "/admin/offers",
+        "icon": "fa-book"
+    },
+    {
+        "id": 6,
+        "name": {
             "en": "Banners",
             "de": "DE_Banners"
         },
@@ -46,7 +55,7 @@
     }
     ,
     {
-        "id": 6,
+        "id": 7,
         "name": {
             "en": "Users",
             "de": "DE_Users"
@@ -55,7 +64,7 @@
         "icon": "fa-users"
     },
     {
-        "id": 7,
+        "id": 8,
         "name": {
             "en": "Countries",
             "de": "DE_Countries"
@@ -64,7 +73,7 @@
         "icon": "fa-flag"
     },
     {
-        "id": 8,
+        "id": 9,
         "name": {
             "en": "States",
             "de": "DE_States"

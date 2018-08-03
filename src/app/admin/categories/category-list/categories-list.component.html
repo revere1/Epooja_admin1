@@ -19,7 +19,7 @@
     <tbody>
       <tr *ngFor="let category of categories">
         <td>
-          <img class="img-responsive" src="{{serverURL+category.path}}" style="height: 80px;width: 80px;" alt="User Pic">
+          <img class="img-responsive" src="{{serverURL+category.path}}" style="height: 80px;width: 80px;" onError="this.src='assets/img/no-image-available.jpg'" alt="User Pic">
           <!-- onError="this.src='assets/img/epoojastore-in-logo.png'" -->
         </td>
         <td>{{category.category_name}}</td>

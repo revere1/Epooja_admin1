@@ -39,6 +39,7 @@ export class ProductFormComponent implements OnInit {
   categories: Object[];
   subcategories: Object[];
   uploadFilesObj = {};
+  
   uploadFiles = [];
   product_img: any;
   routeSub: Subscription;
@@ -71,20 +72,7 @@ export class ProductFormComponent implements OnInit {
     if (this.event && this.event['product_img'] !== undefined) {
       this.product_img = this.event['product_img'];
     }
-    // let apiEvent = this._productapi.getComposeById$(this.id).subscribe(data => {
-    //   if (data.success === false) {
-    //   }
-    //   else {
-    //     //this.finished = true;
-    //     this.productsData = data.data;
-    //     console.log(this.productsData)
-    //    // this.insight_img = (this.productsData.insight_img) ? ENV.SERVER_URL + this.productsData.insight_img : null;   
-    //     // this.insightsData.insight_attachements.forEach(ele => {
-    //     //   this.totalsize += parseFloat(ele.fsize);
-    //     // });
-    //     }
-      
-    // });
+ 
     let apiEvent = this._productapi.getComposeById$(this.id).subscribe(data =>  {
       if (data.success === false) {
       }
@@ -181,7 +169,6 @@ export class ProductFormComponent implements OnInit {
   public onUploadSuccess(eve) {
     if ((eve[1].success !== undefined) && eve[1].success) {
       this.formErrors['files'] = '';
-      console.log(this.uploadFiles)
       Object.assign(this.uploadFilesObj, { [eve[0].upload.uuid]: eve[1].data });
       (this.uploadFiles).push(eve[1].data);
     }
@@ -336,7 +323,7 @@ export class ProductFormComponent implements OnInit {
     let fileBrowser = this.fileInput.nativeElement;
     let formData = new FormData();
     if (fileBrowser.files && fileBrowser.files[0]) {
-      formData.append("insight_img", this.fileInput.nativeElement.files[0], this.fileInput.nativeElement.files[0].name);
+      formData.append("product_img", this.fileInput.nativeElement.files[0], this.fileInput.nativeElement.files[0].name);
     }
     for (let k in this.submitEventObj) {
       formData.append(k, this.submitEventObj[k]);

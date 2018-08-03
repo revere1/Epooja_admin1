@@ -22,7 +22,7 @@
     <tbody>
       <tr *ngFor="let product of products">
         <td>
-          <img class="img-responsive" src="{{serverURL+product.product_img}}" onError="this.src='assets/img/epoojastore-in-logo.png'" alt="User Pic">
+          <img class="img-responsive" src="{{serverURL+product.product_img}}" style="height: 80px;width: 80px;" onError="this.src='assets/img/no-image-available.jpg'" alt="User Pic">
         </td>
         <td>{{ product.product_name }}</td>
         <td>{{ product.product_code }}</td>
