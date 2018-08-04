@@ -60,12 +60,12 @@ export class SectorFormComponent implements OnInit {
     this.config = {
       url: ENV.BASE_API + 'categories/path?token=' + this._categoryService.getToken(),
       maxFiles: ENV.LOCKER_MAX_FILES,
-      clickable: true,
-      createImageThumbnails: true,
-      addRemoveLinks: true,
+      clickable:true,
+      createImageThumbnails:true,
+      addRemoveLinks:true,
       init: function () {
         let drop = this;
-        this.on('removedfile', function (file) {
+        this.on('removedfile', function (file){
           /*If reupload already existed file, don t delet the file if max lik=mit crossed error uploaded*/
           if (file.status === 'error') {
             let index = (that.uploadFiles).indexOf(that.uploadFilesObj[file.upload.uuid]);
