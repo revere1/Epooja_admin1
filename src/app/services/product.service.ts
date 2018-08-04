@@ -54,15 +54,15 @@ export class ProductService {
       .catch(this._handleError);
   }
 
-  // removeFile(file) {
-  //   return this.http
-  //     .delete(`${ENV.BASE_API}products/remove-file`, {
-  //       headers: new HttpHeaders()
-  //         .set('Authorization', this._authHeader)
-  //         .set('file', file)
-  //     })
-  //     .catch(this._handleError);
-  // }
+  removeFile(file) {
+    return this.http
+      .delete(`${ENV.BASE_API}products/remove-file`, {
+        headers: new HttpHeaders()
+          .set('Authorization', this._authHeader)
+          .set('file', file)
+      })
+      .catch(this._handleError);
+  }
 
 
   // GET list of public, future events

@@ -11,6 +11,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { ENV } from '../../../env.config';
 import { SubcategoriesService } from '../../../services/subcategories.service';
+import { UtilsService } from '../../../services/utils.service';
 declare var $: any;
 
 @Component({
@@ -39,7 +40,6 @@ export class ProductFormComponent implements OnInit {
   categories: Object[];
   subcategories: Object[];
   uploadFilesObj = {};
-  
   uploadFiles = [];
   product_img: any;
   routeSub: Subscription;
@@ -48,23 +48,81 @@ export class ProductFormComponent implements OnInit {
   finished: boolean = false;
   public config: DropzoneConfigInterface = {};
   public totalsize: number = 0.0;
+  private tryingToPaste = false;
 
   constructor(private fb: FormBuilder,
     private router: Router,
     public cf: ProductFormService,
     private _productapi: ProductService,
+    private utils: UtilsService,
     private route: ActivatedRoute,
     private _categoryService: CategoriesService,
     private _subcategoriesService: SubcategoriesService,
     public toastr: ToastsManager
   ) { }
-
-  ngOnInit() {
-    $(document).ready(() => {
-      let _that = this;
-      $('#product_description').summernote({
-      });
+  pasteImg() {
+    let that = this;
+    that.utils.isPastedEvent(".note-editable", paste => {
+      if (!paste) that.tryingToPaste = true;
     });
+    $('.note-editable').bind('paste', null, function () {
+      that.tryingToPaste = true;
+    });
+  }
+  ngOnInit() {
+    {
+      let _that = this;
+      $(document).ready(() => {
+        $('#product_description').summernote({
+          toolbar: ENV.SUMMER_SETUP.toolbar,
+          buttons: {
+            save: this.SaveButton(_that)
+          },
+          callbacks: {
+            onPaste: function (e) {
+              _that.tryingToPaste = true;
+            },
+            onImageUpload: function (files) {
+              if (_that.tryingToPaste) {
+                _that.tryingToPaste = false;
+                return false;
+              }
+              else
+                _that.uploadFile(files, this);
+            },
+            onCreateLink: function (originalLink) {
+              return originalLink; // return original link 
+            },
+            hint: _that.utils.hint()
+          }
+        });
+
+        // $('#summary').summernote({
+        //   toolbar: ENV.SUMMER_SETUP.toolbar,
+        //   buttons: {
+        //     save: this.SaveButton(_that)
+        //   },
+        //   callbacks: {
+        //     onPaste: function (e) {
+        //       _that.tryingToPaste = true;
+        //     },
+        //     onImageUpload: function (files) {
+        //       if (_that.tryingToPaste) {
+        //         _that.tryingToPaste = false;
+        //         return false;
+        //       }
+        //       else
+        //         _that.uploadFile(files, this);
+        //     }
+        //   },
+        //   onCreateLink: function (originalLink) {
+        //     return originalLink; // return original link 
+        //   },
+        //   hint: _that.utils.hint()
+        // });
+        //this.pasteImg();
+      });
+    }
     this.routeSub = this.route.params
     .subscribe(params => {
       this.id = params['id'];
@@ -80,13 +138,9 @@ export class ProductFormComponent implements OnInit {
         this.finished = true;
         this.productsData = data.data;
         this.product_img = (this.productsData.product_img) ? ENV.SERVER_URL + this.productsData.product_img : null;   
-        this.productsData.product_attachements.forEach(ele => {
-          this.totalsize += parseFloat(ele.fsize);
-        });
-        // this.type = this.insightsData.type
-        // this.SummaryForm.controls['headline'].patchValue(this.insightsData.headline);
-        // this.SummaryForm.controls['summary'].patchValue(this.insightsData.summary);
-        // this.SummaryForm.controls['description'].patchValue(this.insightsData.description);
+        // this.productsData.product_attachements.forEach(ele => {
+        //   this.totalsize += parseFloat(ele.fsize);
+        // });
       }
       });
 
@@ -128,8 +182,8 @@ export class ProductFormComponent implements OnInit {
                 that._setErrMsgs(that.productForm.get('files'), that.formErrors, 'files');
               }
               (that.uploadFiles).splice(index, 1);
-              //that.removeFile(that.uploadFilesObj[file.upload.uuid]);
-              //delete that.uploadFilesObj[file.upload.uuid];
+              that.removeFile(that.uploadFilesObj[file.upload.uuid]);
+              delete that.uploadFilesObj[file.upload.uuid];
             }
           }
         });
@@ -160,7 +214,6 @@ export class ProductFormComponent implements OnInit {
       if (data.success === false) {
       } else {
         this.subcategories = data.data;
-        console.log(this.subcategories)
       }
     });
 
@@ -247,15 +300,15 @@ export class ProductFormComponent implements OnInit {
   };
 
 
-  // private removeFile(file) {
-  //   let apiEvent = this._productapi.removeFile(file).subscribe(
-  //     data => {
-  //       this._handleSubmitSuccess(data);
-  //     },
-  //     err => this._handleSubmitError(err)
-  //   );
-  //   (this.apiEvents).push(apiEvent);
-  // }
+  private removeFile(file) {
+    let apiEvent = this._productapi.removeFile(file).subscribe(
+      data => {
+        this._handleSubmitSuccess(data);
+      },
+      err => this._handleSubmitError(err)
+    );
+    (this.apiEvents).push(apiEvent);
+  }
   
   private _setFormEvent() {
     if (!this.isEdit) {
@@ -390,6 +443,21 @@ export class ProductFormComponent implements OnInit {
       this.toastr.error(res.message, 'Invalid');
     }
   }
+  uploadFile(files, editor) {
+    {
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("userphoto", files[i], files[i]['name']);
+      }
+      this._productapi.uploads(formData).subscribe(res => {
+        if (res.success) {
+          res.data.forEach(path => {
+            $(editor).summernote('insertImage', ENV.SERVER_URL + path, '');
+          })
+        }
+      });
+    }
+  }
   private _handleSubmitSuccess(res) {
     this.error = false;
     this.submitting = false;
@@ -407,6 +475,17 @@ export class ProductFormComponent implements OnInit {
     this.toastr.error(err.message, 'Error');
     this.submitting = false;
     this.error = true;
+  };
+  SaveButton = function (context) {
+    var ui = $.summernote.ui;
+    var button = ui.button({
+      contents: '<i class="fa fa-floppy-o" aria-hidden="true"></i>',
+      tooltip: 'save',
+      click: function () {
+        let apiEvent = context.postEvent()
+      }
+    });
+    return button.render();
   };
   resetForm() {
     this.productForm.reset();
