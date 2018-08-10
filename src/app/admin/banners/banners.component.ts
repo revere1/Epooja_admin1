@@ -144,7 +144,8 @@ export class BannersComponent implements OnInit {
       this._bservice.saveBanner(data).subscribe(res=>{
         if (res.success) {
           this.toastr.success(res.message, 'Success');
-          this._router.navigate(['/admin/banners']);
+          // this._router.navigate(['/admin/banners']);
+          window.location.reload();
         }
         else {
           this.toastr.error(res.message, 'Invalid');
@@ -187,4 +188,23 @@ export class BannersComponent implements OnInit {
     
   }
   
+  private deleteBanner(id:number){
+    var delmsg = confirm("Are you sure Want to delete this banner?");
+    if(delmsg){
+    this._bservice.deleteBanner(id).subscribe(res=>{
+      if (res.success) {
+        this.toastr.success(res.message, 'Success');
+        // this._router.navigate(['/admin/banners']);
+        window.location.reload();
+      }
+      else {
+        this.toastr.error(res.message, 'Invalid');
+      }
+    });
+   }
+  }
+  private editBanner(id:number){
+    // this._bservice.edi
+  }
+
 }

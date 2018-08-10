@@ -74,10 +74,10 @@
   <table datatable [dtOptions]="dtOptions" class="row-border hover table table-bordered">
     <thead>
       <tr>
-        <th style="width: 330px">Banner</th>
-        <th style="width: 80px">Link To</th>       
-        <th>Status</th>
-        <th>Action</th>
+        <th>Banner</th>
+        <th>Link To</th>       
+        <th style="width: 80px">Status</th>
+        <th style="width: 100px">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -86,14 +86,15 @@
           <img class="img-responsive" src="{{serverURL+banner.banner}}" alt="Banner">
          
         </td>
-        <!-- *ngIf="banner.btype==1" -->
-        <td >{{banner.btype_id}}({{banner.btype ==1? 'Category':'Product'}})</td>
+       <td *ngIf="banner.btype ==1">Category - {{banner.category.category_name}}</td>
+       <td *ngIf="banner.btype ==2">Product - {{banner.product.product_name}}</td>
+        <!-- <td >{{banner.btype_id}}({{banner.btype ==1? 'Category':'Product'}})</td> -->
         <td>{{banner.status?'Active':'Inactive'}}</td>
         <td>
-          <a (click)="deleteBanner(banner.id)">
+          <a href="javascript:void(0)" (click)="deleteBanner(banner.id)">
             <i class="fa fa-trash"></i>
           </a> /
-          <a (click)='editBanner(banner.id)' >
+          <a href="javascript:void(0)" (click)='editBanner(banner.id)' >
             <i class="fa fa-pencil"></i>
           </a>
         </td>

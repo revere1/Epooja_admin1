@@ -39,6 +39,11 @@ export class BannersService {
         headers:new HttpHeaders().append('Content-Type', 'application/json').set('authorization',this._authHeader)}).catch(this._handleError);
     }
 
+    public deleteBanner(id:number){
+      return this.http.post(`${ENV.BASE_API}delete-banner`,JSON.stringify({'banner_id':id}),{
+        headers:new HttpHeaders().append('Content-Type', 'application/json').set('authorization',this._authHeader)}).catch(this._handleError);
+    }
+
     public filterBanners$(filterInput,endPoint){
       return this.http
       .post(`${ENV.BASE_API}${endPoint}`, filterInput, {
